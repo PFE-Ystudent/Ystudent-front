@@ -1,18 +1,22 @@
 <template>
-    <div>
-        Dashboard
-
-        <button @click="logout">logout</button>
-    </div>
+    <BaseAuth>
+        <div>
+            Dashboard
+    
+            <button @click="logout">logout</button>
+        </div>
+    </BaseAuth>
 </template>
 
 <script>
 import axios from '../../axios';
 import store from '../../store';
+import BaseAuth from '../BaseAuth.vue';
 
 export default {
     name: 'DashboardView',
     components: {
+        BaseAuth
     },
     methods: {
         logout () {
