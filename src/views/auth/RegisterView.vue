@@ -65,6 +65,7 @@ export default {
                 password_confirmation: this.password_confirmation
             }).then(res => {
                     store.commit('login', res.data.token);
+                    store.commit('setUser', res.data.user);
                     this.$router.push({ name: 'Dashboard' });
                 })
                 .catch(err => {

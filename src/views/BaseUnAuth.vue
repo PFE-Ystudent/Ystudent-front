@@ -10,7 +10,6 @@
                         YStudent
                     </div>
                 </div>
-    
             </div>
             <div class="mt-16">
                 <slot></slot>

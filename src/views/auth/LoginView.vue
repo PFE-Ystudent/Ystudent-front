@@ -57,6 +57,7 @@ export default {
                 password: this.password
             }).then(res => {
                     store.commit('login', res.data.token);
+                    store.commit('setUser', res.data.user);
                     this.$router.push({ name: 'Dashboard' });
                 })
                 .catch(err => {

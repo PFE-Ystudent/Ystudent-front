@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router';
 import LoginView from '../views/auth/LoginView.vue';
 import RegisterView from '../views/auth/RegisterView.vue';
 import DashboardView from '../views/auth/DashboardView.vue';
+import PostView from '../views/PostView.vue';
+import NetworkView from '../views/NetworkView.vue';
 import store from '../store';
 
 const routes = [
@@ -9,6 +11,18 @@ const routes = [
         path: '/',
         name: 'Dashboard',
         component: DashboardView,
+        meta: {middleware: ["auth"]}
+    },
+    {
+        path: '/posts',
+        name: 'Post',
+        component: PostView,
+        meta: {middleware: ["auth"]}
+    },
+    {
+        path: '/networks',
+        name: 'Network',
+        component: NetworkView,
         meta: {middleware: ["auth"]}
     },
     {
