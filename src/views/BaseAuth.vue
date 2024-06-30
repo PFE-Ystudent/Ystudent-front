@@ -14,9 +14,9 @@
                                     <div class="w-8 h-8 bg-white rounded-full"></div>
                                     <div class="w-2/3 overflow-y-hidden truncate select-none">{{ username }}</div>
                                 </div>
-                                <div v-if="showUserDropdown" class="absolute top-full right-0" v-click-outside="() => {showUserDropdown ? showUserDropdown = false : null}">
-                                    <div class="card w-full px-4 py-2 bg-zinc-50 border border-zinc-300 rounded-md">
-                                        <button @click="logout">Déconnexion</button>
+                                <div v-if="showUserDropdown" class="absolute bg-white text-black rounded-md top-full right-0" v-click-outside="() => {showUserDropdown ? showUserDropdown = false : null}">
+                                    <div class="card w-full divide-y divide-y-zinc-300 border border-zinc-300 rounded-md">
+                                        <button class="w-full px-2 py-1" @click="logout">Déconnexion</button>
                                     </div>
                                 </div>
                             </div>
@@ -51,9 +51,6 @@ export default {
         this.username = store.state.auth.user.username
     },
     methods: {
-        onClickOutside (event) {
-        console.log('Clicked outside. Event: ', event)
-      },
         logout () {
             axios.delete('/api/logout').then(() => {
                     store.commit('logout');

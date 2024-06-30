@@ -37,9 +37,11 @@ export default {
     },
     methods: {
         select(tab) {
-            this.selectedTab = tab.value
-            this.selectedIndex = this.tabs.findIndex(t => t.value === this.selectedTab)
-            this.$emit('select', this.selectedTab)
+            if (this.selectedTab !== tab.value) {
+                this.selectedTab = tab.value
+                this.selectedIndex = this.tabs.findIndex(t => t.value === this.selectedTab)
+                this.$emit('select', this.selectedTab)
+            }
         }
     }
 }
