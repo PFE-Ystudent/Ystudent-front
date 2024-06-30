@@ -3,7 +3,7 @@
         <div class="flex justify-center">
             <div class="w-1/3">
                 <CardForm title="Connexion">
-                    <div class="flex flex-col gap-2 items-center" @keypress.enter="login">
+                    <div class="flex flex-col items-center" @keypress.enter="login">
                         <TextInput label="Email :" type="email" :default-value="email" @update="(val) => email = val" :errors="errors.email" />
                         <TextInput label="Mot de passe :" type="password" :default-value="password" @update="(val) => password = val" :errors="errors.password" />
                         <div class="mb-2 mt-4">
@@ -39,10 +39,7 @@ export default {
         return {
             email: '',
             password: '',
-            errors: {
-                email: null,
-                password: null,
-            }
+            errors: {}
         }
     },
     mounted () {

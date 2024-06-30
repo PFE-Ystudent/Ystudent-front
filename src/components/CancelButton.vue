@@ -1,7 +1,7 @@
 <template>
     <button :disabled="disabled"
-        :class="{'hover:border-sky-600 hover:bg-sky-500': !disabled}"
-        class="text-white font-bold rounded px-2 py-px bg-sky-400 border-2 border-sky-500 shadow disabled:bg-zinc-200 disabled:border-zinc-300 flex gap-2 items-center justify-center">
+        :class="{'hover:border-sky-500 hover:text-sky-500': !disabled}"
+        class="text-sky-400 font-bold rounded px-2 py-px bg-white border-2 border-sky-400 shadow disabled:text-zinc-300 disabled:border-zinc-300 flex gap-2 items-center justify-center">
         <slot></slot>
     </button>
 </template>

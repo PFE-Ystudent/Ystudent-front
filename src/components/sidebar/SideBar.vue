@@ -3,7 +3,7 @@
         @mouseenter="isDeploy = true" @mouseleave="isDeploy = false" :style="`z-index: 100; width: ${isDeploy ? 200 : 72}px;`">
         <div class="flex flex-col items-center">
             <div class="my-8">
-                <div class="w-12 h-12 bg-black cursor-pointer" @click="$router.push({ name: 'Dashboard' })"></div>
+                <div class="w-12 h-12 bg-zinc-300 cursor-pointer" @click="$router.push({ name: 'Dashboard' })"></div>
             </div>
             <div class="mt-8 w-full flex flex-col gap-4">
                 <SideBarItem name="Postes" icon="fa-message" route="Post" :is-deploy="isDeploy" />
