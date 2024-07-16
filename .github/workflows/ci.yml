@@ -38,8 +38,6 @@ jobs:
     - name: Clone Ystudent-back repository
       env:
         CLONE_TOKEN: ${{ secrets.CLONE_TOKEN }}
-      # run: |
-      #   git clone https://CelienFiorelli:${{ secrets.CLONE_TOKEN }}@github.com/PFE-Ystudent/Ystudent-back.git
       uses: actions/checkout@master
       with:
         repository: PFE-Ystudent/Ystudent-back
@@ -48,13 +46,16 @@ jobs:
     - name: Clone Ystudent-docker repository
       env:
         CLONE_TOKEN: ${{ secrets.CLONE_TOKEN }}
-      run: |
-        git clone https://CelienFiorelli:${{ secrets.CLONE_TOKEN }}@github.com/PFE-Ystudent/Ystudent-docker.git
+      uses: actions/checkout@master
+      with:
+        repository: PFE-Ystudent/Ystudent-docker
+        token: ${{ secrets.CLONE_TOKEN }}
 
     - name: Create .env file
       run: |
         echo "VUE_APP_PATH=$(pwd)" > Ystudent-docker/.env
         echo "LARAVEL_APP_PATH=$(pwd)/Ystudent-back" >> Ystudent-docker/.env
+        echo "CURRENT_DIRECTORY=$(pwd)" >> Ystudent-docker/.env
 
     - name: Build and run Docker Compose
       working-directory: Ystudent-docker
