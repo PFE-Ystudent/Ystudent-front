@@ -1,4 +1,4 @@
-name: Lint Vue.js Project
+name: CI Workflow
 
 on:
   push:
@@ -26,3 +26,33 @@ jobs:
 
     - name: Run linter
       run: npm run lint
+
+  build:
+    runs-on: ubuntu-latest
+    if: always()
+
+    steps:
+    - name: Checkout Ystudent-front repository
+      uses: actions/checkout@v2
+
+    - name: Clone Ystudent-back repository
+      env:
+        CLONE_TOKEN: ${{ secrets.CLONE_TOKEN }}
+      run: |
+        git clone https://CelienFiorelli:${{ secrets.CLONE_TOKEN }}@github.com/your-org/Ystudent-back.git
+
+    - name: Clone Ystudent-docker repository
+      env:
+        CLONE_TOKEN: ${{ secrets.CLONE_TOKEN }}
+      run: |
+        git clone https://CelienFiorelli:${{ secrets.CLONE_TOKEN }}@github.com/your-org/Ystudent-docker.git
+
+    - name: Create .env file
+      run: |
+        echo "FRONT_PATH=$(pwd)" > Ystudent-docker/.env
+        echo "BACK_PATH=$(pwd)/Ystudent-back" >> Ystudent-docker/.env
+
+    - name: Build and run Docker Compose
+      run: |
+        cd Ystudent-docker
+        docker-compose up --build -d
