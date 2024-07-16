@@ -38,10 +38,12 @@ jobs:
     - name: Clone Ystudent-back repository
       env:
         CLONE_TOKEN: ${{ secrets.CLONE_TOKEN }}
+      # run: |
+      #   git clone https://CelienFiorelli:${{ secrets.CLONE_TOKEN }}@github.com/PFE-Ystudent/Ystudent-back.git
       uses: actions/checkout@master
-        with:
-          repository: PFE-Ystudent/Ystudent-back
-          token: ${{ secrets.CLONE_TOKEN }}
+      with:
+        repository: PFE-Ystudent/Ystudent-back
+        token: ${{ secrets.CLONE_TOKEN }}
 
     - name: Clone Ystudent-docker repository
       env:
