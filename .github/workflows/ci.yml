@@ -49,8 +49,8 @@ jobs:
 
     - name: Create .env file
       run: |
-        echo "FRONT_PATH=$(pwd)" > Ystudent-docker/.env
-        echo "BACK_PATH=$(pwd)/Ystudent-back" >> Ystudent-docker/.env
+        echo "VUE_APP_PATH=$(pwd)" > Ystudent-docker/.env
+        echo "LARAVEL_APP_PATH=$(pwd)/Ystudent-back" >> Ystudent-docker/.env
 
     - name: Build and run Docker Compose
       run: |
