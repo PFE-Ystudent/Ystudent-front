@@ -60,8 +60,9 @@ jobs:
       run: sleep 15
 
     - name: Make curl request to nginx
-      run: |
-        docker compose exec web curl -s http://localhost:8080
+      working-directory: ./Ystudent-Docker
+      run: docker-compose exec web curl -s http://localhost:8080
 
     - name: Docker compose down
+      working-directory: ./Ystudent-Docker
       run: docker compose down
