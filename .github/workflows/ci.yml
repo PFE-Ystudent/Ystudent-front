@@ -53,6 +53,5 @@ jobs:
         echo "LARAVEL_APP_PATH=$(pwd)/Ystudent-back" >> Ystudent-docker/.env
 
     - name: Build and run Docker Compose
-      run: |
-        cd Ystudent-docker
-        docker-compose up --build -d
+      working-directory: Ystudent-docker
+      run: docker-compose up --build -d
