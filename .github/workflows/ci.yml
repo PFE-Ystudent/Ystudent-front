@@ -38,8 +38,12 @@ jobs:
     - name: Clone Ystudent-back repository
       env:
         CLONE_TOKEN: ${{ secrets.CLONE_TOKEN }}
-      run: |
-        git clone https://CelienFiorelli:${{ secrets.CLONE_TOKEN }}@github.com/PFE-Ystudent/Ystudent-back.git
+      # run: |
+      #   git clone https://CelienFiorelli:${{ secrets.CLONE_TOKEN }}@github.com/PFE-Ystudent/Ystudent-back.git
+      uses: actions/checkout@master
+        with:
+          repository: PFE-Ystudent/Ystudent-back
+          token: ${{ secrets.CLONE_TOKEN }}
 
     - name: Clone Ystudent-docker repository
       env:
@@ -54,4 +58,6 @@ jobs:
 
     - name: Build and run Docker Compose
       working-directory: Ystudent-docker
-      run: docker-compose up --build -d
+      run: |
+        ls -alF
+        docker-compose up --build -d
