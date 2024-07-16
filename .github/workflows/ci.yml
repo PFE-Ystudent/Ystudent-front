@@ -59,6 +59,9 @@ jobs:
     - name: Wait for container to be ready
       run: sleep 15
 
-    - name: Test if site is running
+    - name: Make curl request to nginx
       run: |
-        curl -s -o /dev/null -w "%{http_code}" http://localhost:8000
+        docker compose exec web curl -s http://localhost:8080
+
+    - name: Docker compose down
+      run: docker compose down
