@@ -3,7 +3,7 @@ name: CI Workflow
 on:
   push:
     branches:
-      - main
+      - '**'
   pull_request:
     branches:
       - main
@@ -29,7 +29,7 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    if: always()
+    if: github.event_name == 'pull_request' && github.base_ref == 'main'
 
     steps:
     - name: Checkout Ystudent-front repository
@@ -65,4 +65,4 @@ jobs:
 
     - name: Docker compose down
       working-directory: ./Ystudent-Docker
-      run: docker compose down
+      run: docker-compose down
