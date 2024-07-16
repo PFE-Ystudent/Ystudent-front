@@ -55,6 +55,6 @@ jobs:
     - name: Build and run Docker Compose
       working-directory: Ystudent-Docker
       run: |
-        ls
-        pwd
+        echo $(ls)
+        echo $(pwd)
         docker-compose up --build -d
