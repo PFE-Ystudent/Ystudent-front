@@ -3,7 +3,7 @@ import store from '../store'
 // import store from "../store";
 // store.state.user.token
 const axiosClient = axios.create({
-  baseURL: 'http://ystudent.local'
+  baseURL: 'http://localhost:8000'
 })
 
 axiosClient.interceptors.request.use(config => {
