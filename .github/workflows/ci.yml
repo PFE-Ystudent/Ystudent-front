@@ -52,6 +52,10 @@ jobs:
         echo "VUE_APP_PATH=$(pwd)" > Ystudent-Docker/.env
         echo "LARAVEL_APP_PATH=$(pwd)/Ystudent-back" >> Ystudent-Docker/.env
 
+    - name: Verify directory
+      run: ls -alF
+    - name: Verify provisions directory
+      run: ls -alF provisions
     - name: Build and run Docker Compose
       run: |
         cd Ystudent-Docker
