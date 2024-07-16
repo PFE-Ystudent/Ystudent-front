@@ -45,14 +45,14 @@ jobs:
       env:
         CLONE_TOKEN: ${{ secrets.CLONE_TOKEN }}
       run: |
-        git clone https://CelienFiorelli:${{ secrets.CLONE_TOKEN }}@github.com/PFE-Ystudent/Ystudent-docker.git
+        git clone https://CelienFiorelli:${{ secrets.CLONE_TOKEN }}@github.com/PFE-Ystudent/Ystudent-Docker.git
 
     - name: Create .env file
       run: |
-        echo "VUE_APP_PATH=$(pwd)" > Ystudent-docker/.env
-        echo "LARAVEL_APP_PATH=$(pwd)/Ystudent-back" >> Ystudent-docker/.env
+        echo "VUE_APP_PATH=$(pwd)" > Ystudent-Docker/.env
+        echo "LARAVEL_APP_PATH=$(pwd)/Ystudent-back" >> Ystudent-Docker/.env
 
     - name: Build and run Docker Compose
-      working-directory: Ystudent-docker
+      working-directory: Ystudent-Docker
       run: |
         docker-compose up --build -d
