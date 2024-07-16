@@ -54,8 +54,13 @@ jobs:
 
     - name: Build and run Docker Compose
       working-directory: ./Ystudent-Docker
-      run: pwd
-
-    - name: Build and run Docker Compose
-      working-directory: ./Ystudent-Docker
       run: docker-compose up --build -d
+
+    - name: Wait for container to be ready
+      run: sleep 45
+
+    - name: Get site page
+      run: curl -s -o /dev/null -w "%{http_code}" http://localhost:8000
+
+    - name: Display result
+      run: echo "HTTP status code: $?"
