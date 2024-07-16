@@ -51,9 +51,10 @@ jobs:
       run: |
         echo "VUE_APP_PATH=$(pwd)" > Ystudent-Docker/.env
         echo "LARAVEL_APP_PATH=$(pwd)/Ystudent-back" >> Ystudent-Docker/.env
-        echo "CURRENT_DIRECTORY=$(pwd)" >> Ystudent-Docker/.env
 
     - name: Build and run Docker Compose
       working-directory: Ystudent-Docker
       run: |
+        ls
+        pwd
         docker-compose up --build -d
