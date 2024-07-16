@@ -39,13 +39,13 @@ jobs:
       env:
         CLONE_TOKEN: ${{ secrets.CLONE_TOKEN }}
       run: |
-        git clone https://CelienFiorelli:${{ secrets.CLONE_TOKEN }}@github.com/your-org/Ystudent-back.git
+        git clone https://CelienFiorelli:${{ secrets.CLONE_TOKEN }}@github.com/PFE-Ystudent/Ystudent-back.git
 
     - name: Clone Ystudent-docker repository
       env:
         CLONE_TOKEN: ${{ secrets.CLONE_TOKEN }}
       run: |
-        git clone https://CelienFiorelli:${{ secrets.CLONE_TOKEN }}@github.com/your-org/Ystudent-docker.git
+        git clone https://CelienFiorelli:${{ secrets.CLONE_TOKEN }}@github.com/PFE-Ystudent/Ystudent-docker.git
 
     - name: Create .env file
       run: |
