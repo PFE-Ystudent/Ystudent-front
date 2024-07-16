@@ -55,6 +55,6 @@ jobs:
     - name: Build and run Docker Compose
       run: cd Ystudent-Docker
     - name: Buissld and run Docker Compose
-      run: ls -alF provisions
+      run: ls -alF
     - name: Buisld and run Docker Compose
       run: docker-compose up --build -d
