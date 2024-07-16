@@ -61,7 +61,7 @@ jobs:
 
     - name: Make curl request to nginx
       working-directory: ./Ystudent-Docker
-      run: docker-compose exec web curl -s http://localhost:8080
+      run: docker-compose exec -T web curl -s http://localhost:8080
 
     - name: Docker compose down
       working-directory: ./Ystudent-Docker
