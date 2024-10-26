@@ -4,8 +4,8 @@
             <div class="w-1/3">
                 <CardForm title="Connexion">
                     <div class="flex flex-col items-center" @keypress.enter="login">
-                        <TextInput label="Email :" type="email" :default-value="email" @update="(val) => email = val" :errors="errors.email" />
-                        <TextInput label="Mot de passe :" type="password" :default-value="password" @update="(val) => password = val" :errors="errors.password" />
+                        <TextInput v-model="email" label="Email :" type="email" :errors="errors.email" />
+                        <TextInput v-model="password" label="Mot de passe :" type="password" :errors="errors.password" />
                         <div class="mb-2 mt-4">
                             <SubmitButton @click="login">Se connecter</SubmitButton>
                         </div>

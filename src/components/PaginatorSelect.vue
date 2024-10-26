@@ -34,14 +34,14 @@
                             </span>
                         </li>
 
-                        <template v-for="i in [...Array(lastPage).keys()].map(i => i + 1)" :key="i">
+                        <template v-for="i in [...Array(lastPage).keys()].map(i => i + 1)">
                             <template v-if="i >= currentPage - 1 && i <= currentPage + 1">
-                                <li v-if="i === currentPage" className="active">
+                                <li v-if="i === currentPage" className="active" :key="i">
                                     <span className="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-white bg-sky-600 border border-sky-600 cursor-default leading-5">
                                         {{ i }}
                                     </span>
                                 </li>
-                                <li v-else>
+                                <li v-else :key="`${i}`">
                                     <a @click="() => setPage(i)" className="hover:bg-sky-500 cursor-pointer relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-white border border-sky-500 cursor-default">
                                         {{ i }}
                                     </a>

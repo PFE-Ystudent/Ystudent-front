@@ -10,7 +10,7 @@
                     </div>
                 </div>
             </div>
-            <TextInput type="textarea" :default-value="replyContent" @update="(val) => replyContent = val" :errors="errors.replyContent" />
+            <TextInput type="textarea" v-model="replyContent" :errors="errors.replyContent" />
         </div>
         <div class="w-full flex justify-end gap-4">
             <CancelButton v-if="showPostReplyForm" @click="hidePostReplyForm">

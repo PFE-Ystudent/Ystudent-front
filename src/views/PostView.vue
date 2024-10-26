@@ -11,7 +11,7 @@
                     </div>
                     <div class="mt-4 flex flex-col gap-4">
                         <template v-if="!isBusy">
-                            <PostSingle v-for="post in posts" :key="post.id" :post="post"/>
+                            <PostSingle v-for="post in posts" :key="post.id" :post="post" @update-survey="updateSurvey" />
                             <div class="flex justify-center">
                                 <PaginatorSelect v-model="currentPage" :last-page="lastPage" @change="fetchPosts" />
                             </div>
@@ -80,6 +80,11 @@ export default {
             if (this.activeTab === 'me') {
                 this.posts = [newPost, ...this.posts]
             }
+        },
+        updateSurvey (e) {
+            const post = this.posts.find(p => p.id === e.postId);
+            const surveyIndex = post.surveys.findIndex(s => s.id === e.survey.id);
+            post.surveys[surveyIndex] = e.survey;
         }
     }
 }

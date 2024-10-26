@@ -4,10 +4,10 @@
             <div class="w-1/3">
                 <CardForm title="Inscription">
                     <div class="flex flex-col items-center" @keypress.enter="login">
-                        <TextInput label="Nom d'utilisateur :" :default-value="username" @update="(val) => username = val" :errors="errors.username" />
-                        <TextInput label="Email :" type="email" :default-value="email" @update="(val) => email = val" :errors="errors.email" />
-                        <TextInput label="Mot de passe :" type="password" :default-value="password" @update="(val) => password = val" :errors="errors.password" />
-                        <TextInput label="Confirmer le mot de passe :" type="password" :default-value="password_confirmation" @update="(val) => password_confirmation = val" :errors="errors.password_confirmation" />
+                        <TextInput label="Nom d'utilisateur :" v-model="username" :errors="errors.username" />
+                        <TextInput label="Email :" type="email" v-model="email" :errors="errors.email" />
+                        <TextInput label="Mot de passe :" type="password" v-model="password" :errors="errors.password" />
+                        <TextInput label="Confirmer le mot de passe :" type="password" v-model="password_confirmation" :errors="errors.password_confirmation" />
                         <div class="mb-2 mt-4">
                             <SubmitButton @click="register">S'inscrire</SubmitButton>
                         </div>

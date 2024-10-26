@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full relative rounded-md border border-zinc-300 bg-zinc-50 p-4" @mouseenter="isHover = true" @mouseleave="isHover = false">
+    <div class="w-full relative rounded-md border border-zinc-300 bg-zinc-50 px-4 pt-4 pb-2" @mouseenter="isHover = true" @mouseleave="isHover = false">
         <div class="flex gap-2 items-center">
             <div class="w-8 h-8 bg-zinc-300 rounded-full"></div>
             <div>
@@ -9,7 +9,10 @@
         </div>
         <div class="text-xl font-semibold my-2">{{ post.title }}</div>
         <div class="whitespace-pre-line">{{ post.content }}</div>
-        <hr class="mx-20 my-4">
+        <div v-if="post.surveys.length">
+            <PostSurvey v-for="survey in post.surveys" :key="survey.id" :survey="survey" @update-survey="updateSurvey" />
+        </div>
+        <hr class="mx-20 mb-2 mt-4">
         <div class="flex justify-end">
             <div class="w-3/5 flex justify-center">
                 <div class="text-sky-400 flex gap-2 items-center">
@@ -26,32 +29,25 @@
                 </CancelButton>
             </div>
         </div>
-        <div v-if="isHover || showAction" class="absolute top-0 right-0 text-sky-400 cursor-pointer" v-click-outside="() => { showAction ? showAction = false : null}">
-            <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" class="p-4" @click="showAction = true" />
-            <div v-if="showAction" class="absolute bg-white rounded-md text-black top-full right-2">
-                <div class="card w-full divide-y divide-y-zinc-300 border border-zinc-300 rounded-md">
-                    <template v-if="post.author.id === user.id">
-                        <button class="w-full px-2 py-1" @click="() => {}">Modifier</button>
-                        <button class="w-full px-2 py-1" @click="() => {}">Supprimer</button>
-                    </template>
-                    <template v-else>
-                        <button class="w-full px-2 py-1" @click="() => {}">Signaler</button>
-                    </template>
-                </div>
-            </div>
-        </div>
+        <TooltipAction :actions="actions" :is-hover="isHover" class="absolute top-0 right-0 text-sky-400 cursor-pointer">
+            <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" class="p-4" />
+        </TooltipAction>
     </div>
 </template>
 
 <script>
 import CancelButton from './CancelButton.vue';
 import store from '@/store';
+import TooltipAction from './TooltipAction.vue';
+import PostSurvey from './PostSurvey.vue';
 
 
 export default {
     name: "PostSingle",
     components: {
-        CancelButton
+        CancelButton,
+        TooltipAction,
+        PostSurvey
     },
     props: {
         post: {
@@ -62,8 +58,26 @@ export default {
     data () {
         return {
             user: store.state.auth.user,
-            isHover: false,
-            showAction: false
+            isHover: false
+        }
+    },
+    computed: {
+        actions () {
+            if (this.post.author.id === this.user.id) {
+                return [
+                    {value: 'edit', label: 'Modifier'},
+                    {value: 'delete', label: 'Supprimer'},
+                ]
+            }
+            return [{value: 'report', label: 'Signaler'}]
+        }
+    }, 
+    methods: {
+        updateSurvey (survey) {
+            this.$emit('update-survey', {
+                postId: this.post.id,
+                survey: survey
+            });
         }
     }
 }
