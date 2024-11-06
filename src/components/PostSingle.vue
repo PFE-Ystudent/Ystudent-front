@@ -1,33 +1,44 @@
 <template>
-    <div class="w-full relative rounded-md border border-zinc-300 bg-zinc-50 px-4 pt-4 pb-2" @mouseenter="isHover = true" @mouseleave="isHover = false">
-        <div class="flex gap-2 items-center">
+    <div class="w-full relative rounded-md border border-zinc-300 bg-zinc-50 px-4 pt-4"
+         :class="isDetails ? 'pb-4' : 'pb-2'"
+         @mouseenter="isHover = true" @mouseleave="isHover = false">
+        <div @click="showProfile = true" v-click-outside="() => {showProfile ? showProfile = false : null}" class="relative flex gap-2 items-center hover:bg-white hover:shadow-md cursor-pointer rounded-md max-w-min pl-1 pr-8">
             <div class="w-8 h-8 bg-zinc-300 rounded-full"></div>
             <div>
                 <div>{{ post.author.username }}</div>
                 <div class="text-xs text-zinc-400">Membre</div>
             </div>
+            <UserProfilePopup v-if="showProfile" :user-id="post.author.id" class="left-full ml-4"/>
         </div>
         <div class="text-xl font-semibold my-2">{{ post.title }}</div>
         <div class="whitespace-pre-line">{{ post.content }}</div>
         <div v-if="post.surveys.length">
             <PostSurvey v-for="survey in post.surveys" :key="survey.id" :survey="survey" @update-survey="updateSurvey" />
         </div>
-        <hr class="mx-20 mb-2 mt-4">
-        <div class="flex justify-end">
-            <div class="w-3/5 flex justify-center">
-                <div class="text-sky-400 flex gap-2 items-center">
-                    <div class="font-semibold mb-1">{{ post.replyCount ?? 0 }}</div>
-                    <font-awesome-icon icon="fa-solid fa-reply" />
+        <template v-if="!isDetails">
+            <hr class="mx-20 mb-2 mt-4">
+            <div class="flex justify-end">
+                <div class="w-1/5 text-xs text-zinc-400 flex items-center">
+                    {{ timestamp }}
+                </div>
+                <div class="w-3/5 flex justify-center">
+                    <div class="text-sky-400 flex gap-2 items-center">
+                        <div class="font-semibold mb-1">{{ post.replyCount ?? 0 }}</div>
+                        <font-awesome-icon icon="fa-solid fa-reply" />
+                    </div>
+                </div>
+                <div class="w-1/5 flex justify-end">
+                    <CancelButton @click="$router.push({ name: 'PostDetails', params: { id: post.id } })">
+                        <div class="flex gap-4 items-center">
+                            <div class="mb-px">Voir</div>
+                            <font-awesome-icon icon="fa-solid fa-arrow-right-long" />
+                        </div>
+                    </CancelButton>
                 </div>
             </div>
-            <div class="w-1/5 flex justify-end">
-                <CancelButton @click="$router.push({ name: 'PostDetails', params: { id: post.id } })">
-                    <div class="flex gap-4 items-center">
-                        <div class="mb-px">Voir</div>
-                        <font-awesome-icon icon="fa-solid fa-arrow-right-long" />
-                    </div>
-                </CancelButton>
-            </div>
+        </template>
+        <div v-else class="text-xs text-zinc-400 pt-2">
+            {{ timestamp }}
         </div>
         <TooltipAction :actions="actions" :is-hover="isHover" class="absolute top-0 right-0 text-sky-400 cursor-pointer">
             <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" class="p-4" />
@@ -40,6 +51,7 @@ import CancelButton from './CancelButton.vue';
 import store from '@/store';
 import TooltipAction from './TooltipAction.vue';
 import PostSurvey from './PostSurvey.vue';
+import UserProfilePopup from './UserProfilePopup.vue';
 
 
 export default {
@@ -47,18 +59,24 @@ export default {
     components: {
         CancelButton,
         TooltipAction,
-        PostSurvey
+        PostSurvey,
+        UserProfilePopup
     },
     props: {
         post: {
             type: Object,
             required: true
+        },
+        isDetails: {
+            type: Boolean,
+            default: false
         }
     },
     data () {
         return {
             user: store.state.auth.user,
-            isHover: false
+            isHover: false,
+            showProfile: false
         }
     },
     computed: {
@@ -70,7 +88,19 @@ export default {
                 ]
             }
             return [{value: 'report', label: 'Signaler'}]
-        }
+        },
+        timestamp () {
+            const date = new Date(this.post.createdAt)
+            const today = new Date()
+
+            if (date.toLocaleString('fr', { dateStyle: 'short' }) == today.toLocaleString('fr', { dateStyle: 'short' })) {
+                return `Aujourd'hui à ${date.toLocaleString('fr', { hour12: false, hour: "2-digit", minute: "2-digit" })}`
+            } else if (date.toLocaleString('fr', { dateStyle: 'short' }) == new Date(today - 24 * 60 * 60 * 1000).toLocaleString('fr', { dateStyle: 'short' })) {
+                return `Hier à ${date.toLocaleString('fr', { hour12: false, hour: "2-digit", minute: "2-digit" })}`
+            } else {
+                return date.toLocaleString('fr', { hour12: false, dateStyle: "short", timeStyle: "short" })
+            }
+        },
     }, 
     methods: {
         updateSurvey (survey) {

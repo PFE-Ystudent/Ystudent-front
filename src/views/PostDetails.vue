@@ -10,17 +10,7 @@
                 </div>
             </div>
             <div class="w-3/5">
-                <div v-if="post" class="w-full rounded-md border border-zinc-300 bg-zinc-50 p-4">
-                    <div class="flex gap-2 items-center">
-                        <div class="w-8 h-8 bg-zinc-300 rounded-full"></div>
-                        <div>
-                            <div>{{ post.author.username }}</div>
-                            <div class="text-xs text-zinc-400">Membre</div>
-                        </div>
-                    </div>
-                    <div class="text-xl font-semibold my-2">{{ post.title }}</div>
-                    <div>{{ post.content }}</div>
-                </div>
+                <PostSingle v-if="post" :key="post.id" :post="post" isDetails />
                 <PostSingleLoader v-else />
                 <div class="mt-4 px-4">
                     <PostReplyForm :post-id="postId" @new-reply="addReply" />
@@ -39,6 +29,7 @@ import axios from '../axios'
 import PostSingleLoader from '@/components/PostSingleLoader.vue';
 import PostReplyForm from '@/components/PostReplyForm.vue';
 import PostReplySingle from '@/components/PostReplySingle.vue';
+import PostSingle from '@/components/PostSingle.vue';
 
 export default {
     name: 'PostDetails',
@@ -46,7 +37,8 @@ export default {
         BaseAuth,
         PostSingleLoader,
         PostReplyForm,
-        PostReplySingle
+        PostReplySingle,
+        PostSingle
     },
     data () {
         return {
