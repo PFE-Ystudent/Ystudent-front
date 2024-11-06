@@ -6,6 +6,7 @@ import PostView from '../views/PostView.vue';
 import NetworkView from '../views/NetworkView.vue';
 import store from '../store';
 import PostDetails from '@/views/PostDetails.vue';
+import AccountView from '@/views/AccountView.vue';
 
 const routes = [
     {
@@ -18,6 +19,12 @@ const routes = [
         path: '/posts',
         name: 'Post',
         component: PostView,
+        meta: {middleware: ["auth"]}
+    },
+    {
+        path: '/account',
+        name: 'Account',
+        component: AccountView,
         meta: {middleware: ["auth"]}
     },
     {

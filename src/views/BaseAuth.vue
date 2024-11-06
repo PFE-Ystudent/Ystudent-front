@@ -10,15 +10,12 @@
                         <div class="flex h-full justify-between">
                             <div></div>
                             <div class="flex items-center justify-center relative">
-                                <div class="bg-sky-300/50 rounded-md cursor-pointer px-4 py-2 flex items-center gap-4 w-48" @click="(e) => {showUserDropdown = true; e.stopPropagation()}">
-                                    <div class="w-8 h-8 bg-white rounded-full"></div>
-                                    <div class="w-2/3 overflow-y-hidden truncate select-none">{{ username }}</div>
-                                </div>
-                                <div v-if="showUserDropdown" class="absolute bg-white text-black rounded-md top-full right-0" v-click-outside="() => {showUserDropdown ? showUserDropdown = false : null}">
-                                    <div class="card w-full divide-y divide-y-zinc-300 border border-zinc-300 rounded-md">
-                                        <button class="w-full px-2 py-1" @click="logout">Déconnexion</button>
+                                <TooltipAction :actions="[{value: 'logout', label: 'Déconnexion'}, { value: 'account', label: 'Mon compte'}]" @select-action="selectAction">
+                                    <div class="bg-sky-300/50 rounded-md cursor-pointer px-4 py-2 flex items-center gap-4 w-48">
+                                        <UserAvatar class="w-8 h-8" :avatar="user.avatar" />
+                                        <div class="w-2/3 overflow-y-hidden truncate select-none text-black">{{ user.username }}</div>
                                     </div>
-                                </div>
+                                </TooltipAction>
                             </div>
                         </div>
                     </div>
@@ -35,22 +32,30 @@
 import SideBar from '@/components/sidebar/SideBar.vue';
 import axios from '../axios';
 import store from '../store';
+import TooltipAction from '@/components/TooltipAction.vue';
+import UserAvatar from '@/components/UserAvatar.vue';
 
 export default {
     name: "BaseAuth",
+    components: {
+        TooltipAction,
+        SideBar,
+        UserAvatar
+    },
     data () {
         return {
-            username: null,
+            user: store.state.auth.user,
             showUserDropdown: false
         }
     },
-    components: {
-        SideBar
-    },
-    mounted () {
-        this.username = store.state.auth.user.username
-    },
     methods: {
+        selectAction (action) {
+            if (action === 'logout') {
+                this.logout();
+            } else if (action === 'account') {
+                this.$router.push({ name: 'Account' });
+            }
+        },
         logout () {
             axios.delete('/api/logout').then(() => {
                     store.commit('logout');

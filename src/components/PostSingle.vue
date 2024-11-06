@@ -3,12 +3,12 @@
          :class="isDetails ? 'pb-4' : 'pb-2'"
          @mouseenter="isHover = true" @mouseleave="isHover = false">
         <div @click="showProfile = true" v-click-outside="() => {showProfile ? showProfile = false : null}" class="relative flex gap-2 items-center hover:bg-white hover:shadow-md cursor-pointer rounded-md max-w-min pl-1 pr-8">
-            <div class="w-8 h-8 bg-zinc-300 rounded-full"></div>
+            <UserAvatar class="w-8 h-8" :avatar="post.author.avatar" />
             <div>
                 <div>{{ post.author.username }}</div>
                 <div class="text-xs text-zinc-400">Membre</div>
             </div>
-            <UserProfilePopup v-if="showProfile" :user-id="post.author.id" class="left-full ml-4"/>
+            <UserProfilePopup v-if="showProfile" :user-id="post.author.id" class="left-full ml-4" :class="{ 'top-0': isDetails }" />
         </div>
         <div class="text-xl font-semibold my-2">{{ post.title }}</div>
         <div class="whitespace-pre-line">{{ post.content }}</div>
@@ -52,6 +52,7 @@ import store from '@/store';
 import TooltipAction from './TooltipAction.vue';
 import PostSurvey from './PostSurvey.vue';
 import UserProfilePopup from './UserProfilePopup.vue';
+import UserAvatar from './UserAvatar.vue';
 
 
 export default {
@@ -60,7 +61,8 @@ export default {
         CancelButton,
         TooltipAction,
         PostSurvey,
-        UserProfilePopup
+        UserProfilePopup,
+        UserAvatar
     },
     props: {
         post: {

@@ -3,7 +3,7 @@
          @mouseenter="isHover = true" @mouseleave="isHover = false">
         <div v-if="user">
             <div class="relative flex justify-center" style="background: linear-gradient(to bottom, transparent 60%, white 40%);">
-                <div class="w-24 h-24 bg-zinc-300 border-8 border-zinc-50 rounded-full"></div>
+                <UserAvatar class="w-24 h-24" :avatar="user.avatar" customClass="border-8 border-zinc-50" />
                 <TooltipAction :actions="actions" :is-hover="isHover" class="absolute top-0 right-0 text-sky-400 cursor-pointer">
                     <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" class="p-4" />
                 </TooltipAction>
@@ -72,12 +72,14 @@ import axios from '@/axios';
 import TooltipAction from './TooltipAction.vue';
 import { ContentLoader } from 'vue-content-loader';
 import store from '@/store';
+import UserAvatar from './UserAvatar.vue';
 
 export default {
     name: "UserProfilePopup",
     components: {
         TooltipAction,
-        ContentLoader
+        ContentLoader,
+        UserAvatar
     },
     props: {
         userId: {
