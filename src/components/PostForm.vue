@@ -3,7 +3,7 @@
         <div v-if="showPostForm" class="flex flex-col">
             <div class="flex gap-4">
                 <div class="flex gap-2 items-center">
-                    <div class="w-8 h-8 bg-zinc-300 rounded-full"></div>
+                    <UserAvatar class="w-8 h-8" :avatar="user.avatar" />
                     <div>
                         <div>{{ user.username }}</div>
                         <div class="text-xs text-zinc-400">Membre</div>
@@ -51,6 +51,7 @@ import CancelButton from '@/components/CancelButton.vue';
 import CardForm from './CardForm.vue';
 import TooltipAction from './TooltipAction.vue';
 import SurveyForm from './integration/SurveyForm.vue';
+import UserAvatar from './UserAvatar.vue';
 
 export default {
     name: 'PostForm',
@@ -61,13 +62,19 @@ export default {
         SelectInput,
         CardForm,
         TooltipAction,
-        SurveyForm
+        SurveyForm,
+        UserAvatar
+    },
+    props: {
+        categories: {
+            type: Array,
+            default: () => []
+        },
     },
     data () {
         return {
             user: store.state.auth.user,
             showPostForm: false,
-            categories: [],
             newPost: {
                 title: null,
                 content: null,
@@ -81,15 +88,7 @@ export default {
             errors: {}
         }
     },
-    mounted () {
-        this.fetchCategories()
-    },
     methods: {
-        fetchCategories () {
-            axios.get('/api/categories').then(res => {
-                this.categories = res.data.categories;
-            });
-        },
         sendPost () {
             if (!this.showPostForm) {
                 this.showPostForm = true;

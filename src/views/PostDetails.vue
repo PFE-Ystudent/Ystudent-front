@@ -3,7 +3,7 @@
         <div class="flex mt-8">
             <div class="w-1/5 flex justify-end px-8">
                 <div>
-                    <button class="flex gap-4 items-center text-zinc-400 cursor-pointer" @click="$router.push({ name: 'Post' })">
+                    <button class="flex gap-4 items-center text-zinc-400 hover:text-black cursor-pointer" @click="$router.push({ name: 'Post' })">
                         <font-awesome-icon icon="fa-solid fa-arrow-left-long" />
                         <div class="mb-[3px]">Retour</div>
                     </button>

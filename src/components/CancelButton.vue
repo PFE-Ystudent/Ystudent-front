@@ -8,7 +8,7 @@
 
 <script>
 export default {
-    name: "SubmitButton",
+    name: "CancelButton",
     props: {
         disabled: {
             type: Boolean,

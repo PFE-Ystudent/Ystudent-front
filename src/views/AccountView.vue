@@ -80,8 +80,9 @@ export default {
             if (this.avatar) {
                 formData.append('avatar', this.avatar);
             }
-            axios.post('/api/users/me', formData).then(() => {
-
+            axios.post('/api/users/me', formData).then((res) => {
+                    this.user = res.data;
+                    this.previewAvatarUrl = res.data.avatar;
                 }).catch((err) => {
                     this.errors = err.response.data.errors
                 });

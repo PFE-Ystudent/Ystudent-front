@@ -1,5 +1,5 @@
 <template>
-        <nav role="navigation" className="flex items-center justify-between mt-4">
+        <nav role="navigation" className="flex items-center justify-between">
             <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                 <div>
                     <ul className="relative z-0 inline-flex shadow-sm rounded-md bg-sky-400">
@@ -16,7 +16,7 @@
                         <template v-else>
                             <li>
                                 <a @click="() => setPage(currentPage - 1)" rel="prev">
-                                    <span className="h-full hover:bg-sky-500 cursor-pointer relative inline-flex items-center px-2 py-2 text-sm font-medium text-white border border-sky-500 cursor-default rounded-l-md leading-5" aria-hidden="true">
+                                    <span className="h-full hover:bg-sky-500 cursor-pointer relative inline-flex items-center px-2 py-2 text-sm font-medium text-white border border-sky-500 rounded-l-md leading-5" aria-hidden="true">
                                         <font-awesome-icon icon="fa-solid fa-chevron-left" />
                                     </span>
                                 </a>
@@ -24,7 +24,7 @@
                         </template>
 
                         <li v-if="currentPage > 3" className="hidden-xs">
-                            <a @click="() => setPage(1)" className="cursor-pointer relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-white border border-sky-500 cursor-default leading-5">
+                            <a @click="() => setPage(1)" className="cursor-pointer relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-white border border-sky-500 leading-5">
                                 1
                             </a>
                         </li>
@@ -42,7 +42,7 @@
                                     </span>
                                 </li>
                                 <li v-else :key="`${i}`">
-                                    <a @click="() => setPage(i)" className="hover:bg-sky-500 cursor-pointer relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-white border border-sky-500 cursor-default">
+                                    <a @click="() => setPage(i)" className="hover:bg-sky-500 cursor-pointer relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-white border border-sky-500">
                                         {{ i }}
                                     </a>
                                 </li>
@@ -54,7 +54,7 @@
                             </span>
                         </li>
                         <li v-if="currentPage < lastPage - 2" className="hidden-xs">
-                            <a @click="() => setPage(lastPage)" className="hover:bg-sky-500 cursor-pointer relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-white border border-sky-500 cursor-default leading-5">
+                            <a @click="() => setPage(lastPage)" className="hover:bg-sky-500 cursor-pointer relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-white border border-sky-500 leading-5">
                                 {{ lastPage }}
                             </a>
                         </li>
@@ -62,7 +62,7 @@
                         <!-- Next Page Link -->
                         <li v-if="currentPage < lastPage">
                             <a @click="() => setPage(currentPage + 1)" rel="next">
-                                <span className="h-full hover:bg-sky-500 cursor-pointer inline-flex items-center px-2 py-2 -ml-px text-sm font-medium text-white border border-sky-500 cursor-default rounded-r-md leading-5" aria-hidden="true">
+                                <span className="h-full hover:bg-sky-500 cursor-pointer inline-flex items-center px-2 py-2 -ml-px text-sm font-medium text-white border border-sky-500 rounded-r-md leading-5" aria-hidden="true">
                                     <font-awesome-icon icon="fa-solid fa-chevron-right" />
                                 </span>
                             </a>

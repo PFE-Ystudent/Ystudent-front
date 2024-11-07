@@ -107,6 +107,7 @@ export default {
                 return [{value: 'edit', label: 'Modifier'}]
             }
             return [
+                {value: 'contact', label: 'Contacter'},
                 {value: 'add', label: 'Ajouter'},
                 {value: 'report', label: 'Signaler'}
             ]

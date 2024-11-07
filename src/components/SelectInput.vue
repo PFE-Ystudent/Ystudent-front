@@ -4,7 +4,7 @@
             {{ label }}
         </div>
         <multiselect v-model="internalValue" :multiple="multiple" :options="options"
-            :class="{'has-error': errors && errors.length, 'mt-4': !label }"
+            :class="{'has-error': errors && errors.length, 'mt-4': !label && !noMargin }"
             track-by="id" label="name"
             selectLabel="Choisir" placeholder="Choisissez une option" deselectLabel="Appuyer sur entrer pour retirer" selectedLabel="Sélectionner"
             :searchable="true">
@@ -18,7 +18,7 @@
                 Choisissez une option
             </template>
         </multiselect>
-        <div class="text-rose-500 text-xs h-4">
+        <div v-if="!noMargin" class="text-rose-500 text-xs h-4">
             <div v-for="(error, index) in errors" :key="index">
                 {{ error }}
             </div>
@@ -50,6 +50,10 @@ export default {
         multiple: {
             type: Boolean,
             default: false
+        },
+        noMargin: {
+            type: Boolean,
+            default: false,
         },
         errors: {
             type: Array,
