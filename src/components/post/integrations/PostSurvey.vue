@@ -1,5 +1,5 @@
 <template>
-    <div class="border border-zinc-300 rounded-md py-2 px-4 mt-4">
+    <card class="py-2 px-4 mt-4">
         <div class="flex">
             <div class="w-4/5">
                 <div class="text-md font-semibold mb-4">
@@ -34,7 +34,7 @@
                 <font-awesome-icon icon="fa-solid fa-square-poll-vertical" size="4x" />
             </div>
         </div>
-    </div>
+    </card>
 </template>
 
 <script>

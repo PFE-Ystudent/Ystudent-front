@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full bg-zinc-50 border border-zinc-300 rounded-md p-4">
+    <card class="w-full p-4">
         <div class="font-semibold text-lg mb-2">Recherche</div>
         <hr class="mb-2" />
 
@@ -16,7 +16,7 @@
                 Filtrer
             </submit-button>
         </div>
-    </div>
+    </card>
 </template>
 
 <script>

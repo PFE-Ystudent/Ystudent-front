@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full rounded-md border border-zinc-300 bg-zinc-50 p-4">
+    <card class="w-full p-4">
         <div class="flex gap-2 items-center">
             <UserAvatar class="w-8 h-8" :avatar="postReply.author.avatar" />
             <div>
@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="whitespace-pre-line mt-2">{{ postReply.content }}</div>
-    </div>
+    </card>
 </template>
 
 <script>

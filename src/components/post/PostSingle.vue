@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full relative rounded-md border border-zinc-300 bg-zinc-50 px-4 pt-4"
+    <card class="w-full relative px-4 pt-4"
          :class="isDetails ? 'pb-4' : 'pb-2'"
          @mouseenter="isHover = true" @mouseleave="isHover = false">
         <div @click="showProfile = true" v-click-outside="() => {showProfile ? showProfile = false : null}" class="relative flex gap-2 items-center hover:bg-white hover:shadow-md cursor-pointer rounded-md max-w-min pl-1 pr-8">
@@ -43,7 +43,7 @@
         <TooltipAction :actions="actions" :is-hover="isHover" class="absolute top-0 right-0 text-sky-400 cursor-pointer" @select-action="selectAction">
             <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" class="p-4" />
         </TooltipAction>
-    </div>
+    </card>
 </template>
 
 <script>

@@ -2,7 +2,7 @@
     <div class="flex w-full divide-x-zinc-300 divide-x text-lg cursor-pointer font-semibold text-center border-t border-x border-t-zinc-300 border-x-zinc-300 rounded-t-md">
         <div v-for="tab in tabs"
             :key="tab.value"
-            class="w-full border-b border-zinc-300" :class="{'text-sky-400':tab.value === selectedTab}"
+            class="w-full border-b border-zinc-300" :class="{'text-sky-400': tab.value === selectedTab}"
             @click="select(tab)">
             <div class="p-2 hover:text-sky-400 select-none">
                 {{ tab.name }}
