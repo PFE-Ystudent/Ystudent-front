@@ -9,9 +9,9 @@
                         <div class="text-xs text-zinc-400">Membre</div>
                     </div>
                 </div>
-                <Text-input v-model="newPost.title" :errors="errors.title" />
+                <text-input v-model="newPost.title" :errors="errors.title" />
             </div>
-            <Text-input type="textarea" v-model="newPost.content" :errors="errors.content" />
+            <text-input type="textarea" v-model="newPost.content" :errors="errors.content" />
             <div class="flex flex-col gap-4">
                 <template v-for="(integration, index) in integrations">
                     <SurveyForm v-if="integration.type === 'survey'" :key="index" :survey="integration.data" @update="integration.data = $event" @delete="deleteIntegration(index)" />
@@ -27,7 +27,7 @@
                     </span>
                 </TooltipAction>
             </div>
-            <Select-input v-model="newPost.categories" label="Catégories :" multiple :options="categories" :errors="errors.categories" />
+            <select-input v-model="newPost.categories" label="Catégories :" multiple :options="categories" :errors="errors.categories" />
         </div>
         <div class="w-full flex justify-end gap-4">
             <cancel-button v-if="showPostForm" @click="hidePostForm">

@@ -11,7 +11,7 @@
                     </div>
                     <div class="mt-4 flex flex-col gap-4">
                         <template v-if="!isBusy">
-                            <PostSingle v-for="post in posts" :key="post.id" :post="post" @update-survey="updateSurvey" />
+                            <PostSingle v-for="post in posts" :key="post.id" :post="post" @update-survey="updateSurvey" @deletePost="postIdToDelete = $event" />
                             <div class="flex justify-center mt-4">
                                 <PaginatorSelect v-if="posts.length" v-model="currentPage" :last-page="lastPage" @change="fetchPosts" />
                                 <div v-else class="text-lg font-semibold flex items-center gap-4">
@@ -30,6 +30,9 @@
                 <div class="w-2/3 mx-auto sticky top-[78px]">
                     <PostFilter :categories="categories" @filter="filter" />
                 </div>
+                <ConfirmPopup v-if="postIdToDelete" @close="postIdToDelete = null" @confirm="deletePost">
+                    Êtes-vous sûr de vouloir supprimer ce post ?
+                </ConfirmPopup>
             </div>
         </div>
     </BaseAuth>
@@ -45,6 +48,7 @@ import PostSingleLoader from '@/components/loaders/PostSingleLoader.vue';
 import axios from '@/axios'
 import PostFilter from '@/components/post/filters/PostFilter.vue';
 import formatFilterData from '@/mixins/formatFilterData';
+import ConfirmPopup from '@/components/partials/popup/ConfirmPopup.vue';
 
 export default {
     name: 'PostView',
@@ -56,6 +60,7 @@ export default {
         PaginatorSelect,
         PostForm,
         PostFilter,
+        ConfirmPopup
     },
     mixins: [formatFilterData],
     data () {
@@ -67,6 +72,7 @@ export default {
             currentPage: 1,
             lastPage: null,
             filterData: null,
+            postIdToDelete: null,
             tabs: [
                 {name: "Nouveaux posts", value: "new"},
                 {name: "Posts suivis", value: "followed"},
@@ -108,6 +114,14 @@ export default {
             const post = this.posts.find(p => p.id === e.postId);
             const surveyIndex = post.surveys.findIndex(s => s.id === e.survey.id);
             post.surveys[surveyIndex] = e.survey;
+        },
+        deletePost () {
+            const postId = this.postIdToDelete
+            axios.delete(`/api/posts/${postId}`).then(() => {
+                this.posts = this.posts.filter(p => p.id !== postId);
+            }).catch(() => {
+                // TODO: Gérer l'erreur
+            })
         },
         filter (data) {
             this.filterData = data

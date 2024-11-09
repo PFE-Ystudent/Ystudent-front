@@ -40,7 +40,7 @@
         <div v-else class="text-xs text-zinc-400 pt-2">
             {{ timestamp }}
         </div>
-        <TooltipAction :actions="actions" :is-hover="isHover" class="absolute top-0 right-0 text-sky-400 cursor-pointer">
+        <TooltipAction :actions="actions" :is-hover="isHover" class="absolute top-0 right-0 text-sky-400 cursor-pointer" @select-action="selectAction">
             <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" class="p-4" />
         </TooltipAction>
     </div>
@@ -108,6 +108,11 @@ export default {
                 postId: this.post.id,
                 survey: survey
             });
+        },
+        selectAction (action) {
+            if (action === 'delete') {
+                this.$emit('delete-post', this.post.id)
+            }
         }
     }
 }
