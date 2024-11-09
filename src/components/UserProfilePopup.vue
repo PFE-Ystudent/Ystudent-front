@@ -4,7 +4,7 @@
         <div v-if="user">
             <div class="relative flex justify-center" style="background: linear-gradient(to bottom, transparent 60%, white 40%);">
                 <UserAvatar class="w-24 h-24" :avatar="user.avatar" customClass="border-8 border-zinc-50" />
-                <TooltipAction :actions="actions" :is-hover="isHover" class="absolute top-0 right-0 text-sky-400 cursor-pointer">
+                <TooltipAction :actions="actions" :is-hover="isHover" class="absolute top-0 right-0 text-sky-400 cursor-pointer" @select-action="selectAction">
                     <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" class="p-4" />
                 </TooltipAction>
             </div>
@@ -16,11 +16,11 @@
                 <div class="min-h-12">{{ user.about }}</div>
                 <div class="flex justify-around py-4 text-sky-400">
                     <div class="flex items-center font-semibold gap-2 hover:text-sky-500 cursor-pointer">
-                        <div>{{ user.postsCount }}</div>
+                        <div class="text-lg">{{ user.postsCount }}</div>
                         <font-awesome-icon icon="fa-solid fa-message" />
                     </div>
                     <div class="flex items-center font-semibold gap-2 hover:text-sky-500 cursor-pointer">
-                        <div>{{ user.postRepliesCount }}</div>
+                        <div class="text-lg">{{ user.postRepliesCount }}</div>
                         <font-awesome-icon icon="fa-solid fa-reply" />
                     </div>
                 </div>
@@ -104,16 +104,24 @@ export default {
     computed: {
         actions () {
             if (this.user.id === this.authUser.id) {
-                return [{value: 'edit', label: 'Modifier'}]
+                return [
+                    {value: 'show', label: 'Voir'},
+                    {value: 'edit', label: 'Modifier'}
+                ]
             }
             return [
+                {value: 'show', label: 'Voir'},
                 {value: 'contact', label: 'Contacter'},
                 {value: 'add', label: 'Ajouter'},
                 {value: 'report', label: 'Signaler'}
             ]
-        },
-        createdAt () {
-            return new Date(this.user.createdAt).toLocaleString('fr', { hour12: false, dateStyle: "short" }) 
+        }
+    },
+    methods: {
+        selectAction (action) {
+            if (action === 'show') {
+                this.$router.push({ name: 'UserDetails', params: { id: this.userId } })
+            }
         }
     },
 }

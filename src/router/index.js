@@ -7,6 +7,7 @@ import NetworkView from '../views/NetworkView.vue';
 import store from '../store';
 import PostDetails from '@/views/PostDetails.vue';
 import AccountView from '@/views/AccountView.vue';
+import UserDetails from '@/views/UserDetails.vue';
 
 const routes = [
     {
@@ -16,21 +17,27 @@ const routes = [
         meta: {middleware: ["auth"]}
     },
     {
-        path: '/posts',
-        name: 'Post',
-        component: PostView,
-        meta: {middleware: ["auth"]}
-    },
-    {
         path: '/account',
         name: 'Account',
         component: AccountView,
         meta: {middleware: ["auth"]}
     },
     {
+        path: '/posts',
+        name: 'Post',
+        component: PostView,
+        meta: {middleware: ["auth"]}
+    },
+    {
         path: '/posts/:id',
         name: 'PostDetails',
         component: PostDetails,
+        meta: {middleware: ["auth"]}
+    },
+    {
+        path: '/users/:id',
+        name: 'UserDetails',
+        component: UserDetails,
         meta: {middleware: ["auth"]}
     },
     {
