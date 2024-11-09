@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import UserAvatar from './UserAvatar.vue';
+import UserAvatar from '@/components/user/UserAvatar.vue';
 
 export default {
     name: 'UserProfile',

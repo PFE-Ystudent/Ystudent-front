@@ -7,8 +7,8 @@
 </template>
 
 <script>
-import BaseAuth from './BaseAuth.vue';
-import store from '../store';
+import BaseAuth from '@/views/base/BaseAuth.vue';
+import store from '@/store';
 
 export default {
     name: 'NetworkView',

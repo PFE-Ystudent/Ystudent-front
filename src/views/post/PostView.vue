@@ -36,14 +36,14 @@
 </template>
 
 <script>
-import BaseAuth from './BaseAuth.vue';
-import TabNav from '@/components/TabNav.vue';
-import PaginatorSelect from '@/components/PaginatorSelect.vue';
-import PostForm from '@/components/PostForm.vue';
-import PostSingle from '@/components/PostSingle.vue';
-import PostSingleLoader from '@/components/PostSingleLoader.vue';
-import axios from '../axios'
-import PostFilter from './PostFilter.vue';
+import BaseAuth from '@/views/base/BaseAuth.vue';
+import TabNav from '@/components/partials/TabNav.vue';
+import PaginatorSelect from '@/components/partials/PaginatorSelect.vue';
+import PostForm from '@/components/post/forms/PostForm.vue';
+import PostSingle from '@/components/post/PostSingle.vue';
+import PostSingleLoader from '@/components/loaders/PostSingleLoader.vue';
+import axios from '@/axios'
+import PostFilter from '@/components/post/filters/PostFilter.vue';
 import formatFilterData from '@/mixins/formatFilterData';
 
 export default {

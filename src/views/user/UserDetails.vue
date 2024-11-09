@@ -7,16 +7,16 @@
                     <UserProfileLoader v-else />
                 </div>
                 <div>
-                    <SubmitButton>
+                    <submit-button>
                         Envoyer un message
-                    </SubmitButton>
-                    <SubmitButton class="mt-4">
+                    </submit-button>
+                    <submit-button class="mt-4">
                         <font-awesome-icon icon="fa-solid fa-plus" />
                         Ajouter
-                    </SubmitButton>
-                    <CancelButton class="mt-4">
+                    </submit-button>
+                    <cancel-button class="mt-4">
                         Signaler
-                    </CancelButton>
+                    </cancel-button>
                 </div>
             </div>
             <div class="w-3/5">
@@ -41,15 +41,13 @@
 </template>
 
 <script>
-import PostSingle from '@/components/PostSingle.vue';
-import BaseAuth from './BaseAuth.vue';
-import PostSingleLoader from '@/components/PostSingleLoader.vue';
-import PaginatorSelect from '@/components/PaginatorSelect.vue';
+import PostSingle from '@/components/post/PostSingle.vue';
+import BaseAuth from '@/views/base/BaseAuth.vue';
+import PostSingleLoader from '@/components/loaders/PostSingleLoader.vue';
+import PaginatorSelect from '@/components/partials/PaginatorSelect.vue';
 import axios from '@/axios';
-import SubmitButton from '@/components/SubmitButton.vue';
-import CancelButton from '@/components/CancelButton.vue';
-import UserProfile from '@/components/UserProfile.vue';
-import UserProfileLoader from '@/components/UserProfileLoader.vue';
+import UserProfile from '@/components/user/UserProfile.vue';
+import UserProfileLoader from '@/components/loaders/UserProfileLoader.vue';
 
 export default {
     name: 'userDetails',
@@ -59,8 +57,6 @@ export default {
         PostSingleLoader,
         PaginatorSelect,
         UserProfile,
-        SubmitButton,
-        CancelButton,
         UserProfileLoader
     },
     data() {

@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import LoginView from '../views/auth/LoginView.vue';
-import RegisterView from '../views/auth/RegisterView.vue';
-import DashboardView from '../views/auth/DashboardView.vue';
-import PostView from '../views/PostView.vue';
-import NetworkView from '../views/NetworkView.vue';
-import store from '../store';
-import PostDetails from '@/views/PostDetails.vue';
-import AccountView from '@/views/AccountView.vue';
-import UserDetails from '@/views/UserDetails.vue';
+import LoginView from '@/views/auth/LoginView.vue';
+import RegisterView from '@/views/auth/RegisterView.vue';
+import DashboardView from '@/views/DashboardView.vue';
+import PostView from '@/views/post/PostView.vue';
+import NetworkView from '@/views/network/NetworkView.vue';
+import store from '@/store';
+import PostDetails from '@/views/post/PostDetails.vue';
+import AccountView from '@/views/user/AccountView.vue';
+import UserDetails from '@/views/user/UserDetails.vue';
 
 const routes = [
     {

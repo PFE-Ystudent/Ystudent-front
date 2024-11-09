@@ -6,18 +6,18 @@
                     <div class="flex">
                         <div class="flex flex-col gap-2 items-center justify-end w-44 mr-8">
                             <UserAvatar :avatar="previewAvatarUrl" class="w-20 h-20" customClass="shadow" />
-                            <UploadInput id="avatar-upload" accept="image/*" @select-files="selectFile" />
+                            <upload-input id="avatar-upload" accept="image/*" @select-files="selectFile" />
                         </div>
                         <div class="w-full">
-                            <TextInput v-model="user.username" type="text" label="Nom d'utilisateur :" :errors="errors.username" />
-                            <TextInput v-model="user.email" type="text" label="Email :" disabled />
+                            <text-input v-model="user.username" type="text" label="Nom d'utilisateur :" :errors="errors.username" />
+                            <text-input v-model="user.email" type="text" label="Email :" disabled />
                         </div>
                     </div>
-                    <TextInput v-model="user.about" type="textarea" label="A propos :" :errors="errors.about" />
+                    <text-input v-model="user.about" type="textarea" label="A propos :" :errors="errors.about" />
                     <div class="flex justify-end mt-4">
-                        <SubmitButton @click="save">
+                        <submit-button @click="save">
                             Enregistrer
-                        </SubmitButton>
+                        </submit-button>
                     </div>
                 </CardForm>
             </div>
@@ -26,22 +26,16 @@
 </template>
 
 <script>
-import TextInput from '@/components/TextInput.vue';
-import BaseAuth from './BaseAuth.vue';
-import CardForm from '@/components/CardForm.vue';
+import BaseAuth from '@/views/base/BaseAuth.vue';
+import CardForm from '@/components/container/CardForm.vue';
 import axios from '@/axios';
-import SubmitButton from '@/components/SubmitButton.vue';
-import UploadInput from '@/components/UploadInput.vue';
-import UserAvatar from '@/components/UserAvatar.vue';
+import UserAvatar from '@/components/user/UserAvatar.vue';
 
 export default {
     name: 'AccountView',
     components: {
         BaseAuth,
-        TextInput,
         CardForm,
-        SubmitButton,
-        UploadInput,
         UserAvatar
     },
     data() {

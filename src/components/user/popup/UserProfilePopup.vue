@@ -69,10 +69,10 @@
 
 <script>
 import axios from '@/axios';
-import TooltipAction from './TooltipAction.vue';
+import TooltipAction from '@/components/partials/TooltipAction.vue';
 import { ContentLoader } from 'vue-content-loader';
 import store from '@/store';
-import UserAvatar from './UserAvatar.vue';
+import UserAvatar from '@/components/user/UserAvatar.vue';
 
 export default {
     name: "UserProfilePopup",

@@ -28,12 +28,12 @@
                     </div>
                 </div>
                 <div class="w-1/5 flex justify-end">
-                    <CancelButton @click="$router.push({ name: 'PostDetails', params: { id: post.id } })">
+                    <cancel-button @click="$router.push({ name: 'PostDetails', params: { id: post.id } })">
                         <div class="flex gap-4 items-center">
                             <div class="mb-px">Voir</div>
                             <font-awesome-icon icon="fa-solid fa-arrow-right-long" />
                         </div>
-                    </CancelButton>
+                    </cancel-button>
                 </div>
             </div>
         </template>
@@ -47,18 +47,16 @@
 </template>
 
 <script>
-import CancelButton from './CancelButton.vue';
 import store from '@/store';
-import TooltipAction from './TooltipAction.vue';
-import PostSurvey from './PostSurvey.vue';
-import UserProfilePopup from './UserProfilePopup.vue';
-import UserAvatar from './UserAvatar.vue';
+import TooltipAction from '@/components/partials/TooltipAction.vue';
+import PostSurvey from '@/components/post/integrations/PostSurvey.vue';
+import UserProfilePopup from '@/components/user/popup/UserProfilePopup.vue';
+import UserAvatar from '@/components/user/UserAvatar.vue';
 
 
 export default {
     name: "PostSingle",
     components: {
-        CancelButton,
         TooltipAction,
         PostSurvey,
         UserProfilePopup,

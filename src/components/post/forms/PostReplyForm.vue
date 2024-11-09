@@ -10,34 +10,28 @@
                     </div>
                 </div>
             </div>
-            <TextInput type="textarea" v-model="replyContent" :errors="errors.replyContent" />
+            <text-input type="textarea" v-model="replyContent" :errors="errors.replyContent" />
         </div>
         <div class="w-full flex justify-end gap-4">
-            <CancelButton v-if="showPostReplyForm" @click="hidePostReplyForm">
+            <cancel-button v-if="showPostReplyForm" @click="hidePostReplyForm">
                 Annuler
-            </CancelButton>
-            <SubmitButton @click="sendReply">
+            </cancel-button>
+            <submit-button @click="sendReply">
                 <font-awesome-icon :icon="`fa-solid fa-${ showPostReplyForm ? 'paper-plane': 'plus'}`" />
                 {{ showPostReplyForm ? 'Envoyer la réponse' : 'Répondre'}}
-            </SubmitButton>
+            </submit-button>
         </div>
     </CardForm>
 </template>
 
 <script>
-import store from '../store';
-import axios from '../axios';
-import SubmitButton from '@/components/SubmitButton.vue';
-import TextInput from '@/components/TextInput.vue';
-import CancelButton from '@/components/CancelButton.vue';
-import CardForm from './CardForm.vue';
+import store from '@/store';
+import axios from '@/axios';
+import CardForm from '@/components/container/CardForm.vue';
 
 export default {
     name: 'PostForm',
     components: {
-        CancelButton,
-        SubmitButton,
-        TextInput,
         CardForm
     },
     props: {

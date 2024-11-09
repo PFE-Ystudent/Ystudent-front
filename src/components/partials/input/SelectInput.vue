@@ -74,4 +74,4 @@ export default {
 </script>
 
 <!-- <style src="vue-multiselect/dist/vue-multiselect.css"></style> -->
-<style src="../css/vue-multiselect.css"></style>
+<style src="@/css/vue-multiselect.css"></style>

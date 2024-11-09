@@ -30,10 +30,10 @@
 
 <script>
 import SideBar from '@/components/sidebar/SideBar.vue';
-import axios from '../axios';
-import store from '../store';
-import TooltipAction from '@/components/TooltipAction.vue';
-import UserAvatar from '@/components/UserAvatar.vue';
+import axios from '@/axios';
+import store from '@/store';
+import TooltipAction from '@/components/partials/TooltipAction.vue';
+import UserAvatar from '@/components/user/UserAvatar.vue';
 
 export default {
     name: "BaseAuth",

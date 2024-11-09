@@ -1,5 +1,5 @@
 import axios from "axios";
-import store from '../store'
+import store from '@/store'
 // import store from "../store";
 // store.state.user.token
 const axiosClient = axios.create({

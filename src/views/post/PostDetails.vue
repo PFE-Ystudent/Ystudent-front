@@ -24,12 +24,12 @@
 </template>
 
 <script>
-import BaseAuth from './BaseAuth.vue';
-import axios from '../axios'
-import PostSingleLoader from '@/components/PostSingleLoader.vue';
-import PostReplyForm from '@/components/PostReplyForm.vue';
-import PostReplySingle from '@/components/PostReplySingle.vue';
-import PostSingle from '@/components/PostSingle.vue';
+import BaseAuth from '@/views/base/BaseAuth.vue';
+import axios from '@/axios'
+import PostSingleLoader from '@/components/loaders/PostSingleLoader.vue';
+import PostReplyForm from '@/components/post/forms/PostReplyForm.vue';
+import PostReplySingle from '@/components/post/PostReplySingle.vue';
+import PostSingle from '@/components/post/PostSingle.vue';
 
 export default {
     name: 'PostDetails',

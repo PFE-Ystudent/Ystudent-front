@@ -9,9 +9,9 @@
                         <div class="text-xs text-zinc-400">Membre</div>
                     </div>
                 </div>
-                <TextInput v-model="newPost.title" :errors="errors.title" />
+                <Text-input v-model="newPost.title" :errors="errors.title" />
             </div>
-            <TextInput type="textarea" v-model="newPost.content" :errors="errors.content" />
+            <Text-input type="textarea" v-model="newPost.content" :errors="errors.content" />
             <div class="flex flex-col gap-4">
                 <template v-for="(integration, index) in integrations">
                     <SurveyForm v-if="integration.type === 'survey'" :key="index" :survey="integration.data" @update="integration.data = $event" @delete="deleteIntegration(index)" />
@@ -27,39 +27,31 @@
                     </span>
                 </TooltipAction>
             </div>
-            <SelectInput v-model="newPost.categories" label="Catégories :" multiple :options="categories" :errors="errors.categories" />
+            <Select-input v-model="newPost.categories" label="Catégories :" multiple :options="categories" :errors="errors.categories" />
         </div>
         <div class="w-full flex justify-end gap-4">
-            <CancelButton v-if="showPostForm" @click="hidePostForm">
+            <cancel-button v-if="showPostForm" @click="hidePostForm">
                 Annuler
-            </CancelButton>
-            <SubmitButton @click="sendPost">
+            </cancel-button>
+            <submit-button @click="sendPost">
                 <font-awesome-icon :icon="`fa-solid fa-${ showPostForm ? 'paper-plane': 'plus'}`" />
                 {{ showPostForm ? 'Envoyer le post' : 'Ecrire un post'}}
-            </SubmitButton>
+            </submit-button>
         </div>
     </CardForm>
 </template>
 
 <script>
-import store from '../store';
-import axios from '../axios';
-import SubmitButton from '@/components/SubmitButton.vue';
-import TextInput from '@/components/TextInput.vue';
-import SelectInput from '@/components/SelectInput.vue';
-import CancelButton from '@/components/CancelButton.vue';
-import CardForm from './CardForm.vue';
-import TooltipAction from './TooltipAction.vue';
-import SurveyForm from './integration/SurveyForm.vue';
-import UserAvatar from './UserAvatar.vue';
+import store from '@/store';
+import axios from '@/axios';
+import CardForm from '@/components/container/CardForm.vue';
+import TooltipAction from '@/components/partials/TooltipAction.vue';
+import SurveyForm from '@/components/post/integrations/forms/SurveyForm.vue';
+import UserAvatar from '@/components/user/UserAvatar.vue';
 
 export default {
     name: 'PostForm',
     components: {
-        CancelButton,
-        SubmitButton,
-        TextInput,
-        SelectInput,
         CardForm,
         TooltipAction,
         SurveyForm,

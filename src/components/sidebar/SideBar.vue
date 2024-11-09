@@ -6,7 +6,7 @@
                 <div class="w-12 h-12 bg-zinc-300 cursor-pointer" @click="$router.push({ name: 'Dashboard' })"></div>
             </div>
             <div class="mt-8 w-full flex flex-col gap-4">
-                <SideBarItem name="Postes" icon="fa-message" route="Post" :is-deploy="isDeploy" />
+                <SideBarItem name="Posts" icon="fa-message" route="Post" :is-deploy="isDeploy" />
                 <SideBarItem name="Réseaux" icon="fa-user-group" route="Network" :is-deploy="isDeploy" />
             </div>
         </div>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import SideBarItem from './SideBarItem.vue';
+import SideBarItem from '@/components/sidebar/SideBarItem.vue';
 
 export default {
     name: "SideBar",
