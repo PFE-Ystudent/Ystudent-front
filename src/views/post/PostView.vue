@@ -11,7 +11,11 @@
                     </div>
                     <div class="mt-4 flex flex-col gap-4">
                         <template v-if="!isBusy">
-                            <PostSingle v-for="post in posts" :key="post.id" :post="post" @update-survey="updateSurvey" @deletePost="postIdToDelete = $event" />
+                            <div v-for="post in posts" :key="post.id">
+                                <PostSingle v-if="postIdToEdit !== post.id" :post="post"
+                                            @update-survey="updateSurvey" @deletePost="postIdToDelete = $event" @editPost="postIdToEdit = $event" />
+                                <PostEditForm v-else :post="post" @cancel="postIdToEdit = null" @confirm="editPost" />
+                            </div>
                             <div class="flex justify-center mt-4">
                                 <PaginatorSelect v-if="posts.length" v-model="currentPage" :last-page="lastPage" @change="fetchPosts" />
                                 <div v-else class="text-lg font-semibold flex items-center gap-4">
@@ -49,6 +53,7 @@ import axios from '@/axios'
 import PostFilter from '@/components/post/filters/PostFilter.vue';
 import formatFilterData from '@/mixins/formatFilterData';
 import ConfirmPopup from '@/components/partials/popup/ConfirmPopup.vue';
+import PostEditForm from '@/components/post/forms/PostEditForm.vue';
 
 export default {
     name: 'PostView',
@@ -60,7 +65,8 @@ export default {
         PaginatorSelect,
         PostForm,
         PostFilter,
-        ConfirmPopup
+        ConfirmPopup,
+        PostEditForm
     },
     mixins: [formatFilterData],
     data () {
@@ -73,6 +79,7 @@ export default {
             lastPage: null,
             filterData: null,
             postIdToDelete: null,
+            postIdToEdit: null,
             tabs: [
                 {name: "Nouveaux posts", value: "new"},
                 {name: "Posts suivis", value: "followed"},
@@ -114,6 +121,15 @@ export default {
             const post = this.posts.find(p => p.id === e.postId);
             const surveyIndex = post.surveys.findIndex(s => s.id === e.survey.id);
             post.surveys[surveyIndex] = e.survey;
+        },
+        editPost (editedPost) {
+            this.posts.forEach(p => {
+                if (p.id === editedPost.id) {
+                    return editedPost
+                }
+                return p
+            });
+            this.postIdToEdit = null;
         },
         deletePost () {
             const postId = this.postIdToDelete

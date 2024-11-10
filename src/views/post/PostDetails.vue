@@ -10,7 +10,10 @@
                 </div>
             </div>
             <div class="w-3/5">
-                <PostSingle v-if="post" :key="post.id" :post="post" isDetails />
+                <template v-if="post">
+                    <PostSingle v-if="!isEdited" :post="post" isDetails />
+                    <PostEditForm v-else :post="post" @cancel="isEdited = false" @confirm="editPost" />
+                </template>
                 <PostSingleLoader v-else />
                 <div class="mt-4 px-4">
                     <PostReplyForm :post-id="postId" @new-reply="addReply" />
@@ -19,6 +22,22 @@
                     <PostReplySingle v-for="postReply in postReplies" :key="postReply.id" :post-reply="postReply" />
                 </div>
             </div>
+            <div v-if="post" class="w-1/5 pl-4">
+                <template v-if="user.id === post.author.id">
+                    <submit-button @click="isEdited = true">
+                        Modifier
+                    </submit-button>
+                    <submit-button class="mt-4" @click="deleteIsVisible = true">
+                        Supprimer
+                    </submit-button>
+                </template>
+                <cancel-button v-else>
+                    Signaler
+                </cancel-button>
+            </div>
+            <ConfirmPopup v-if="deleteIsVisible" @close="deleteIsVisible = false" @confirm="deletePost">
+                Êtes-vous sûr de vouloir supprimer ce post ?
+            </ConfirmPopup>
         </div>
     </BaseAuth>
 </template>
@@ -30,6 +49,9 @@ import PostSingleLoader from '@/components/loaders/PostSingleLoader.vue';
 import PostReplyForm from '@/components/post/forms/PostReplyForm.vue';
 import PostReplySingle from '@/components/post/PostReplySingle.vue';
 import PostSingle from '@/components/post/PostSingle.vue';
+import store from '@/store';
+import PostEditForm from '@/components/post/forms/PostEditForm.vue';
+import ConfirmPopup from '@/components/partials/popup/ConfirmPopup.vue';
 
 export default {
     name: 'PostDetails',
@@ -38,14 +60,19 @@ export default {
         PostSingleLoader,
         PostReplyForm,
         PostReplySingle,
-        PostSingle
+        PostSingle,
+        PostEditForm,
+        ConfirmPopup
     },
     data () {
         return {
+            user: store.state.auth.user,
             postId: null,
             post: null,
             isBusy: false,
-            postReplies: []
+            isEdited: false,
+            postReplies: [],
+            deleteIsVisible: false
         }
     },
     mounted () {
@@ -65,7 +92,6 @@ export default {
             this.isBusy = true;
             axios.get(`/api/posts/${this.postId}/replies`).then(res => {
                     this.postReplies = res.data.postReplies;
-                    console.log(this.postReplies);
                 }).catch(() => {
                     // TODO: rediriger sur une 404
                 }).finally(() => {
@@ -74,6 +100,17 @@ export default {
         },
         addReply (newReply) {
             this.postReplies.push(newReply)
+        },
+        editPost (editedPost) {
+            this.post = editedPost;
+            this.isEdited = false;
+        },
+        deletePost () {
+            axios.delete(`/api/posts/${this.post.id}`).then(() => {
+                this.$router.push({ name: 'Post' })
+            }).catch(() => {
+                // TODO: Gérer l'erreur
+            })
         }
     }
 }

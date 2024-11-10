@@ -11,23 +11,23 @@
             <UserProfilePopup v-if="showProfile" :user-id="post.author.id" class="left-full ml-4" :class="{ 'top-0': isDetails }" />
         </div>
         <div class="text-xl font-semibold my-2">{{ post.title }}</div>
-        <div class="whitespace-pre-line">{{ post.content }}</div>
-        <div v-if="post.surveys.length">
+        <div class="whitespace-pre-line mb-4">{{ post.content }}</div>
+        <div v-if="post.surveys.length" class="flex flex-col gap-4">
             <PostSurvey v-for="survey in post.surveys" :key="survey.id" :survey="survey" @update-survey="updateSurvey" />
         </div>
         <template v-if="!isDetails">
             <hr class="mx-20 mb-2 mt-4">
             <div class="flex justify-end">
-                <div class="w-1/5 text-xs text-zinc-400 flex items-center">
-                    {{ timestamp }}
+                <div class="w-1/3 text-xs text-zinc-400 flex items-center">
+                    {{ timestamp }}<div v-if="post.isEdited" class="font-semibold ml-1">• (modifié)</div>
                 </div>
-                <div class="w-3/5 flex justify-center">
+                <div class="w-1/3 flex justify-center">
                     <div class="text-sky-400 flex gap-2 items-center">
                         <div class="font-semibold mb-1">{{ post.replyCount ?? 0 }}</div>
                         <font-awesome-icon icon="fa-solid fa-reply" />
                     </div>
                 </div>
-                <div class="w-1/5 flex justify-end">
+                <div class="w-1/3 flex justify-end">
                     <cancel-button @click="$router.push({ name: 'PostDetails', params: { id: post.id } })">
                         <div class="flex gap-4 items-center">
                             <div class="mb-px">Voir</div>
@@ -37,10 +37,10 @@
                 </div>
             </div>
         </template>
-        <div v-else class="text-xs text-zinc-400 pt-2">
-            {{ timestamp }}
+        <div v-else class="text-xs text-zinc-400 pt-2 flex">
+            {{ timestamp }}<div v-if="post.isEdited" class="font-semibold ml-1">• (modifié)</div>
         </div>
-        <TooltipAction :actions="actions" :is-hover="isHover" class="absolute top-0 right-0 text-sky-400 cursor-pointer" @select-action="selectAction">
+        <TooltipAction v-if="!isDetails" :actions="actions" :is-hover="isHover" class="absolute top-0 right-0 text-sky-400 cursor-pointer" @select-action="selectAction">
             <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" class="p-4" />
         </TooltipAction>
     </card>
@@ -112,6 +112,8 @@ export default {
         selectAction (action) {
             if (action === 'delete') {
                 this.$emit('delete-post', this.post.id)
+            } else if (action === 'edit') {
+                this.$emit('edit-post', this.post.id)
             }
         }
     }

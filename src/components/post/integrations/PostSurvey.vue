@@ -1,5 +1,5 @@
 <template>
-    <card class="py-2 px-4 mt-4">
+    <card class="py-2 px-4">
         <div class="flex">
             <div class="w-4/5">
                 <div class="text-md font-semibold mb-4">
@@ -46,6 +46,10 @@ export default {
         survey: {
             type: Object,
             required: true
+        },
+        disabled: {
+            type: Boolean,
+            default: false
         }
     },
     data () {
@@ -63,6 +67,9 @@ export default {
     },
     methods: {
         selectOption (option) {
+            if (this.disabled) {
+                return;
+            }
             if (this.selectedId !== option.id) {
                 this.selectedId = option.id;
                 return;
