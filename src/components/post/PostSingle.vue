@@ -11,7 +11,7 @@
             <UserProfilePopup v-if="showProfile" :user-id="post.author.id" class="left-full ml-4" :class="{ 'top-0': isDetails }" />
         </div>
         <div class="text-xl font-semibold my-2">{{ post.title }}</div>
-        <div class="whitespace-pre-line mb-4">{{ post.content }}</div>
+        <ExtendableContent class="mb-4" :content="post.content" />
         <div v-if="post.surveys.length" class="flex flex-col gap-4">
             <PostSurvey v-for="survey in post.surveys" :key="survey.id" :survey="survey" @update-survey="updateSurvey" />
         </div>
@@ -52,6 +52,7 @@ import TooltipAction from '@/components/partials/TooltipAction.vue';
 import PostSurvey from '@/components/post/integrations/PostSurvey.vue';
 import UserProfilePopup from '@/components/user/popup/UserProfilePopup.vue';
 import UserAvatar from '@/components/user/UserAvatar.vue';
+import ExtendableContent from '../partials/ExtendableContent.vue';
 
 
 export default {
@@ -60,7 +61,8 @@ export default {
         TooltipAction,
         PostSurvey,
         UserProfilePopup,
-        UserAvatar
+        UserAvatar,
+        ExtendableContent
     },
     props: {
         post: {
