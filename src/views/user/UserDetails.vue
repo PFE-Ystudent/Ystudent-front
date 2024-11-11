@@ -22,7 +22,11 @@
             <div class="w-3/5">
                 <div class="mt-8 flex flex-col gap-4 mb-32">
                     <template v-if="!isBusy">
-                        <PostSingle v-for="post in posts" :key="post.id" :post="post" @update-survey="updateSurvey" />
+                        <div v-for="post in posts" :key="post.id">
+                                <PostSingle v-if="postIdToEdit !== post.id" :post="post"
+                                            @update-survey="updateSurvey" @deletePost="postIdToDelete = $event" @editPost="postIdToEdit = $event" />
+                                <PostEditForm v-else :post="post" @cancel="postIdToEdit = null" @confirm="editPost" />
+                            </div>
                         <div class="flex justify-center mt-4">
                             <PaginatorSelect v-if="posts.length" v-model="currentPage" :last-page="lastPage" @change="fetchPosts" />
                             <div v-else class="text-lg font-semibold flex items-center gap-4">
@@ -36,6 +40,9 @@
                     </template>
                 </div>
             </div>
+            <ConfirmPopup v-if="postIdToDelete" @close="postIdToDelete = null" @confirm="deletePost">
+                Êtes-vous sûr de vouloir supprimer ce post ?
+            </ConfirmPopup>
         </div>
     </BaseAuth>
 </template>
@@ -48,6 +55,8 @@ import PaginatorSelect from '@/components/partials/PaginatorSelect.vue';
 import axios from '@/axios';
 import UserProfile from '@/components/user/UserProfile.vue';
 import UserProfileLoader from '@/components/loaders/UserProfileLoader.vue';
+import PostEditForm from '@/components/post/forms/PostEditForm.vue';
+import ConfirmPopup from '@/components/partials/popup/ConfirmPopup.vue';
 
 export default {
     name: 'userDetails',
@@ -57,7 +66,9 @@ export default {
         PostSingleLoader,
         PaginatorSelect,
         UserProfile,
-        UserProfileLoader
+        UserProfileLoader,
+        PostEditForm,
+        ConfirmPopup
     },
     data() {
         return {
@@ -66,6 +77,8 @@ export default {
             user: null,
             currentPage: 1,
             lastPage: null,
+            postIdToDelete: null,
+            postIdToEdit: null,
             isBusy: false,
 
         }
@@ -96,6 +109,23 @@ export default {
                 }).finally(() => {
                     this.isBusy = false
                 })
+        },
+        editPost (editedPost) {
+            this.posts = this.posts.map(p => {
+                if (p.id === editedPost.id) {
+                    return editedPost
+                }
+                return p
+            });
+            this.postIdToEdit = null;
+        },
+        deletePost () {
+            const postId = this.postIdToDelete
+            axios.delete(`/api/posts/${postId}`).then(() => {
+                this.posts = this.posts.filter(p => p.id !== postId);
+            }).catch(() => {
+                // TODO: Gérer l'erreur
+            })
         },
         updateSurvey (e) {
             const post = this.posts.find(p => p.id === e.postId);

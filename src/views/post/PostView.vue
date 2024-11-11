@@ -123,7 +123,7 @@ export default {
             post.surveys[surveyIndex] = e.survey;
         },
         editPost (editedPost) {
-            this.posts.forEach(p => {
+            this.posts = this.posts.map(p => {
                 if (p.id === editedPost.id) {
                     return editedPost
                 }
