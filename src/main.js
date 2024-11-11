@@ -13,6 +13,7 @@ import TextInput from '@/components/partials/input/TextInput.vue';
 import SelectInput from '@/components/partials/input/SelectInput.vue';
 import UploadInput from '@/components/partials/input/UploadInput.vue';
 import CardComponent from '@/components/container/CardComponent.vue';
+import UserSelectInput from '@/components/partials/input/UserSelectInput.vue';
 
 
 library.add(fas)
@@ -37,9 +38,10 @@ const app = createApp(App)
                 .component('submit-button', SubmitButton)
                 .component('text-input', TextInput)
                 .component('select-input', SelectInput)
+                .component('user-select-input', UserSelectInput)
                 .component('upload-input', UploadInput)
                 .component('card', CardComponent)
-                .directive("click-outside", clickOutside)
+                .directive('click-outside', clickOutside)
 
 app.use(Vuex)
 app.use(router)

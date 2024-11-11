@@ -4,12 +4,9 @@
             <div v-if="show" class="popup bg-zinc-50 border border-sky-300 shadow-md rounded-md p-4">
                 <div class="text-xl font-semibold mb-2">Confirmation</div>
                 <hr class="mb-2">
-                <template v-if="$slots.hasOwnProperty('default')">
-                    <slot></slot>
-                </template>
-                <template v-else>
+                <slot>
                     Êtes-vous sûr de vouloir faire cette action ?
-                </template>
+                </slot>
                 <div class="mt-8 flex gap-4 justify-end">
                     <cancel-button @click="close">
                         Annuler

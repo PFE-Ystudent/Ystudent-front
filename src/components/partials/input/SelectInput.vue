@@ -17,6 +17,11 @@
             <template #placeholder="">
                 Choisissez une option
             </template>
+            <template #option="{ option }">
+                <slot name="option" :option="option">
+                    {{ option.name }}
+                </slot>
+            </template>
         </multiselect>
         <div v-if="!noMargin" class="text-rose-500 text-xs h-4">
             <div v-for="(error, index) in errors" :key="index">

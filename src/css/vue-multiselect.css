@@ -317,7 +317,7 @@ fieldset[disabled] .multiselect {
 
   .multiselect__option {
     display: block;
-    padding: 12px;
+    padding: 8px;
     min-height: 32px;
     line-height: 16px;
     text-decoration: none;
@@ -332,7 +332,9 @@ fieldset[disabled] .multiselect {
     top: 0;
     right: 0;
     position: absolute;
-    line-height: 40px;
+    height: 100%;
+    display: flex;
+    align-items: center;
     padding-right: 12px;
     padding-left: 20px;
     font-size: 13px;
