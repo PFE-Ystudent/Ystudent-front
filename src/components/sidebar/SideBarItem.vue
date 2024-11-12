@@ -9,7 +9,7 @@
         @click="$router.push({ name: route })"
         @mouseenter="isHover = true" @mouseleave="isHover = false">
         <font-awesome-icon :icon="`fa-solid ${icon}`" size="lg" />
-        <span v-if="isDeploy" class="overflow-x-hidden text-nowrap leading-4">{{ name }}</span>
+        <span v-if="isDeploy" class="overflow-x-hidden text-nowrap leading-4 select-none">{{ name }}</span>
     </div>
 </template>
 

@@ -15,11 +15,8 @@
                     <PostEditForm v-else :post="post" @cancel="isEdited = false" @confirm="editPost" />
                 </template>
                 <PostSingleLoader v-else />
-                <div class="mt-4 px-4">
-                    <PostReplyForm :post-id="postId" @new-reply="addReply" />
-                </div>
-                <div class="mt-4 mb-32 px-4 flex flex-col gap-4">
-                    <PostReplySingle v-for="postReply in postReplies" :key="postReply.id" :post-reply="postReply" />
+                <div v-if="postId" class="px-4 mb-32">
+                    <PostReplies :postId="postId" />
                 </div>
             </div>
             <div v-if="post" class="w-1/5 pl-4">
@@ -46,20 +43,18 @@
 import BaseAuth from '@/views/base/BaseAuth.vue';
 import axios from '@/axios'
 import PostSingleLoader from '@/components/loaders/PostSingleLoader.vue';
-import PostReplyForm from '@/components/post/forms/PostReplyForm.vue';
-import PostReplySingle from '@/components/post/PostReplySingle.vue';
 import PostSingle from '@/components/post/PostSingle.vue';
 import store from '@/store';
 import PostEditForm from '@/components/post/forms/PostEditForm.vue';
 import ConfirmPopup from '@/components/partials/popup/ConfirmPopup.vue';
+import PostReplies from '@/components/post/PostReplies.vue';
 
 export default {
     name: 'PostDetails',
     components: {
         BaseAuth,
         PostSingleLoader,
-        PostReplyForm,
-        PostReplySingle,
+        PostReplies,
         PostSingle,
         PostEditForm,
         ConfirmPopup
@@ -69,16 +64,13 @@ export default {
             user: store.state.auth.user,
             postId: null,
             post: null,
-            isBusy: false,
             isEdited: false,
-            postReplies: [],
             deleteIsVisible: false
         }
     },
     mounted () {
         this.postId = this.$route.params.id
         this.fetchPost();
-        this.fetchPostReplies();
     },
     methods: {
         fetchPost () {
@@ -87,19 +79,6 @@ export default {
                 }).catch(() => {
                     // TODO: rediriger sur une 404
                 })
-        },
-        fetchPostReplies () {
-            this.isBusy = true;
-            axios.get(`/api/posts/${this.postId}/replies`).then(res => {
-                    this.postReplies = res.data.postReplies;
-                }).catch(() => {
-                    // TODO: rediriger sur une 404
-                }).finally(() => {
-                    this.isBusy = false
-                })
-        },
-        addReply (newReply) {
-            this.postReplies.push(newReply)
         },
         editPost (editedPost) {
             this.post = editedPost;

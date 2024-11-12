@@ -10,11 +10,10 @@
                 <rect x="0" y="16" rx="3" ry="3" width="75" height="12" />
             </ContentLoader>
         </div>
-        <ContentLoader viewBox="0 0 250 48" primaryColor="#efefef" secondaryColor="#eaeaea" :speed="0.8">
-            <rect x="0" y="8" rx="3" ry="3" width="100" height="8" />
-            <rect x="0" y="24" rx="3" ry="3" width="200" height="5" />
-            <rect x="0" y="32" rx="3" ry="3" width="150" height="5" />
-            <rect x="0" y="44" rx="3" ry="3" width="32" height="3" />
+        <ContentLoader viewBox="0 0 250 32" primaryColor="#efefef" secondaryColor="#eaeaea" :speed="0.8">
+            <rect x="0" y="8" rx="3" ry="3" width="200" height="5" />
+            <rect x="0" y="16" rx="3" ry="3" width="150" height="5" />
+            <rect x="0" y="28" rx="3" ry="3" width="32" height="3" />
         </ContentLoader>
     </card>
 </template>
@@ -23,7 +22,7 @@
 import { ContentLoader } from 'vue-content-loader'
 
 export default {
-    name: "PostSingleLoader",
+    name: "PostReplySingleLoader",
     components: { ContentLoader }
 }
 </script>

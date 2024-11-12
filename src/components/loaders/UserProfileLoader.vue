@@ -1,5 +1,5 @@
 <template>
-    <card class="w-full shadow px-2 pb-2 cursor-auto">
+    <div class="w-full bg-sky-50 border border-sky-400 rounded-md shadow px-2 pb-2 cursor-auto">
         <div class="flex pl-8" style="background: linear-gradient(to bottom, transparent 60%, white 40%);">
             <ContentLoader width="128" height="128" primaryColor="#efefef" secondaryColor="#eaeaea" :speed="0.8" class="bg-zinc-300 border-8 border-zinc-50 rounded-full">
                 <circle cx="64" cy="64" r="64" />
@@ -35,7 +35,7 @@
                 <rect x="calc(100% - 128px)" y="0" rx="3" ry="3" width="128" height="8" />
             </ContentLoader>
         </div>
-    </card>
+    </div>
 </template>
 
 <script>

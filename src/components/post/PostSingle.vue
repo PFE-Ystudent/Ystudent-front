@@ -53,6 +53,7 @@ import PostSurvey from '@/components/post/integrations/PostSurvey.vue';
 import UserProfilePopup from '@/components/user/popup/UserProfilePopup.vue';
 import UserAvatar from '@/components/user/UserAvatar.vue';
 import ExtendableContent from '../partials/ExtendableContent.vue';
+import formatDate from '@/mixins/formatDate';
 
 
 export default {
@@ -64,6 +65,7 @@ export default {
         UserAvatar,
         ExtendableContent
     },
+    mixins: [formatDate],
     props: {
         post: {
             type: Object,
@@ -92,17 +94,8 @@ export default {
             return [{value: 'report', label: 'Signaler'}]
         },
         timestamp () {
-            const date = new Date(this.post.createdAt)
-            const today = new Date()
-
-            if (date.toLocaleString('fr', { dateStyle: 'short' }) == today.toLocaleString('fr', { dateStyle: 'short' })) {
-                return `Aujourd'hui à ${date.toLocaleString('fr', { hour12: false, hour: "2-digit", minute: "2-digit" })}`
-            } else if (date.toLocaleString('fr', { dateStyle: 'short' }) == new Date(today - 24 * 60 * 60 * 1000).toLocaleString('fr', { dateStyle: 'short' })) {
-                return `Hier à ${date.toLocaleString('fr', { hour12: false, hour: "2-digit", minute: "2-digit" })}`
-            } else {
-                return date.toLocaleString('fr', { hour12: false, dateStyle: "short", timeStyle: "short" })
-            }
-        },
+            return this.formatTimestamp(this.post.createdAt)
+        }
     }, 
     methods: {
         updateSurvey (survey) {
