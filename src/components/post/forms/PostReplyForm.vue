@@ -3,14 +3,14 @@
         <div v-if="showPostReplyForm" class="flex flex-col">
             <div class="flex gap-4">
                 <div class="flex gap-2 items-center">
-                    <div class="w-8 h-8 bg-zinc-300 rounded-full"></div>
+                    <UserAvatar class="w-8 h-8" :avatar="user.avatar" />
                     <div>
                         <div>{{ user.username }}</div>
                         <div class="text-xs text-zinc-400">Membre</div>
                     </div>
                 </div>
             </div>
-            <text-input type="textarea" v-model="replyContent" :errors="errors.replyContent" />
+            <text-input type="textarea" v-model="replyContent" :errors="errors.content" />
         </div>
         <div class="w-full flex justify-end gap-4">
             <cancel-button v-if="showPostReplyForm" @click="hidePostReplyForm">
@@ -28,11 +28,13 @@
 import store from '@/store';
 import axios from '@/axios';
 import CardForm from '@/components/container/CardForm.vue';
+import UserAvatar from '@/components/user/UserAvatar.vue';
 
 export default {
     name: 'PostForm',
     components: {
-        CardForm
+        CardForm,
+        UserAvatar
     },
     props: {
         postId: {
