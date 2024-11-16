@@ -7,7 +7,7 @@
             </div>
             <div class="mt-8 w-full flex flex-col gap-4">
                 <SideBarItem name="Posts" icon="fa-message" route="Post" :is-deploy="isDeploy" />
-                <SideBarItem name="Réseaux" icon="fa-user-group" route="Network" :is-deploy="isDeploy" />
+                <SideBarItem name="Relations" icon="fa-user-group" route="Relation" :is-deploy="isDeploy" />
             </div>
         </div>
     </div>

@@ -103,24 +103,33 @@ export default {
     },
     computed: {
         actions () {
-            if (this.user.id === this.authUser.id) {
-                return [
-                    {value: 'show', label: 'Voir'},
-                    {value: 'edit', label: 'Modifier'}
-                ]
-            }
-            return [
+            const actions = [
                 {value: 'show', label: 'Voir'},
-                {value: 'contact', label: 'Contacter'},
-                {value: 'add', label: 'Ajouter'},
-                {value: 'report', label: 'Signaler'}
             ]
+            if (this.user.id === this.authUser.id) {
+                actions.push({value: 'edit', label: 'Modifier'})
+            } else {
+                actions.push({value: 'contact', label: 'Contacter'})
+
+                if (!this.user.relationType) {
+                    actions.push({value: 'add', label: 'Ajouter'})
+                }
+
+                actions.push({value: 'report', label: 'Signaler'})
+            }
+            return actions
         }
     },
     methods: {
         selectAction (action) {
             if (action === 'show') {
                 this.$router.push({ name: 'UserDetails', params: { id: this.userId } })
+            } else if (action === 'add') {
+                axios.post(`/api/users/${this.userId}/relations/request`).then(() => {
+                    this.user.relationType = 3
+                }).catch(() => {
+                    // TODO: Gérer l'erreur
+                })
             }
         }
     },

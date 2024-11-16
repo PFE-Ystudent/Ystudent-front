@@ -1,7 +1,7 @@
 <template>
-    <div class="w-full bg-sky-50 border border-sky-400 rounded-md shadow px-2 pb-2 cursor-auto">
+    <card class="w-full shadow px-2 pb-2 cursor-auto" :class="isHover ? '!border-sky-500 !bg-sky-50' : ''">
         <div class="flex pl-8" style="background: linear-gradient(to bottom, transparent 60%, white 40%);">
-            <ContentLoader width="128" height="128" primaryColor="#efefef" secondaryColor="#eaeaea" :speed="0.8" class="bg-zinc-300 border-8 border-zinc-50 rounded-full">
+            <ContentLoader width="128" height="128" primaryColor="#efefef" secondaryColor="#eaeaea" :speed="0.8" class="bg-zinc-300 border-8 rounded-full" :class="isHover ? 'border-sky-50' : 'border-zinc-50'">
                 <circle cx="64" cy="64" r="64" />
             </ContentLoader>
             <div class="flex items-end pl-4 w-1/2">
@@ -35,7 +35,7 @@
                 <rect x="calc(100% - 128px)" y="0" rx="3" ry="3" width="128" height="8" />
             </ContentLoader>
         </div>
-    </div>
+    </card>
 </template>
 
 <script>
@@ -45,6 +45,12 @@ export default {
     name: 'UserProfileLoader',
     components: {
         ContentLoader,
+    },
+    props: {
+        isHover: {
+            type: Boolean,
+            default: false
+        }
     },
 }
 </script>

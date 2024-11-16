@@ -1,9 +1,12 @@
 <template>
-    <div class="w-full bg-sky-50 border border-sky-400 rounded-md shadow px-2 pb-2 cursor-auto">
+    <card class="w-full shadow px-2 pb-2 cursor-auto" :class="isHover ? '!border-sky-500 !bg-sky-50' : ''">
         <div class="flex pl-8" style="background: linear-gradient(to bottom, transparent 60%, white 40%);">
-            <UserAvatar class="w-32 h-32" :avatar="user.avatar" customClass="!border-8 !border-sky-50" />
-            <div class="flex items-end pl-4 w-1/2">
-                <div class="w-full h-2/5 flex justify-between">
+            <UserAvatar class="w-32 h-32" :avatar="user.avatar" :customClass="isHover ? '!border-8 !border-sky-50' : '!border-8 !border-zinc-50'" />
+            <div class="flex flex-col pl-4" style="width: calc(100% - 128px);">
+                <div class="w-full h-3/5 flex justify-end items-center gap-4">
+                    <slot></slot>
+                </div>
+                <div class="w-1/2 h-2/5 flex justify-between">
                     <div>
                         <div class="text-xl font-semibold">{{ user.username }}</div>
                         <div class="text-xs text-zinc-400">Membre</div>
@@ -29,7 +32,7 @@
                 Actif depuis le {{ createdAt }}
             </div>
         </div>
-    </div>
+    </card>
 </template>
 
 <script>
@@ -44,6 +47,10 @@ export default {
         user: {
             type: Object,
             required: true
+        },
+        isHover: {
+            type: Boolean,
+            default: false
         }
     },
     computed: {

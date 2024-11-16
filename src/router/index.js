@@ -3,7 +3,7 @@ import LoginView from '@/views/auth/LoginView.vue';
 import RegisterView from '@/views/auth/RegisterView.vue';
 import DashboardView from '@/views/DashboardView.vue';
 import PostView from '@/views/post/PostView.vue';
-import NetworkView from '@/views/network/NetworkView.vue';
+import RelationView from '@/views/relation/RelationView.vue';
 import store from '@/store';
 import PostDetails from '@/views/post/PostDetails.vue';
 import AccountView from '@/views/user/AccountView.vue';
@@ -41,9 +41,9 @@ const routes = [
         meta: {middleware: ["auth"]}
     },
     {
-        path: '/networks',
-        name: 'Network',
-        component: NetworkView,
+        path: '/relations',
+        name: 'Relation',
+        component: RelationView,
         meta: {middleware: ["auth"]}
     },
     {
