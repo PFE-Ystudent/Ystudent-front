@@ -1,5 +1,5 @@
 <template>
-    <card class="w-full shadow px-2 pb-2 cursor-auto" :class="isHover ? '!border-sky-500 !bg-sky-50' : ''">
+    <card class="w-full shadow px-2 pb-2 cursor-auto" :isSelected="isHover">
         <div class="flex pl-8" style="background: linear-gradient(to bottom, transparent 60%, white 40%);">
             <ContentLoader width="128" height="128" primaryColor="#efefef" secondaryColor="#eaeaea" :speed="0.8" class="bg-zinc-300 border-8 rounded-full" :class="isHover ? 'border-sky-50' : 'border-zinc-50'">
                 <circle cx="64" cy="64" r="64" />

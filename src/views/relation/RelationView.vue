@@ -9,9 +9,9 @@
                         </div>
                     </div>
                     <div class="mt-4 flex flex-col gap-4">
-                        <template v-if="this.activeTab !== 'search'">
+                        <template v-if="activeTab !== 'search'">
                             <template v-if="!isBusy">
-                                <UserProfile v-for="user in users" :user="user" :key="user.id">
+                                <UserProfile v-for="user in users" :user="user" :key="user.id" :actionType="activeTab">
                                     <template v-if="this.activeTab === 'request'">
                                         <cancel-button @click="replyRequest(user.id, false)">
                                             <font-awesome-icon icon="fa-solid fa-xmark" />

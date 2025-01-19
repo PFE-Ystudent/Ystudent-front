@@ -3,8 +3,8 @@
         <div>
             <div class="flex gap-4 mt-4">
                 <div class="w-3/5">
-                    <UserProfile v-if="user" :user="user" isHover />
-                    <UserProfileLoader v-else isHover />
+                    <UserProfile v-if="user" :user="user" isSelected />
+                    <UserProfileLoader v-else isSelected />
                 </div>
                 <div>
                     <submit-button>

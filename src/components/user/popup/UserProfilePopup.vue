@@ -118,6 +118,9 @@ export default {
                 actions.push({value: 'report', label: 'Signaler'})
             }
             return actions
+        },
+        createdAt () {
+            return new Date(this.user.createdAt).toLocaleString('fr', { hour12: false, dateStyle: "short" });
         }
     },
     methods: {

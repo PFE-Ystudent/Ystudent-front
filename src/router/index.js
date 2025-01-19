@@ -8,6 +8,7 @@ import store from '@/store';
 import PostDetails from '@/views/post/PostDetails.vue';
 import AccountView from '@/views/user/AccountView.vue';
 import UserDetails from '@/views/user/UserDetails.vue';
+import ConversationView from '@/views/conversation/ConversationView.vue';
 
 const routes = [
     {
@@ -44,6 +45,12 @@ const routes = [
         path: '/relations',
         name: 'Relation',
         component: RelationView,
+        meta: {middleware: ["auth"]}
+    },
+    {
+        path: '/conversations/:id?',
+        name: 'Conversation',
+        component: ConversationView,
         meta: {middleware: ["auth"]}
     },
     {

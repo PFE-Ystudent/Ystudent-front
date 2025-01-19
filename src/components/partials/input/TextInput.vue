@@ -15,21 +15,30 @@
                 :placeholder="placeholder"
                 class="w-full h-8 flex border rounded-md shadow hover:outline-none outline-none border-zinc-300 focus:border-zinc-600 disabled:bg-zinc-200 disabled:border-zinc-400 disabled:text-zinc-400 p-1"
                 :class="[{'!border-rose-500': errors}, inputClass]"
+                :style="type === 'password' || clearable ? 'padding-right: 38px;' : ''"
                 :disabled="disabled"
                 @keypress.enter="$emit('enter')"
+                @input="$emit('input', $event)"
                 @change="$emit('change', $event)" />
             <template v-if="type === 'password'">
                 <div v-if="inputType === 'password'"
-                    class="absolute right-4 top-1/2 transform -translate-y-1/2"
+                    class="absolute right-3 top-1/2 transform -translate-y-1/2"
                     @click="inputType = 'text'">
                     <font-awesome-icon icon="fa-solid fa-eye"
                         class="text-sky-400 cursor-pointer" />
                 </div>
                 <div v-else
-                    class="absolute right-4 top-1/2 transform -translate-y-1/2">
+                    class="absolute right-3 top-1/2 transform -translate-y-1/2">
                     <font-awesome-icon icon="fa-solid fa-eye-slash"
                         @click="inputType = 'password'"
                         class="text-sky-400 cursor-pointer" />
+                </div>
+            </template>
+            <template v-else-if="clearable">
+                <div class="absolute right-3 top-1/2 transform -translate-y-1/2"
+                    @click="clear">
+                    <font-awesome-icon icon="fa-solid fa-xmark"
+                        class="text-zinc-300 hover:text-sky-400 cursor-pointer" />
                 </div>
             </template>
         </div>
@@ -70,6 +79,10 @@ export default {
             type: Boolean,
             default: false
         },
+        clearable: {
+            type: Boolean,
+            default: false
+        },
         noMargin: {
             type: Boolean,
             default: false,
@@ -95,6 +108,12 @@ export default {
             set(value) {
                 this.$emit('update:modelValue', value);
             }
+        }
+    },
+    methods: {
+        clear () {
+            this.internalValue = null;
+            this.$emit('input', null)
         }
     }
 }

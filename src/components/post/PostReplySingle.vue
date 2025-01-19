@@ -1,12 +1,13 @@
 <template>
     <card class="w-full p-4 relative"
           @mouseenter="isHover = true" @mouseleave="isHover = false">
-        <div class="flex gap-2 items-center">
+        <div @click="showProfile = true" v-click-outside="() => {showProfile ? showProfile = false : null}" class="relative flex gap-2 items-center hover:bg-white hover:shadow-md cursor-pointer rounded-md max-w-min pl-1 pr-8">
             <UserAvatar class="w-8 h-8" :avatar="postReply.author.avatar" />
             <div>
                 <div>{{ postReply.author.username }}</div>
                 <div class="text-xs text-zinc-400">Membre</div>
             </div>
+            <UserProfilePopup v-if="showProfile" :user-id="postReply.author.id" class="left-full ml-4" />
         </div>
         <div class="flex">
             <ExtendableContent class="mt-2 w-full" :content="postReply.content" />
@@ -29,8 +30,9 @@ import store from '@/store';
 import UserAvatar from '@/components/user/UserAvatar.vue';
 import formatDate from '@/mixins/formatDate';
 import TooltipAction from '@/components/partials/TooltipAction.vue';
-import ExtendableContent from '../partials/ExtendableContent.vue';
+import ExtendableContent from '@/components/partials/ExtendableContent.vue';
 import axios from '@/axios';
+import UserProfilePopup from '@/components/user/popup/UserProfilePopup.vue';
 
 
 export default {
@@ -38,7 +40,8 @@ export default {
     components: {
         UserAvatar,
         TooltipAction,
-        ExtendableContent
+        ExtendableContent,
+        UserProfilePopup
     },
     mixins: [formatDate],
     props: {
@@ -51,7 +54,8 @@ export default {
         return {
             user: store.state.auth.user,
             isHover: false,
-            upVoteBusy: false
+            upVoteBusy: false,
+            showProfile: false
         }
     },
     computed: {
