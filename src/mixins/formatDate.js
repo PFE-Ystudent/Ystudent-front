@@ -1,6 +1,6 @@
 export default {
     methods: {
-        formatTimestamp: function (createdAt) {
+        formatTimestamp: (createdAt) => {
             const date = new Date(createdAt)
             const today = new Date()
 
@@ -11,6 +11,9 @@ export default {
             } else {
                 return date.toLocaleString('fr', { hour12: false, dateStyle: "short", timeStyle: "short" })
             }
+        },
+        formatDate: (createdAt) => {
+            return new Date(createdAt).toLocaleString('fr', { hour12: false, dateStyle: 'short' })
         }
     }
   }

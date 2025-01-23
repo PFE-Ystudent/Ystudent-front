@@ -5,7 +5,9 @@
             <div class="font-semibold">
                 {{ authUser.id === conversation.requester.id ? conversation.user.username : conversation.requester.username }}
             </div>
-            <div class="text-xs text-nowrap text-ellipsis overflow-hidden">{{ conversation.lastMessage }}</div>
+            <div v-if="conversation.lastMessage" class="text-xs text-nowrap text-ellipsis overflow-hidden">
+                {{ conversation.lastMessage.content }}
+            </div>
         </div>
     </card>
 </template>

@@ -2,9 +2,11 @@
     <BaseAuth>
         <div class="flex gap-4 mt-8">
             <div class="w-80">
-                <ConversationsSection />
+                <ConversationsSection @selectConversation="selectConversation" />
             </div>
-            <div class="w-full bg-green-200">o</div>
+            <div class="w-full">
+                <MessagesSection v-if="selectedConversation" :conversation="selectedConversation" />
+            </div>
         </div>
     </BaseAuth>
 </template>
@@ -13,18 +15,26 @@
 import BaseAuth from '@/views/base/BaseAuth.vue';
 import store from '@/store';
 import ConversationsSection from '@/components/conversation/ConversationsSection.vue';
+import MessagesSection from '@/components/conversation/MessagesSection.vue';
 
 export default {
     name: 'RelationView',
     components: {
         BaseAuth,
-        ConversationsSection
+        ConversationsSection,
+        MessagesSection
     },
     data () {
         return {
-            authUser: store.state.auth.user
+            authUser: store.state.auth.user,
+            selectedConversation: null
         }
-    }
+    },
+    methods: {
+        selectConversation (conversation) {
+            this.selectedConversation = conversation
+        }
+    },
 }
 </script>
 

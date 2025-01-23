@@ -6,15 +6,15 @@
             </div>
             <div style="width: calc(100% - 72px);">
                 <div class="h-16" style="width: calc(100% - 72px);">
-                    <div class="h-16 px-4 bg-zinc-100 border-b-4 border-sky-300 fixed" style="z-index: 90; width: calc(100% - 72px);">
+                    <div class="h-16 px-4 bg-sky-300 border-b-2 border-sky-500 fixed" style="z-index: 90; width: calc(100% - 72px);">
                         <div class="flex h-full justify-between">
                             <div></div>
                             <div class="flex items-center justify-center relative">
                                 <TooltipAction :actions="[{ value: 'account', label: 'Mon compte'}, {value: 'logout', label: 'Déconnexion'}]" @select-action="selectAction">
-                                    <div class="bg-sky-300/50 rounded-md cursor-pointer px-4 py-2 flex items-center gap-4 w-48">
+                                    <card class="cursor-pointer px-4 py-2 flex items-center gap-4 w-48">
                                         <UserAvatar class="w-8 h-8" :avatar="user.avatar" />
                                         <div class="w-2/3 overflow-y-hidden truncate select-none text-black">{{ user.username }}</div>
-                                    </div>
+                                    </card>
                                 </TooltipAction>
                             </div>
                         </div>

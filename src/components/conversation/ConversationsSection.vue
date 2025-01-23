@@ -1,14 +1,14 @@
 <template>
-    <div class="w-full">
-        <div class="mb-2">
+    <div class="w-full" style="height: 85vh;">
+        <div v-if="conversations.length" class="mb-2">
             <text-input v-model="search" placeholder="Recherche" clearable no-margin @input="filtered" />
         </div>
-        <div class="w-full flex flex-col gap-2 overflow-scroll" style="height: 80vh;">
+        <div class="w-full flex flex-col gap-2 overflow-scroll" style="height: calc(85vh - 40px);">
             <ConversationSingle v-for="conversation in filteredConversations"
                                 :key="conversation.id"
                                 :conversation="conversation"
                                 :isSelected="selectedConversationId === conversation.id"
-                                @click="selectConversation(conversation.id)" />
+                                @click="selectConversation(conversation)" />
         </div>
     </div>
 </template>
@@ -34,22 +34,34 @@ export default {
         }
     },
     mounted () {
-        this.selectedConversationId = parseInt(this.$route.params.id)
-        this.fetchConversations()
+        this.fetchConversations().then(() => {
+            let conversation = null;
+            if (this.$route.params.id) {
+                conversation = this.conversations.find(c => c.id === parseInt(this.$route.params.id))
+            } else if (this.conversations.length) {
+                conversation = this.conversations[0]
+            }
+            if (conversation) {
+                this.selectConversation(conversation)
+            } 
+        })
     },
     methods: {
-        fetchConversations () {
+        async fetchConversations () {
             this.isBusy = true
-            axios.get('/api/conversations').then((res) => {
+            return axios.get('/api/conversations').then((res) => {
                 this.conversations = res.data.conversations;
                 this.filteredConversations = this.conversations;
             }).finally(() => {
                 this.isBusy = false
             })
         },
-        selectConversation(conversationId) {
-            this.selectedConversationId = conversationId
-            this.$router.push({ name: 'Conversation', params: { id: conversationId } })
+        selectConversation(conversation) {
+            this.$emit('selectConversation', conversation)
+            this.selectedConversationId = conversation.id
+            if (conversation.id !==  parseInt(this.$route.params.id)) {
+                this.$router.push({ name: 'Conversation', params: { id: conversation.id } })
+            }
         },
         filtered () {
             if (this.search) {
