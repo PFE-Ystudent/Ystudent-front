@@ -1,13 +1,13 @@
 <template>
     <label :for="id" class="w-full">
         <div class="flex w-full h-8 cursor-pointer">
-            <div class="h-full flex items-center justify-center text-white bg-sky-400 border border-sky-500 rounded-l-md py-1 px-2">
+            <div class="h-full flex items-center justify-center text-white bg-primary border border-primary rounded-l-md py-1 px-2">
                 <font-awesome-icon icon="fa-solid fa-arrow-up-from-bracket" />
             </div>
             <div class="file-upload-field w-full h-8 flex border rounded-r-md shadow border-zinc-300 focus:border-zinc-600 p-1 overflow-x-scroll text-nowrap"
                  :class="files.length ? 'text-black' : 'text-zinc-300'">
                 <div v-if="files.length" class="flex gap-1">
-                    <div v-for="(file, index) in files" :key="index" class="flex items-center bg-sky-400 rounded-lg text-sm text-white p-1">
+                    <div v-for="(file, index) in files" :key="index" class="flex items-center bg-primary rounded-lg text-sm text-white p-1">
                         <div class="p-1" @click="deleteFile($event, index)">
                             <font-awesome-icon icon="fa-solid fa-xmark" />
                         </div>

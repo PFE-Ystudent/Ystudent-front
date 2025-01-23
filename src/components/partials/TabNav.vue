@@ -2,12 +2,12 @@
     <div class="flex w-full divide-x-zinc-300 divide-x text-lg cursor-pointer font-semibold text-center border-t border-x border-t-zinc-300 border-x-zinc-300 rounded-t-md">
         <div v-for="tab in tabs"
             :key="tab.value"
-            class="w-full border-b border-zinc-300" :class="{'text-sky-400': tab.value === selectedTab}"
+            class="w-full border-b border-zinc-300" :class="{'text-primary': tab.value === selectedTab}"
             @click="select(tab)">
-            <div class="p-2 hover:text-sky-400 select-none">
+            <div class="p-2 hover:text-primary select-none">
                 {{ tab.name }}
             </div>
-            <div v-if="tab.value === tabs[0].value" class="w-full h-1 bg-sky-400 ease-in duration-200" :style="`transform: translate(${this.selectedIndex}00%, 1px)`"></div>
+            <div v-if="tab.value === tabs[0].value" class="w-full h-1 bg-primary ease-in duration-200" :style="`transform: translate(${this.selectedIndex}00%, 1px)`"></div>
         </div>
     </div>
 </template>

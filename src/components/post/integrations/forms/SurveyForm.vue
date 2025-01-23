@@ -1,6 +1,6 @@
 <template>
     <div class="relative border border-zinc-300 rounded-md px-4 pt-4">
-        <div class="absolute top-0 left-4 text-zinc-300 text-sm font-semibold -translate-y-1/2 bg-zinc-50 px-1 uppercase">Sondage</div>
+        <div class="absolute top-0 left-4 text-zinc-300 text-sm font-semibold -translate-y-1/2 bg-secondary px-1 uppercase">Sondage</div>
         <div class="flex">
             <text-input v-model="data.question" placeholder="Question" noMargin @change="$emit('update', data)" />
             <div class="w-16 pl-4 flex justify-center items-center">

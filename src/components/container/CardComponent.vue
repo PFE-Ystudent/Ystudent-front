@@ -1,5 +1,5 @@
 <template>
-    <div class="rounded-md border" :class="isSelected ? 'border-sky-500 bg-sky-50' : 'border-zinc-300 bg-zinc-50'">
+    <div class="rounded-md border" :class="isSelected ? 'border-selected bg-selected' : 'border-secondary bg-secondary'">
         <slot></slot>
     </div>
 </template>

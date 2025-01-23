@@ -1,5 +1,5 @@
 <template>
-    <div class="absolute w-[320px] bg-zinc-50 border border-zinc-300 rounded-md shadow px-2 pb-2 cursor-auto" style="z-index: 10;"
+    <div class="absolute w-[320px] bg-secondary border border-zinc-300 rounded-md shadow px-2 pb-2 cursor-auto" style="z-index: 10;"
          @mouseenter="isHover = true" @mouseleave="isHover = false">
         <div v-if="user">
             <div class="relative flex justify-center" style="background: linear-gradient(to bottom, transparent 60%, white 40%);">

@@ -4,7 +4,7 @@
             <UserAvatar v-if="withAvatar" class="w-12 h-12" :avatar="message.sender.avatar" />
             <div v-else class="w-12 h-12"></div>
             <div class="relative min-w-36" style="max-width: calc(100% - 56px)" @mouseenter="isHover = true" @mouseleave="isHover = false">
-                <div class="p-2 mt-2 rounded-b-md" :class="[isCurrentUser ? 'bg-zinc-200 text-black rounded-tl-md' : 'bg-sky-300 text-white rounded-tr-md', { '!bg-zinc-300': isEditable }]">
+                <div class="p-2 mt-2 rounded-b-md border" :class="[isCurrentUser ? 'bg-secondary border-secondary text-black rounded-tl-md' : 'bg-primary border-primary text-white rounded-tr-md', { '!bg-selected !border-selected': isEditable }]">
                     <div ref="messageContent" :contentEditable="isEditable" class="outline-none whitespace-pre-wrap" onKeyDown={editMessageAction}>
                       {{ message.content }}
                     </div>
@@ -22,17 +22,17 @@
                 </div>
                 <div v-if="isHover && isCurrentUser" class="absolute -bottom-2 text-white flex shadow rounded-md border right-2 bg-zinc-400">
                     <template v-if="!isEditable">
-                        <div class="px-1.5 py-px hover:bg-sky-300 cursor-pointer" @click="isEditable = true">
+                        <div class="px-1.5 py-px hover:bg-primary cursor-pointer" @click="isEditable = true">
                             <font-awesome-icon icon="fa-solid fa-pen" />
                         </div>
-                        <div class="px-1.5 py-px hover:bg-sky-300 cursor-pointer">
+                        <div class="px-1.5 py-px hover:bg-primary cursor-pointer">
                             <font-awesome-icon icon="fa-solid fa-reply" />
                         </div>
-                        <div class="px-1.5 py-px hover:bg-sky-300 cursor-pointer" onClick={deleteMessageAction}>
+                        <div class="px-1.5 py-px hover:bg-primary cursor-pointer" onClick={deleteMessageAction}>
                             <font-awesome-icon icon="fa-solid fa-trash" />
                         </div>
                     </template>
-                    <div v-else class="px-1.5 py-px hover:bg-sky-300 cursor-pointer" onClick={saveEdit}>
+                    <div v-else class="px-1.5 py-px hover:bg-primary cursor-pointer" onClick={saveEdit}>
                         <font-awesome-icon icon="fa-solid fa-check" />
                     </div>
                 </div>

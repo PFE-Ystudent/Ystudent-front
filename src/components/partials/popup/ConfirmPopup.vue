@@ -1,7 +1,7 @@
 <template>
     <div class="popup-container" @click="handleBackgroundClick">
         <transition name="popup" @after-leave="$emit('close')">
-            <div v-if="show" class="popup bg-zinc-50 border border-sky-300 shadow-md rounded-md p-4">
+            <div v-if="show" class="popup bg-secondary border border-sky-300 shadow-md rounded-md p-4">
                 <div class="text-xl font-semibold mb-2">Confirmation</div>
                 <hr class="mb-2">
                 <slot>

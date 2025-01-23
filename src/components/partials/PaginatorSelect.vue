@@ -2,7 +2,7 @@
         <nav role="navigation" class="flex items-center justify-between">
             <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                 <div>
-                    <ul class="relative z-0 inline-flex shadow-sm rounded-md bg-sky-400">
+                    <ul class="relative z-0 inline-flex shadow-sm rounded-md bg-primary">
                         <!-- Previous Page Link -->
                         <template v-if="currentPage === 1">
                             <li class="disabled">

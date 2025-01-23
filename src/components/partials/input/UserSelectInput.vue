@@ -11,10 +11,10 @@
         </template>
         <template #selection="{ values }">
             <div class="flex gap-2">
-                <div v-for="option in values" :key="option.id" class="bg-sky-300 flex items-center justify-between font-semibold rounded-full text-white w-min">
+                <div v-for="option in values" :key="option.id" class="bg-primary border border-primary flex items-center justify-between font-semibold rounded-full text-white w-min">
                     <div class="flex gap-2">
                         <div>
-                            <UserAvatar class="w-6 h-6" :avatar="option.avatar" />
+                            <UserAvatar class="w-5 h-5" :avatar="option.avatar" />
                         </div>
                         <div>
                             {{ option.name }}

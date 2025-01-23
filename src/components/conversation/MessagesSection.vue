@@ -1,6 +1,6 @@
 <template>
-    <div class="border border-sky-300 rounded-md" style="height: 85vh;">
-        <div class="h-12 bg-sky-50 px-8 flex items-center justify-between border-b border-sky-300 rounded-t-md" >
+    <div class="border border-selected rounded-md" style="height: 85vh;">
+        <div class="h-12 bg-selected px-8 flex items-center justify-between border-b border-selected rounded-t-md" >
             <div class="font-semibold text-lg flex items-center gap-4">
                 <font-awesome-icon icon="fa-solid fa-comments" class="text-sky-300" size="lg" />
                 <div>
@@ -27,7 +27,7 @@
                     :isCurrentUser="message.sender.id == authUser.id" />
             </div>
         </div>
-        <div class="h-16 flex items-center gap-4 px-4 bg-zinc-50 border-t border-sky-300 rounded-b-md">
+        <div class="h-16 flex items-center gap-4 px-4 bg-secondary border-t border-selected rounded-b-md">
             <textarea rows="1" class="w-full resize-none flex border rounded-md shadow hover:outline-none outline-none border-zinc-300 focus:border-zinc-600 p-1"></textarea>
             <submit-button class="h-8">
                 <font-awesome-icon icon="fa-solid fa-paper-plane" class="text-white" />

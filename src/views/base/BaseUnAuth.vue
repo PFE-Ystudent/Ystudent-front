@@ -5,7 +5,7 @@
                 <img src="@/assets/bg.png" class="w-full h-screen"/>
             </div>
             <div class="h-16">
-                <div class="w-full px-4 h-16 bg-zinc-100 border-b-4 border-sky-300 fixed" style="z-index: 100;">
+                <div class="w-full px-4 h-16 bg-secondary border-b-4 border-primary fixed" style="z-index: 100;">
                     <div class="text-3xl text-sky-300 font-semibold h-full flex items-center">
                         YStudent
                     </div>

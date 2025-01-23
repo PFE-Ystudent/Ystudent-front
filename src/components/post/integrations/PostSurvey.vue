@@ -8,7 +8,7 @@
                 </div>
                 <div v-for="(option, index) in survey.options" :key="option.id" class="flex mt-2 items-center cursor-pointer survey-option" @click="selectOption(option)">
                     <div class="flex gap-1 w-3/4">
-                        <div class="border border-sky-600 bg-sky-400 text-white w-8 text-center rounded-l-lg select-none survey-option-order">
+                        <div class="border border-primary bg-primary text-white w-8 text-center rounded-l-lg select-none survey-option-order">
                             {{ index + 1 }}.
                         </div>
                         <div class="border border-zinc-300 px-2 mr-4 rounded-r-lg bg-white w-full" :class="selectedId === option.id || option.isSelected && !selectedId ? 'selected-survey' : 'survey-option-name'">
