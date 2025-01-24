@@ -5,7 +5,7 @@
             <div v-else class="w-12 h-12"></div>
             <div class="relative min-w-36" style="max-width: calc(100% - 56px)" @mouseenter="isHover = true" @mouseleave="isHover = false">
                 <div class="p-2 mt-2 rounded-b-md border" :class="[isCurrentUser ? 'bg-secondary border-secondary text-black rounded-tl-md' : 'bg-primary border-primary text-white rounded-tr-md', { '!bg-selected !border-selected': isEditable }]">
-                    <div ref="messageContent" :contentEditable="isEditable" class="outline-none whitespace-pre-wrap" onKeyDown={editMessageAction}>
+                    <div ref="messageContent" :contentEditable="isEditable" class="outline-none whitespace-pre-wrap" @keydown="editMessageAction">
                       {{ message.content }}
                     </div>
                     <div v-if="message.files && message.files.length" class="flex gap-2 mt-2">
@@ -28,11 +28,11 @@
                         <div class="px-1.5 py-px hover:bg-primary cursor-pointer">
                             <font-awesome-icon icon="fa-solid fa-reply" />
                         </div>
-                        <div class="px-1.5 py-px hover:bg-primary cursor-pointer" onClick={deleteMessageAction}>
+                        <div class="px-1.5 py-px hover:bg-primary cursor-pointer" @click="deleteMessageAction">
                             <font-awesome-icon icon="fa-solid fa-trash" />
                         </div>
                     </template>
-                    <div v-else class="px-1.5 py-px hover:bg-primary cursor-pointer" onClick={saveEdit}>
+                    <div v-else class="px-1.5 py-px hover:bg-primary cursor-pointer" @click="saveEdit">
                         <font-awesome-icon icon="fa-solid fa-check" />
                     </div>
                 </div>
@@ -42,6 +42,7 @@
 </template>
 
 <script>
+import axios from '@/axios';
 import UserAvatar from '@/components/user/UserAvatar.vue';
 import formatDate from '@/mixins/formatDate';
 
@@ -71,6 +72,36 @@ export default {
             isEditable: false
         }
     },
+    methods: {
+        editMessageAction (e) {
+            if (e.keyCode == 13 && !e.shiftKey) {
+                e.preventDefault();
+                this.saveEdit()
+            } else if (e.keyCode == 27) {
+                this.$refs.messageContent.innerText = this.message.content
+                this.isEditable = false
+            }
+        },
+        saveEdit () {
+            this.isEditable = false
+            const content = this.$refs.messageContent.innerText
+            if (content === this.message.content) {
+                return
+            }
+            axios.put(`/api/messages/${this.message.id}`, { content }).then((res) => {
+                    this.$emit('update', res.data.message)
+                }).catch(() => {
+                    // TODO: gérer l'erreur
+                })
+        },
+        deleteMessageAction () {
+            axios.delete(`/api/messages/${this.message.id}`).then(() => {
+                    this.$emit('delete', this.message.id)
+                }).catch(() => {
+                    // TODO: gérer l'erreur
+                })
+        }
+    }
 }
 </script>
 

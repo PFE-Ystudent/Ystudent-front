@@ -19,7 +19,9 @@
                     </div>
                     <MessageSingle :message="message"
                         :withAvatar="i === messages.length - 1 || (i <= messages.length - 1 && message.sender.id != messages[i + 1].sender.id) || formatDate(message.createdAt) != formatDate(messages[i + 1].createdAt)"
-                        :isCurrentUser="message.sender.id == authUser.id" />
+                        :isCurrentUser="message.sender.id == authUser.id"
+                        @update="updateMessage"
+                        @delete="deleteMessage" />
                 </div>
                 <div v-if="!messages.length || (messages.length && messages[messages.length - 1].id === messageBoundary.first)" class="text-zinc-500 px-8 py-4">
                     <div class="text-5xl font-bold mb-3">Bonjour {{ authUser.username }},</div>
@@ -33,8 +35,8 @@
             </template>
         </div>
         <div class="h-16 flex items-center gap-4 px-4 bg-secondary border-t border-selected rounded-b-md">
-            <textarea rows="1" class="w-full resize-none flex border rounded-md shadow hover:outline-none outline-none border-zinc-300 focus:border-zinc-600 p-1"></textarea>
-            <submit-button class="h-8">
+            <textarea v-model="newMessage" rows="1" class="w-full resize-none flex border rounded-md shadow hover:outline-none outline-none border-zinc-300 focus:border-zinc-600 p-1" @keydown.enter="sendMessage($event)"></textarea>
+            <submit-button class="h-8" @click="sendMessage()">
                 <font-awesome-icon icon="fa-solid fa-paper-plane" class="text-white" />
             </submit-button>
         </div>
@@ -69,6 +71,8 @@ export default {
                 first: null,
                 last: null
             },
+            newMessage: null,
+            waitSending: false,
             isBusy: false
         }
     },
@@ -80,6 +84,7 @@ export default {
     },
     watch: {
         conversation () {
+            this.messages = []
             this.isBusy = true
             this.fetchMessages().finally(() => {
                 this.isBusy = false
@@ -92,6 +97,35 @@ export default {
                 this.messages = res.data.messages;
                 this.messageBoundary.first = res.data.firstMessageId;
                 this.messageBoundary.last = res.data.lastMessageId;
+            })
+        },
+        updateMessage (message) {
+            const updatedMessageId = this.messages.findIndex(m => m.id === message.id)
+            this.messages[updatedMessageId] = message
+        },
+        deleteMessage (messageId) {
+            this.messages = this.messages.filter(m => m.id !== messageId)
+        },
+        sendMessage (e) {
+            if (e) {
+                if (e.keyCode !== 13 || (e.keyCode === 13 && e.shiftKey)) {
+                    return
+                }
+                e.preventDefault();
+            }
+  
+            if (this.waitSending || !this.newMessage || !this.newMessage.replaceAll(' ', '')) {
+                return
+            }
+            this.waitSending = true
+            axios.post(`/api/conversations/${this.conversation.id}/messages`, { content: this.newMessage }).then((res) => {
+                if (!this.messages.length || this.messages[0].id === this.messageBoundary.last) {
+                    this.messages.unshift(res.data.message)
+                }
+                this.newMessage = null
+                this.waitSending = false
+            }).catch(() => {
+                // TODO: gérer l'erreur
             })
         }
     },
