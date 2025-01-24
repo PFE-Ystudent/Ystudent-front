@@ -4,11 +4,16 @@
             <text-input v-model="search" placeholder="Recherche" clearable no-margin @input="filtered" />
         </div>
         <div class="w-full flex flex-col gap-2 overflow-scroll" style="height: calc(85vh - 40px);">
-            <ConversationSingle v-for="conversation in filteredConversations"
-                                :key="conversation.id"
-                                :conversation="conversation"
-                                :isSelected="selectedConversationId === conversation.id"
-                                @click="selectConversation(conversation)" />
+            <template v-if="!isBusy">
+                <ConversationSingle v-for="conversation in filteredConversations"
+                                    :key="conversation.id"
+                                    :conversation="conversation"
+                                    :isSelected="selectedConversationId === conversation.id"
+                                    @click="selectConversation(conversation)" />
+            </template>
+            <template v-else>
+                <ConversationSingleLoader v-for="i in 3" :key="i" :class="{'mt-10': i === 1}" />
+            </template>
         </div>
     </div>
 </template>
@@ -17,11 +22,13 @@
 import ConversationSingle from '@/components/conversation/ConversationSingle.vue';
 import axios from '@/axios';
 import store from '@/store';
+import ConversationSingleLoader from '@/components/loaders/ConversationSingleLoader.vue';
 
 export default {
     name: 'ConversationsSection',
     components: {
-        ConversationSingle
+        ConversationSingle,
+        ConversationSingleLoader
     },
     data() {
         return {

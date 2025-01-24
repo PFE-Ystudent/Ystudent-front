@@ -88,7 +88,7 @@ router.beforeEach((to, from, next) => {
     const token = store.state.auth.token;
 
     if (to.meta.middleware && to.meta.middleware.includes("auth") && !token) {
-        return next({ name: 'Login' });
+        return next({ name: 'Login', query: { redirect: to.path } });
     }
     return next();
 });

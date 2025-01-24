@@ -41,6 +41,7 @@ export default {
         if (store.state.auth.token) {
             this.$router.push({ name: 'Dashboard' });
         }
+        
     },
     methods: {
         login() {
@@ -51,6 +52,10 @@ export default {
             }).then(res => {
                     store.commit('login', res.data.token);
                     store.commit('setUser', res.data.user);
+                    if (this.$router.currentRoute.value.query.redirect) {
+                        this.$router.push({ path: this.$router.currentRoute.value.query.redirect })
+                        return
+                    }
                     this.$router.push({ name: 'Dashboard' });
                 })
                 .catch(err => {
