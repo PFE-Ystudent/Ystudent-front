@@ -6,7 +6,7 @@
             </div>
             <div style="width: calc(100% - 72px);">
                 <div class="h-16" style="width: calc(100% - 72px);">
-                    <div class="h-16 px-4 bg-primary border-b-2 border-sky-500 fixed" style="z-index: 90; width: calc(100% - 72px);">
+                    <div class="h-16 px-4 bg-primary border-b-2 border-primary fixed" style="z-index: 90; width: calc(100% - 72px);">
                         <div class="flex h-full justify-between">
                             <div></div>
                             <div class="flex items-center justify-center relative">
@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="mx-4">
-                    <slot></slot>
+                    <router-view />
                 </div>
             </div>
         </div>

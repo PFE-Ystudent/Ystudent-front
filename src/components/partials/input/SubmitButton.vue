@@ -1,7 +1,11 @@
 <template>
-    <button :disabled="disabled"
-        :class="{'hover:border-sky-600 hover:bg-sky-500': !disabled}"
-        class="text-white font-bold rounded px-2 py-px bg-primary border-2 border-primary shadow disabled:bg-zinc-200 disabled:border-zinc-300 flex gap-2 items-center justify-center">
+    <button :disabled="disabled || isBusy"
+        :class="{
+            'hover:border-sky-600 hover:bg-sky-500': !disabled,
+            'bg-zinc-200 border-zinc-300': disabled
+        }"
+        class="text-white font-bold rounded px-2 py-px bg-primary border-2 border-primary shadow flex gap-2 items-center justify-center">
+        <div v-if="isBusy" class="animate-spin w-3.5 h-3.5 rounded-full border-4 border-b-sky-200 border-t-sky-200 border-l-sky-200 border-r-white"></div>
         <slot></slot>
     </button>
 </template>
@@ -11,6 +15,10 @@ export default {
     name: "SubmitButton",
     props: {
         disabled: {
+            type: Boolean,
+            default: false
+        },
+        isBusy: {
             type: Boolean,
             default: false
         }

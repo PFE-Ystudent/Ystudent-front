@@ -9,60 +9,74 @@ import PostDetails from '@/views/post/PostDetails.vue';
 import AccountView from '@/views/user/AccountView.vue';
 import UserDetails from '@/views/user/UserDetails.vue';
 import ConversationView from '@/views/conversation/ConversationView.vue';
+import NotFound from '@/views/default/NotFound.vue';
+import BaseUnAuth from '@/views/base/BaseUnAuth.vue';
+import BaseAuth from '@/views/base/BaseAuth.vue';
 
 const routes = [
     {
         path: '/',
-        name: 'Dashboard',
-        component: DashboardView,
-        meta: {middleware: ["auth"]}
+        component: BaseAuth,
+        meta: { middleware: ["auth"] },
+        children: [
+            {
+                path: '',
+                name: 'Dashboard',
+                component: DashboardView
+            },
+            {
+                path: 'account',
+                name: 'Account',
+                component: AccountView
+            },
+            {
+                path: 'posts',
+                name: 'Post',
+                component: PostView
+            },
+            {
+                path: 'posts/:id',
+                name: 'PostDetails',
+                component: PostDetails
+            },
+            {
+                path: 'users/:id',
+                name: 'UserDetails',
+                component: UserDetails
+            },
+            {
+                path: 'relations',
+                name: 'Relation',
+                component: RelationView
+            },
+            {
+                path: 'conversations/:id?',
+                name: 'Conversation',
+                component: ConversationView
+            }
+        ]
     },
     {
-        path: '/account',
-        name: 'Account',
-        component: AccountView,
-        meta: {middleware: ["auth"]}
+        path: '/',
+        component: BaseUnAuth,
+        children: [
+            {
+                path: 'login',
+                name: 'Login',
+                component: LoginView
+            },
+            {
+                path: 'register',
+                name: 'Register',
+                component: RegisterView
+            }
+        ]
     },
     {
-        path: '/posts',
-        name: 'Post',
-        component: PostView,
-        meta: {middleware: ["auth"]}
-    },
-    {
-        path: '/posts/:id',
-        name: 'PostDetails',
-        component: PostDetails,
-        meta: {middleware: ["auth"]}
-    },
-    {
-        path: '/users/:id',
-        name: 'UserDetails',
-        component: UserDetails,
-        meta: {middleware: ["auth"]}
-    },
-    {
-        path: '/relations',
-        name: 'Relation',
-        component: RelationView,
-        meta: {middleware: ["auth"]}
-    },
-    {
-        path: '/conversations/:id?',
-        name: 'Conversation',
-        component: ConversationView,
-        meta: {middleware: ["auth"]}
-    },
-    {
-        path: '/login',
-        name: 'Login',
-        component: LoginView,
-    },
-    {
-        path: '/register',
-        name: 'Register',
-        component: RegisterView,
-    },
+        path: '/:pathMatch(.*)*',
+        name: 'NotFound',
+        component: NotFound
+    }
 ];
 
 const router = createRouter({
@@ -72,8 +86,9 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     const token = store.state.auth.token;
+
     if (to.meta.middleware && to.meta.middleware.includes("auth") && !token) {
-        return next({ name: 'Login'});
+        return next({ name: 'Login' });
     }
     return next();
 });

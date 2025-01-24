@@ -1,27 +1,21 @@
 <template>
-    <BaseAuth>
-        <div>
-            <div className="mt-4 border-sky-400 border-l-4">
-                <div className="text-3xl pl-2 border-sky-300 border-l-4">
-                Bienvenue <span className="font-semibold text-sky-300">{{ user.username }}</span>
-                </div>
-            </div>
-            <div className="mb-8">
-                Les activités récentes qui pourraient vous intéresser
+    <div>
+        <div className="mt-4 border-sky-400 border-l-4">
+            <div className="text-3xl pl-2 border-sky-300 border-l-4">
+            Bienvenue <span className="font-semibold text-sky-300">{{ user.username }}</span>
             </div>
         </div>
-    </BaseAuth>
+        <div className="mb-8">
+            Les activités récentes qui pourraient vous intéresser
+        </div>
+    </div>
 </template>
 
 <script>
-import BaseAuth from '@/views/base/BaseAuth.vue';
 import store from '@/store';
 
 export default {
     name: 'DashboardView',
-    components: {
-        BaseAuth
-    },
     data () {
         return {
             user: store.state.auth.user

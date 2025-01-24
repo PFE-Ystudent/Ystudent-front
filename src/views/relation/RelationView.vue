@@ -1,45 +1,42 @@
 <template>
-    <BaseAuth>
-        <div class="flex gap-4 mt-8">
-            <div class="w-1/2">
-                <div class="mt-4 mb-32">
-                    <div class="sticky top-[62px]" style="z-index: 1;">
-                        <div class="bg-white pt-4">
-                            <TabNav :tabs="tabs" :default-tab="activeTab" @select="setTab" />
-                        </div>
+    <div class="flex gap-4 mt-8">
+        <div class="w-1/2">
+            <div class="mt-4 mb-32">
+                <div class="sticky top-[62px]" style="z-index: 1;">
+                    <div class="bg-white pt-4">
+                        <TabNav :tabs="tabs" :default-tab="activeTab" @select="setTab" />
                     </div>
-                    <div class="mt-4 flex flex-col gap-4">
-                        <template v-if="activeTab !== 'search'">
-                            <template v-if="!isBusy">
-                                <UserProfile v-for="user in users" :user="user" :key="user.id" :actionType="activeTab">
-                                    <template v-if="this.activeTab === 'request'">
-                                        <cancel-button @click="replyRequest(user.id, false)">
-                                            <font-awesome-icon icon="fa-solid fa-xmark" />
-                                            Refuser
-                                        </cancel-button>
-                                        <submit-button @click="replyRequest(user.id, true)">
-                                            <font-awesome-icon icon="fa-solid fa-user-group" />
-                                            Accepter
-                                        </submit-button>
-                                    </template>
-                                </UserProfile>
-                            </template>
-                            <template v-else>
-                                <UserProfileLoader v-for="i in 3" :key="i" />
-                            </template>
+                </div>
+                <div class="mt-4 flex flex-col gap-4">
+                    <template v-if="activeTab !== 'search'">
+                        <template v-if="!isBusy">
+                            <UserProfile v-for="user in users" :user="user" :key="user.id" :actionType="activeTab">
+                                <template v-if="this.activeTab === 'request'">
+                                    <cancel-button @click="replyRequest(user.id, false)">
+                                        <font-awesome-icon icon="fa-solid fa-xmark" />
+                                        Refuser
+                                    </cancel-button>
+                                    <submit-button @click="replyRequest(user.id, true)">
+                                        <font-awesome-icon icon="fa-solid fa-user-group" />
+                                        Accepter
+                                    </submit-button>
+                                </template>
+                            </UserProfile>
                         </template>
                         <template v-else>
-                            <UserSearch />
+                            <UserProfileLoader v-for="i in 3" :key="i" />
                         </template>
-                    </div>
+                    </template>
+                    <template v-else>
+                        <UserSearch />
+                    </template>
                 </div>
             </div>
         </div>
-    </BaseAuth>
+    </div>
 </template>
 
 <script>
-import BaseAuth from '@/views/base/BaseAuth.vue';
 import store from '@/store';
 import TabNav from '@/components/partials/TabNav.vue';
 import axios from '@/axios';
@@ -50,7 +47,6 @@ import UserSearch from '@/components/user/UserSearch.vue';
 export default {
     name: 'RelationView',
     components: {
-        BaseAuth,
         TabNav,
         UserSearch,
         UserProfile,

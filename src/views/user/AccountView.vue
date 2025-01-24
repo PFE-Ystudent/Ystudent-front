@@ -1,32 +1,29 @@
 <template>
-    <BaseAuth>
-        <div v-if="user" class="w-full flex justify-center mt-8 mb-32">
-            <div class="w-3/5">
-                <CardForm title="Mon compte">
-                    <div class="flex">
-                        <div class="flex flex-col gap-2 items-center justify-end w-44 mr-8">
-                            <UserAvatar :avatar="previewAvatarUrl" class="w-20 h-20" customClass="shadow" />
-                            <upload-input id="avatar-upload" accept="image/*" @select-files="selectFile" />
-                        </div>
-                        <div class="w-full">
-                            <text-input v-model="user.username" type="text" label="Nom d'utilisateur :" :errors="errors.username" />
-                            <text-input v-model="user.email" type="text" label="Email :" disabled />
-                        </div>
+    <div v-if="user" class="w-full flex justify-center mt-8 mb-32">
+        <div class="w-3/5">
+            <CardForm title="Mon compte">
+                <div class="flex">
+                    <div class="flex flex-col gap-2 items-center justify-end w-44 mr-8">
+                        <UserAvatar :avatar="previewAvatarUrl" class="w-20 h-20" customClass="shadow" />
+                        <upload-input id="avatar-upload" accept="image/*" @select-files="selectFile" />
                     </div>
-                    <text-input v-model="user.about" type="textarea" label="A propos :" :errors="errors.about" />
-                    <div class="flex justify-end mt-4">
-                        <submit-button @click="save">
-                            Enregistrer
-                        </submit-button>
+                    <div class="w-full">
+                        <text-input v-model="user.username" type="text" label="Nom d'utilisateur :" :errors="errors.username" />
+                        <text-input v-model="user.email" type="text" label="Email :" disabled />
                     </div>
-                </CardForm>
-            </div>
+                </div>
+                <text-input v-model="user.about" type="textarea" label="A propos :" :errors="errors.about" />
+                <div class="flex justify-end mt-4">
+                    <submit-button @click="save">
+                        Enregistrer
+                    </submit-button>
+                </div>
+            </CardForm>
         </div>
-    </BaseAuth>
+    </div>
 </template>
 
 <script>
-import BaseAuth from '@/views/base/BaseAuth.vue';
 import CardForm from '@/components/container/CardForm.vue';
 import axios from '@/axios';
 import UserAvatar from '@/components/user/UserAvatar.vue';
@@ -34,7 +31,6 @@ import UserAvatar from '@/components/user/UserAvatar.vue';
 export default {
     name: 'AccountView',
     components: {
-        BaseAuth,
         CardForm,
         UserAvatar
     },

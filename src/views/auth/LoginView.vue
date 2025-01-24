@@ -1,41 +1,40 @@
 <template>
-    <BaseUnAuth>
-        <div class="flex justify-center">
-            <div class="w-1/3">
-                <CardForm title="Connexion">
-                    <div class="flex flex-col items-center" @keypress.enter="login">
-                        <text-input v-model="email" label="Email :" type="email" :errors="errors.email" />
-                        <text-input v-model="password" label="Mot de passe :" type="password" :errors="errors.password" />
-                        <div class="mb-2 mt-4">
-                            <submit-button @click="login">Se connecter</submit-button>
-                        </div>
+    <div class="flex justify-center">
+        <div class="w-1/3">
+            <CardForm title="Connexion">
+                <div class="flex flex-col items-center" @keypress.enter="login">
+                    <text-input v-model="email" label="Email :" type="email" :errors="errors.email" />
+                    <text-input v-model="password" label="Mot de passe :" type="password" :errors="errors.password" />
+                    <div class="mb-2 mt-4">
+                        <submit-button @click="login" :isBusy="isBusy">
+                            Se connecter
+                        </submit-button>
                     </div>
-                </CardForm>
-                <div class="w-full text-center text-zinc-500 mt-1">
-                    Vous n'avez pas encore de compte ? <a class="text-sky-300 hover:text-sky-400 underline font-semibold" href="/register">inscrivez-vous ici</a>
                 </div>
+            </CardForm>
+            <div class="w-full text-center text-zinc-500 mt-1">
+                Vous n'avez pas encore de compte ? <a class="text-sky-300 hover:text-sky-400 underline font-semibold" href="/register">inscrivez-vous ici</a>
             </div>
         </div>
-    </BaseUnAuth>
+    </div>
 </template>
 
 <script>
 import axios from '@/axios';
 import store from '@/store';
-import BaseUnAuth from '@/views/base/BaseUnAuth.vue';
 import CardForm from '@/components/container/CardForm.vue';
 
 export default {
     name: "LoginView",
     components: {
-        BaseUnAuth,
         CardForm
     },
     data() {
         return {
             email: '',
             password: '',
-            errors: {}
+            errors: {},
+            isBusy: false
         }
     },
     mounted () {
@@ -45,6 +44,7 @@ export default {
     },
     methods: {
         login() {
+            this.isBusy = true
             axios.post('/api/login', {
                 email: this.email,
                 password: this.password
@@ -55,6 +55,8 @@ export default {
                 })
                 .catch(err => {
                     this.errors = err.response.data.errors
+                }).finally(() => {
+                    this.isBusy = false
                 });
         }
     }
