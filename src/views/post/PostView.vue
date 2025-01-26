@@ -12,7 +12,7 @@
                     <template v-if="!isBusy">
                         <div v-for="post in posts" :key="post.id">
                             <PostSingle v-if="postIdToEdit !== post.id" :post="post"
-                                        @update-survey="updateSurvey" @deletePost="postIdToDelete = $event" @editPost="postIdToEdit = $event" />
+                                        @update-survey="updateSurvey" @deletePost="postIdToDelete = $event" @editPost="postIdToEdit = $event" @share="postToShare = post" />
                             <PostEditForm v-else :post="post" @cancel="postIdToEdit = null" @confirm="editPost" />
                         </div>
                         <div class="flex justify-center mt-4">
@@ -33,10 +33,11 @@
             <div class="w-2/3 mx-auto sticky top-[78px]">
                 <PostFilter :categories="categories" @filter="filter" />
             </div>
-            <ConfirmPopup v-if="postIdToDelete" @close="postIdToDelete = null" @confirm="deletePost">
-                Êtes-vous sûr de vouloir supprimer ce post ?
-            </ConfirmPopup>
         </div>
+        <ConfirmPopup v-if="postIdToDelete" @close="postIdToDelete = null" @confirm="deletePost">
+            Êtes-vous sûr de vouloir supprimer ce post ?
+        </ConfirmPopup>
+        <PostSharePopup v-if="postToShare" :post="postToShare" @close="postToShare = null" />
     </div>
 </template>
 
@@ -51,6 +52,7 @@ import PostFilter from '@/components/post/filters/PostFilter.vue';
 import formatFilterData from '@/mixins/formatFilterData';
 import ConfirmPopup from '@/components/partials/popup/ConfirmPopup.vue';
 import PostEditForm from '@/components/post/forms/PostEditForm.vue';
+import PostSharePopup from '@/components/partials/popup/PostSharePopup.vue';
 
 export default {
     name: 'PostView',
@@ -62,7 +64,8 @@ export default {
         PostForm,
         PostFilter,
         ConfirmPopup,
-        PostEditForm
+        PostEditForm,
+        PostSharePopup
     },
     mixins: [formatFilterData],
     data () {
@@ -76,6 +79,7 @@ export default {
             filterData: null,
             postIdToDelete: null,
             postIdToEdit: null,
+            postToShare: null,
             tabs: [
                 {name: "Nouveaux posts", value: "new"},
                 {name: "Posts suivis", value: "followed"},

@@ -1,5 +1,5 @@
 <template>
-    <select-input v-bind="$attrs" v-model="internalValue" multiple max="1" placeholder="Recherche" :showNoOptions="false">
+    <select-input v-bind="$attrs" v-model="internalValue" multiple :max="max" placeholder="Recherche" :showNoOptions="false">
         <template #option="{ option }">
             <div class="flex gap-4 items-center">
                 <UserAvatar class="w-8 h-8" :avatar="option.avatar" />
@@ -59,6 +59,10 @@ export default {
             type: Boolean,
             default: false
         },
+        max: {
+            type: Number,
+            default: 1
+        }
     },
     computed: {
         internalValue: {

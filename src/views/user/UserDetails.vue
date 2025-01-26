@@ -23,7 +23,7 @@
                 <template v-if="!isBusy">
                     <div v-for="post in posts" :key="post.id">
                             <PostSingle v-if="postIdToEdit !== post.id" :post="post"
-                                        @update-survey="updateSurvey" @deletePost="postIdToDelete = $event" @editPost="postIdToEdit = $event" />
+                                        @update-survey="updateSurvey" @deletePost="postIdToDelete = $event" @editPost="postIdToEdit = $event" @share="postToShare = post" />
                             <PostEditForm v-else :post="post" @cancel="postIdToEdit = null" @confirm="editPost" />
                         </div>
                     <div class="flex justify-center mt-4">
@@ -42,6 +42,7 @@
         <ConfirmPopup v-if="postIdToDelete" @close="postIdToDelete = null" @confirm="deletePost">
             Êtes-vous sûr de vouloir supprimer ce post ?
         </ConfirmPopup>
+        <PostSharePopup v-if="postToShare" :post="postToShare" @close="postToShare = null" />
     </div>
 </template>
 
@@ -54,6 +55,7 @@ import UserProfile from '@/components/user/UserProfile.vue';
 import UserProfileLoader from '@/components/loaders/UserProfileLoader.vue';
 import PostEditForm from '@/components/post/forms/PostEditForm.vue';
 import ConfirmPopup from '@/components/partials/popup/ConfirmPopup.vue';
+import PostSharePopup from '@/components/partials/popup/PostSharePopup.vue';
 
 export default {
     name: 'userDetails',
@@ -64,7 +66,8 @@ export default {
         UserProfile,
         UserProfileLoader,
         PostEditForm,
-        ConfirmPopup
+        ConfirmPopup,
+        PostSharePopup
     },
     data() {
         return {
@@ -75,6 +78,7 @@ export default {
             lastPage: null,
             postIdToDelete: null,
             postIdToEdit: null,
+            postToShare: null,
             isBusy: false,
 
         }

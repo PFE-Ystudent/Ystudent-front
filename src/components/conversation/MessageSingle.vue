@@ -8,6 +8,9 @@
                     <div ref="messageContent" :contentEditable="isEditable" class="outline-none whitespace-pre-wrap" @keydown="editMessageAction">
                       {{ message.content }}
                     </div>
+                    <div v-if="message.post" :class="{ 'mt-2': message.content }">
+                        <PostSingle :post="message.post" isDetails />
+                    </div>
                     <div v-if="message.files && message.files.length" class="flex gap-2 mt-2">
                         <a v-for="(file, i) in message.files" :key="i" target="_blank" :href="file.path" class="p-2 max-w-120 sm:max-w-40 cursor-pointer flex items-center gap-2 bg-[#2121217F] text-sm rounded-md" rel="noreferrer">
                             F
@@ -16,8 +19,15 @@
                             </div>
                         </a>
                     </div>
-                    <div class="text-[10px] w-full mt-1 flex" :class="isCurrentUser ? 'text-black justify-start' : 'text-white justify-end'">
-                        {{ formatTimestamp(message.createdAt) }}{{message.isUpdated ? ' • (modifié)' : '' }}
+                    <div class="text-[10px] w-full mt-1 flex items-center" :class="isCurrentUser ? 'text-black justify-start' : 'text-white justify-end'">
+                        <template v-if="message.post">
+                            <router-link :to="{ name: 'PostDetails', params: { id: message.post.id } }" class="hover:text-primary cursor-pointer mr-1">
+                                <font-awesome-icon icon="fa-solid fa-share-from-square" class="mx-1" />
+                                <span class="underline">Post partagé</span>
+                            </router-link> • 
+                        </template>
+                        {{ formatTimestamp(message.createdAt) }}
+                        <template v-if="message.isUpdated"> • (modifié)</template>
                     </div>
                 </div>
                 <div v-if="isHover && isCurrentUser" class="absolute -bottom-2 text-white flex shadow rounded-md border right-2 bg-zinc-400">
@@ -45,11 +55,13 @@
 import axios from '@/axios';
 import UserAvatar from '@/components/user/UserAvatar.vue';
 import formatDate from '@/mixins/formatDate';
+import PostSingle from '@/components/post/PostSingle.vue';
 
 export default {
     name: 'MessageSingle',
     components: {
         UserAvatar,
+        PostSingle
     },
     mixins: [formatDate],
     props: {

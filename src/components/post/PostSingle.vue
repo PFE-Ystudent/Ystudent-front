@@ -21,8 +21,11 @@
                 <div class="w-1/3 text-xs text-zinc-400 flex items-center">
                     {{ timestamp }}<div v-if="post.isEdited" class="font-semibold ml-1">• (modifié)</div>
                 </div>
-                <div class="w-1/3 flex justify-center">
-                    <div class="text-sky-400 flex gap-2 items-center">
+                <div class="w-1/3 flex justify-center gap-8">
+                    <button class="text-primary" @click="$emit('share')">
+                        <font-awesome-icon icon="fa-solid fa-share-from-square" />
+                    </button>
+                    <div class="text-primary flex gap-2 items-center">
                         <div class="font-semibold mb-1">{{ post.replyCount ?? 0 }}</div>
                         <font-awesome-icon icon="fa-solid fa-reply" />
                     </div>
@@ -52,7 +55,7 @@ import TooltipAction from '@/components/partials/TooltipAction.vue';
 import PostSurvey from '@/components/post/integrations/PostSurvey.vue';
 import UserProfilePopup from '@/components/user/popup/UserProfilePopup.vue';
 import UserAvatar from '@/components/user/UserAvatar.vue';
-import ExtendableContent from '../partials/ExtendableContent.vue';
+import ExtendableContent from '@/components/partials/ExtendableContent.vue';
 import formatDate from '@/mixins/formatDate';
 
 

@@ -18,12 +18,16 @@
                 <PostReplies :postId="postId" />
             </div>
         </div>
-        <div v-if="post" class="w-1/5 pl-4">
+        <div v-if="post" class="w-1/5 pl-4 flex flex-col items-start gap-4">
+            <submit-button @click="isShared = true">
+                <font-awesome-icon icon="fa-solid fa-share-from-square" />
+                Partager
+            </submit-button>
             <template v-if="user.id === post.author.id">
                 <submit-button @click="isEdited = true">
                     Modifier
                 </submit-button>
-                <submit-button class="mt-4" @click="deleteIsVisible = true">
+                <submit-button @click="deleteIsVisible = true">
                     Supprimer
                 </submit-button>
             </template>
@@ -34,6 +38,7 @@
         <ConfirmPopup v-if="deleteIsVisible" @close="deleteIsVisible = false" @confirm="deletePost">
             Êtes-vous sûr de vouloir supprimer ce post ?
         </ConfirmPopup>
+        <PostSharePopup v-if="isShared && post" :post="post" @close="isShared = false" />
     </div>
 </template>
 
@@ -45,6 +50,7 @@ import store from '@/store';
 import PostEditForm from '@/components/post/forms/PostEditForm.vue';
 import ConfirmPopup from '@/components/partials/popup/ConfirmPopup.vue';
 import PostReplies from '@/components/post/PostReplies.vue';
+import PostSharePopup from '@/components/partials/popup/PostSharePopup.vue';
 
 export default {
     name: 'PostDetails',
@@ -53,7 +59,8 @@ export default {
         PostReplies,
         PostSingle,
         PostEditForm,
-        ConfirmPopup
+        ConfirmPopup,
+        PostSharePopup
     },
     data () {
         return {
@@ -61,6 +68,7 @@ export default {
             postId: null,
             post: null,
             isEdited: false,
+            isShared: false,
             deleteIsVisible: false
         }
     },
