@@ -6,7 +6,7 @@
                     <UserAvatar class="w-8 h-8" :avatar="user.avatar" />
                     <div>
                         <div>{{ user.username }}</div>
-                        <div class="text-xs text-zinc-400">Membre</div>
+                        <div class="text-xs text-zinc-400">{{ user.role.name }}</div>
                     </div>
                 </div>
             </div>
@@ -16,8 +16,7 @@
             <cancel-button v-if="showPostReplyForm" @click="hidePostReplyForm">
                 Annuler
             </cancel-button>
-            <submit-button @click="sendReply">
-                <font-awesome-icon :icon="`fa-solid fa-${ showPostReplyForm ? 'paper-plane': 'plus'}`" />
+            <submit-button @click="sendReply" :icon="showPostReplyForm ? 'fa-paper-plane': 'fa-plus'" :isBusy="isBusy">
                 {{ showPostReplyForm ? 'Envoyer la réponse' : 'Répondre'}}
             </submit-button>
         </div>
@@ -48,7 +47,8 @@ export default {
             showPostReplyForm: false,
             categories: [],
             replyContent: null,
-            errors: {}
+            errors: {},
+            isBusy: false
         }
     },
     methods: {
@@ -57,6 +57,10 @@ export default {
                 this.showPostReplyForm = true;
                 return
             }
+            if (this.isBusy) {
+                return
+            }
+            this.isBusy = true
             axios.post(`/api/posts/${this.postId}/replies`, { content: this.replyContent }).then(res => {
                     this.hidePostReplyForm()
                     this.replyContent = null;
@@ -64,6 +68,8 @@ export default {
                 })
                 .catch(err => {
                     this.errors = err.response.data.errors ?? {}
+                }).finally(() => {
+                    this.isBusy = false;
                 });
         },
         hidePostReplyForm () {

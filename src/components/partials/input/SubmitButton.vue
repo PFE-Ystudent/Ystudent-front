@@ -1,11 +1,12 @@
 <template>
     <button :disabled="disabled || isBusy"
-        :class="{
+        :class="[{
             'hover:border-sky-600 hover:bg-sky-500': !disabled,
             'bg-zinc-200 border-zinc-300': disabled
-        }"
-        class="text-white font-bold rounded px-2 py-px bg-primary border-2 border-primary shadow flex gap-2 items-center justify-center">
+        }, icon && !$slots.default ? 'p-1' : 'px-2 py-px']"
+        class="text-white font-bold rounded bg-primary border-2 border-primary shadow flex gap-2 items-center justify-center">
         <div v-if="isBusy" class="animate-spin w-3.5 h-3.5 rounded-full border-4 border-b-sky-200 border-t-sky-200 border-l-sky-200 border-r-white"></div>
+        <font-awesome-icon v-if="icon && !isBusy" :icon="`fa-solid ${icon}`" />
         <slot></slot>
     </button>
 </template>
@@ -21,6 +22,10 @@ export default {
         isBusy: {
             type: Boolean,
             default: false
+        },
+        icon: {
+            type: String,
+            default: null
         }
     }
 }

@@ -11,8 +11,7 @@
             <cancel-button @click="clear">
                 <font-awesome-icon icon="fa-solid fa-filter-circle-xmark" />
             </cancel-button>
-            <submit-button @click="send">
-                <font-awesome-icon icon="fa-solid fa-filter" />
+            <submit-button @click="send" icon="fa-filter">
                 Filtrer
             </submit-button>
         </div>

@@ -1,5 +1,5 @@
 <template>
-    <div class="border border-selected rounded-md" style="height: 85vh;">
+    <div class="bg-white border border-selected rounded-md" style="height: 85vh;">
         <div class="h-12 bg-selected px-8 flex items-center justify-between border-b border-selected rounded-t-md" >
             <div class="font-semibold text-lg flex items-center gap-4">
                 <font-awesome-icon icon="fa-solid fa-comments" class="text-sky-300" size="lg" />

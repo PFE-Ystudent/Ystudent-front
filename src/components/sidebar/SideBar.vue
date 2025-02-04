@@ -9,12 +9,17 @@
                 <SideBarItem name="Posts" icon="fa-message" route="Post" :is-deploy="isDeploy" />
                 <SideBarItem name="Relations" icon="fa-user-group" route="Relation" :is-deploy="isDeploy" />
                 <SideBarItem name="Conversations" icon="fa-comments" route="Conversation" :is-deploy="isDeploy" />
+                <template v-if="isAdmin">
+                    <hr class="w-12 mx-auto border-secondary">
+                    <SideBarItem name="Administration" icon="fa-toolbox" route="Administration" :is-deploy="isDeploy" />
+                </template>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import store from '@/store';
 import SideBarItem from '@/components/sidebar/SideBarItem.vue';
 
 export default {
@@ -24,6 +29,7 @@ export default {
     },
     data () {
         return {
+            isAdmin: store.getters.isAdmin,
             isDeploy: false
         }
     }

@@ -4,7 +4,7 @@
             <UserAvatar class="w-8 h-8" :avatar="editedPost.author.avatar" />
             <div>
                 <div>{{ editedPost.author.username }}</div>
-                <div class="text-xs text-zinc-400">Membre</div>
+                <div class="text-xs text-zinc-400">{{ editedPost.author.role.name }}</div>
             </div>
         </div>
         <div class="text-xl font-semibold my-2">

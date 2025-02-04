@@ -4,7 +4,7 @@
             <UserAvatar class="w-8 h-8" :avatar="postReply.author.avatar" />
             <div>
                 <div>{{ postReply.author.username }}</div>
-                <div class="text-xs text-zinc-400">Membre</div>
+                <div class="text-xs text-zinc-400">{{ postReply.author.role.name }}</div>
             </div>
         </div>
         <div class="flex">

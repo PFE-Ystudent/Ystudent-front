@@ -12,6 +12,8 @@ import ConversationView from '@/views/conversation/ConversationView.vue';
 import NotFound from '@/views/default/NotFound.vue';
 import BaseUnAuth from '@/views/base/BaseUnAuth.vue';
 import BaseAuth from '@/views/base/BaseAuth.vue';
+import AdministrationView from '@/views/admin/AdministrationView.vue';
+import CategoriesGestionView from '@/views/admin/gestion/CategoriesGestionView.vue';
 
 const routes = [
     {
@@ -57,6 +59,23 @@ const routes = [
         ]
     },
     {
+        path: '/administration',
+        component: BaseAuth,
+        meta: { middleware: ["auth", "isAdmin"] },
+        children: [
+            {
+                path: '',
+                name: 'Administration',
+                component: AdministrationView
+            },
+            {
+                path: 'categories',
+                name: 'CategoriesGestion',
+                component: CategoriesGestionView
+            },
+        ]
+    },
+    {
         path: '/',
         component: BaseUnAuth,
         children: [
@@ -86,9 +105,13 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
     const token = store.state.auth.token;
+    const isAdmin = store.getters.isAdmin;
 
     if (to.meta.middleware && to.meta.middleware.includes("auth") && !token) {
         return next({ name: 'Login', query: { redirect: to.path } });
+    }
+    if (to.meta.middleware && to.meta.middleware.includes("isAdmin") && !isAdmin) {
+        return next({ name: 'NotFound' });
     }
     return next();
 });

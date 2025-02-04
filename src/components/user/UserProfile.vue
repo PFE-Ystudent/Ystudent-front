@@ -10,7 +10,7 @@
                 <div class="w-1/2 h-2/5 flex justify-between">
                     <div>
                         <div class="text-xl font-semibold">{{ user.username }}</div>
-                        <div class="text-xs text-zinc-400">Membre</div>
+                        <div class="text-xs text-zinc-400">{{ user.role.name }}</div>
                     </div>
                     <div class="h-full flex items-center">
                         <div class="flex gap-4 py-4 text-sky-400">

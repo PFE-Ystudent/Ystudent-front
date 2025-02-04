@@ -4,7 +4,7 @@
             <PostForm @new-post="addPost" :categories="categories" />
             <div class="mt-4 mb-32">
                 <div class="sticky top-[62px]" style="z-index: 1;">
-                    <div class="bg-white pt-4">
+                    <div class="bg-body pt-4">
                         <TabNav :tabs="tabs" :default-tab="activeTab" @select="setTab" />
                     </div>
                 </div>

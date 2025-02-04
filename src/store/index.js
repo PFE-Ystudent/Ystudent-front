@@ -5,10 +5,10 @@ import createPersistedState from "vuex-persistedstate";
 
 
 const store = new Vuex.Store({
-  modules: {
-    auth,
-  },
-  plugins: [createPersistedState()]
+    modules: {
+        auth,
+    },
+    plugins: [createPersistedState()]
 });
 
 export default store

@@ -4,6 +4,10 @@ const state = {
         id: null,
         username: null,
         email: null,
+        role: {
+            id: null,
+            name: null
+        },
     }
 };
 
@@ -16,11 +20,20 @@ const mutations = {
         state.token = token;
     },
     setUser(state, user) {
+        console.log(user);
+        
         state.user = user;
+    }
+};
+
+const getters = {
+    isAdmin: (state) => {
+        return state.user?.role?.id === 1;
     }
 };
 
 export default {
     state,
-    mutations
+    mutations,
+    getters
 }

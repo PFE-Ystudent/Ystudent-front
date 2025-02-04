@@ -1,12 +1,12 @@
 <template>
-    <card class="w-full relative px-4 pt-4"
+    <card class="w-full relative px-4 pt-4 text-black"
          :class="isDetails ? 'pb-4' : 'pb-2'"
          @mouseenter="isHover = true" @mouseleave="isHover = false">
         <div @click="showProfile = true" v-click-outside="() => {showProfile ? showProfile = false : null}" class="relative flex gap-2 items-center hover:bg-white hover:shadow-md cursor-pointer rounded-md max-w-min pl-1 pr-8">
             <UserAvatar class="w-8 h-8" :avatar="post.author.avatar" />
             <div>
                 <div>{{ post.author.username }}</div>
-                <div class="text-xs text-zinc-400">Membre</div>
+                <div class="text-xs text-zinc-400">{{ post.author.role.name }}</div>
             </div>
             <UserProfilePopup v-if="showProfile" :user-id="post.author.id" class="left-full ml-4" :class="{ 'top-0': isDetails }" />
         </div>

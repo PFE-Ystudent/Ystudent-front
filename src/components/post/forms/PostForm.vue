@@ -6,7 +6,7 @@
                     <UserAvatar class="w-8 h-8" :avatar="user.avatar" />
                     <div>
                         <div>{{ user.username }}</div>
-                        <div class="text-xs text-zinc-400">Membre</div>
+                        <div class="text-xs text-zinc-400">{{ user.role.name }}</div>
                     </div>
                 </div>
                 <text-input v-model="newPost.title" :errors="errors.title" />
@@ -33,8 +33,7 @@
             <cancel-button v-if="showPostForm" @click="hidePostForm">
                 Annuler
             </cancel-button>
-            <submit-button @click="sendPost">
-                <font-awesome-icon :icon="`fa-solid fa-${ showPostForm ? 'paper-plane': 'plus'}`" />
+            <submit-button @click="sendPost" :icon="showPostForm ? 'fa-paper-plane': 'fa-plus'" :isBusy="isBusy">
                 {{ showPostForm ? 'Envoyer le post' : 'Ecrire un post'}}
             </submit-button>
         </div>
@@ -77,7 +76,8 @@ export default {
                 {value: 'annonce', label: 'Annonce'},
             ],
             integrations: [],
-            errors: {}
+            errors: {},
+            isBusy: false
         }
     },
     methods: {
@@ -86,6 +86,10 @@ export default {
                 this.showPostForm = true;
                 return
             }
+            if (this.isBusy) {
+                return
+            }
+            this.isBusy = true;
             axios.post('/api/posts', {
                 ...this.newPost,
                 categories: this.newPost.categories.map(c => c.id),
@@ -98,10 +102,12 @@ export default {
                         categories: []
                     }
                     this.integrations = [];
-                    this.$emit('newPost', res.data)
+                    this.$emit('newPost', res.data);
                 })
                 .catch(err => {
                     this.errors = err.response.data.errors ?? {}
+                }).finally(() => {
+                    this.isBusy = false
                 });
         },
         hidePostForm () {

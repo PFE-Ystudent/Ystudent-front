@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    background-color: var(--color-body);
+}
+
+.admin-table {
+    width: 100%;
+    background-color: white;
+    text-align: left;
+}
+
+.admin-table thead tr {
+    background-color: var(--border-secondary);
+    border: 1px var(--border-secondary) solid;
+}
+
+.admin-table tbody tr {
+    border: 1px var(--border-secondary) solid;
+}
+
+.admin-table tr:nth-child(even) {
+    background-color: var(--color-selected);
+}
+
+.admin-table td, .admin-table th {
+    padding: 6px 8px;
+}
