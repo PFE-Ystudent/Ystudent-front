@@ -1,5 +1,5 @@
 <template>
-    <card class="w-full flex items-center p-2 gap-2 cursor-pointer" :isSelected="isSelected">
+    <card class="w-full flex items-center p-2 gap-2 cursor-pointer text-color" :isSelected="isSelected">
         <UserAvatar class="w-8 h-8" :avatar="conversation.avatar" />
         <div style="width: calc(100% - 40px);">
             <div class="font-semibold">

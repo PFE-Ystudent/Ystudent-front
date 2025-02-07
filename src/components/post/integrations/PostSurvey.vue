@@ -4,14 +4,14 @@
             <div class="w-4/5">
                 <div class="text-md font-semibold mb-4">
                     <div>{{ survey.question }}</div>
-                    <div class="text-zinc-500 text-xs">{{ totalReply }} votes</div>
+                    <div class="text-muted text-xs">{{ totalReply }} votes</div>
                 </div>
                 <div v-for="(option, index) in survey.options" :key="option.id" class="flex mt-2 items-center cursor-pointer survey-option" @click="selectOption(option)">
                     <div class="flex gap-1 w-3/4">
                         <div class="border border-primary bg-primary text-white w-8 text-center rounded-l-lg select-none survey-option-order">
                             {{ index + 1 }}.
                         </div>
-                        <div class="border border-zinc-300 px-2 mr-4 rounded-r-lg bg-white w-full" :class="selectedId === option.id || option.isSelected && !selectedId ? 'selected-survey' : 'survey-option-name'">
+                        <div class="border border-zinc-300 px-2 mr-4 rounded-r-lg bg-body w-full" :class="selectedId === option.id || option.isSelected && !selectedId ? 'selected-survey' : 'survey-option-name'">
                             <template v-if="selectedId !== option.id">
                                 {{ option.name }}
                             </template>
@@ -25,7 +25,7 @@
                             </div>
                         </div>
                     </div>
-                    <div v-if="isReply" class="text-zinc-500 text-xs">
+                    <div v-if="isReply" class="text-muted text-xs">
                         {{ Math.round(100 / totalReply * option.replyCount) }}% <span class="text-zinc-400">({{ option.replyCount }} votes)</span>
                     </div>
                 </div>

@@ -13,7 +13,7 @@
                                 <TooltipAction :actions="[{ value: 'account', label: 'Mon compte'}, {value: 'logout', label: 'Déconnexion'}]" @select-action="selectAction">
                                     <card class="cursor-pointer px-4 py-2 flex items-center gap-4 w-48">
                                         <UserAvatar class="w-8 h-8" :avatar="user.avatar" />
-                                        <div class="w-2/3 overflow-y-hidden truncate select-none text-black">{{ user.username }}</div>
+                                        <div class="w-2/3 overflow-y-hidden truncate select-none text-color">{{ user.username }}</div>
                                     </card>
                                 </TooltipAction>
                             </div>

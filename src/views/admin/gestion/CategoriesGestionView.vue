@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="text-3xl mt-8 flex gap-4 items-center">
+        <div class="text-3xl mt-8 flex gap-4 items-center text-color">
             <router-link :to="{ name: 'Administration' }">
                 <font-awesome-icon icon="fa-solid fa-arrow-left-long" />
             </router-link>

@@ -1,8 +1,8 @@
 <template>
-    <div class="bg-white flex w-full divide-x-zinc-300 divide-x text-lg cursor-pointer font-semibold text-center border-t border-x border-t-zinc-300 border-x-zinc-300 rounded-t-md">
+    <div class="bg-color text-color flex w-full divide-x-secondary divide-x text-lg cursor-pointer font-semibold text-center border-t border-x border-t-secondary border-x-secondary rounded-t-md">
         <div v-for="tab in tabs"
             :key="tab.value"
-            class="w-full border-b border-zinc-300" :class="{'text-primary': tab.value === selectedTab}"
+            class="w-full border-b border-secondary" :class="{'text-primary': tab.value === selectedTab}"
             @click="select(tab)">
             <div class="p-2 hover:text-primary select-none">
                 {{ tab.name }}

@@ -2,7 +2,6 @@ import './bootstrap';
 import { createApp } from 'vue'
 import router from './router';
 import App from './App.vue';
-import Vuex from 'vuex';
 import './index.css'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import {library} from "@fortawesome/fontawesome-svg-core";
@@ -14,6 +13,7 @@ import SelectInput from '@/components/partials/input/SelectInput.vue';
 import UploadInput from '@/components/partials/input/UploadInput.vue';
 import CardComponent from '@/components/container/CardComponent.vue';
 import UserSelectInput from '@/components/partials/input/UserSelectInput.vue';
+import store from '@/store';
 
 
 library.add(fas)
@@ -43,6 +43,6 @@ const app = createApp(App)
                 .component('card', CardComponent)
                 .directive('click-outside', clickOutside)
 
-app.use(Vuex)
+app.use(store)
 app.use(router)
 app.mount('#app')

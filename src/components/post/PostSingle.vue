@@ -1,8 +1,8 @@
 <template>
-    <card class="w-full relative px-4 pt-4 text-black"
+    <card class="w-full relative px-4 pt-4 text-color"
          :class="isDetails ? 'pb-4' : 'pb-2'"
          @mouseenter="isHover = true" @mouseleave="isHover = false">
-        <div @click="showProfile = true" v-click-outside="() => {showProfile ? showProfile = false : null}" class="relative flex gap-2 items-center hover:bg-white hover:shadow-md cursor-pointer rounded-md max-w-min pl-1 pr-8">
+        <div @click="showProfile = true" v-click-outside="() => {showProfile ? showProfile = false : null}" class="relative flex gap-2 items-center hover:bg-body hover:shadow-md cursor-pointer rounded-md max-w-min pl-1 pr-8">
             <UserAvatar class="w-8 h-8" :avatar="post.author.avatar" />
             <div>
                 <div>{{ post.author.username }}</div>
@@ -16,7 +16,7 @@
             <PostSurvey v-for="survey in post.surveys" :key="survey.id" :survey="survey" @update-survey="updateSurvey" />
         </div>
         <template v-if="!isDetails">
-            <hr class="mx-20 mb-2 mt-4">
+            <hr class="mx-20 mb-2 mt-4 border-secondary">
             <div class="flex justify-end">
                 <div class="w-1/3 text-xs text-zinc-400 flex items-center">
                     {{ timestamp }}<div v-if="post.isEdited" class="font-semibold ml-1">• (modifié)</div>

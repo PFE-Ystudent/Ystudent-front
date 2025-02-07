@@ -1,6 +1,6 @@
 <template>
     <div class="w-full">
-        <div v-if="label" class="ml-1 mb-1 text-zinc-500">
+        <div v-if="label" class="ml-1 mb-1 text-muted">
             {{ label }}
         </div>
         <multiselect v-model="internalValue" :options="options"

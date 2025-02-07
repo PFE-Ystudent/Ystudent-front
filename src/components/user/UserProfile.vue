@@ -1,8 +1,8 @@
 <template>
-    <card class="w-full shadow px-2 pb-2 cursor-auto relative" :isSelected="isSelected"
+    <card class="w-full shadow px-2 pb-2 text-color cursor-auto relative" :isSelected="isSelected"
         @mouseenter="isHover = true" @mouseleave="isHover = false">
-        <div class="flex pl-8" style="background: linear-gradient(to bottom, transparent 60%, white 40%);">
-            <UserAvatar class="w-32 h-32" :avatar="user.avatar" :customClass="isSelected ? '!border-8 !border-sky-50' : '!border-8 !border-zinc-50'" />
+        <div class="split-bg flex pl-8">
+            <UserAvatar class="w-32 h-32" :avatar="user.avatar" :customClass="isSelected ? '!p-2 !bg-selected' : '!p-2 !bg-secondary'" />
             <div class="flex flex-col pl-4" style="width: calc(100% - 128px);">
                 <div class="w-full h-3/5 flex justify-end items-center gap-4">
                     <slot></slot>
@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class="bg-white rounded-b-md p-2">
+        <div class="bg-body rounded-b-md p-2">
             <div>{{ user.about }}</div>
             <div class="text-end text-xs text-zinc-400">
                 Actif depuis le {{ createdAt }}
@@ -93,5 +93,7 @@ export default {
 </script>
 
 <style scoped>
-    
+.split-bg {
+    background: linear-gradient(to bottom, transparent 60%, var(--color-body) 40%);
+}
 </style>

@@ -3,7 +3,7 @@
         <table class="admin-table">
             <thead>
                 <tr>
-                    <th v-for="line in headers" :key="line.key">{{ line.label }}</th>
+                    <th v-for="line in headers" :key="line.key" class="text-color">{{ line.label }}</th>
                     <th></th>
                 </tr>
             </thead>
@@ -38,7 +38,7 @@
                 </template>
                 <tr v-else>
                     <td v-for="i in headers.length" :key="i" class="text-center">
-                        <ContentLoader width="128" height="24" primaryColor="#efefef" secondaryColor="#eaeaea" :speed="0.8">
+                        <ContentLoader width="128" height="24" primaryColor="var(--loader-primary)" secondaryColor="var(--loader-secondary)" :speed="0.8">
                             <rect x="0" y="2" rx="3" ry="3" width="128" height="20" />
                         </ContentLoader>
                     </td>

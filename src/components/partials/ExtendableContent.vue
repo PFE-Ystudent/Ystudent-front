@@ -1,7 +1,7 @@
 <template>
     <div class="whitespace-pre-line break-words">
-        {{ displayableContent }}<span v-if="isExtendable && !isExtended" class="text-zinc-500">...</span>
-        <div v-if="isExtendable" @click="isExtended = !isExtended" class="mt-1 text-zinc-400 text-xs hover:underline cursor-pointer w-min text-nowrap">
+        {{ displayableContent }}<span v-if="isExtendable && !isExtended" class="text-muted">...</span>
+        <div v-if="isExtendable" @click="isExtended = !isExtended" class="mt-1 text-muted text-xs hover:underline cursor-pointer w-min text-nowrap">
             Voir {{isExtended ? 'moins' : 'plus'}}
         </div>
     </div>

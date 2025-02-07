@@ -1,7 +1,7 @@
 <template>
     <div class="w-full">
         <div class="sticky top-[62px]" style="z-index: 1;">
-            <div class="bg-white pt-4">
+            <div class="bg-body pt-4">
                 <PostReplyForm :post-id="postId" @new-reply="addReply" />
             </div>
         </div>

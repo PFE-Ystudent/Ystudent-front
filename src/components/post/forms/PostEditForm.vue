@@ -1,6 +1,6 @@
 <template>
-    <card class="w-full relative p-4 !border-sky-300">
-        <div class="relative flex gap-2 items-center hover:bg-white hover:shadow-md cursor-pointer rounded-md max-w-min pl-1 pr-8">
+    <card class="w-full relative p-4 !border-sky-300 text-color">
+        <div class="relative flex gap-2 items-center hover:bg-body hover:shadow-md cursor-pointer rounded-md max-w-min pl-1 pr-8">
             <UserAvatar class="w-8 h-8" :avatar="editedPost.author.avatar" />
             <div>
                 <div>{{ editedPost.author.username }}</div>

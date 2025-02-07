@@ -1,11 +1,11 @@
 <template>
     <div class="w-full">
-        <div v-if="label" class="ml-1 mb-1 text-zinc-500">
+        <div v-if="label" class="ml-1 mb-1 text-muted">
             {{ label }}
         </div>
         <div :class="['w-full relative', {'mt-4': !label && !noMargin}]">
             <textarea v-if="inputType === 'textarea'" v-model="internalValue" rows="8"
-            class="w-full flex border rounded-md shadow hover:outline-none outline-none border-zinc-300 focus:border-zinc-600 p-1"
+            class="w-full flex border rounded-md shadow hover:outline-none outline-none border-secondary bg-body focus:border-zinc-600 p-1"
             :class="[{'!border-rose-500': errors}, inputClass]"
             :disabled="disabled"
             @keypress.enter="$emit('enter')"
@@ -13,7 +13,7 @@
             <input v-else v-model="internalValue"
                 :type="inputType"
                 :placeholder="placeholder"
-                class="w-full h-8 flex border rounded-md shadow hover:outline-none outline-none border-zinc-300 focus:border-zinc-600 disabled:bg-zinc-200 disabled:border-zinc-400 disabled:text-zinc-400 p-1"
+                class="w-full h-8 flex border rounded-md shadow hover:outline-none outline-none border-secondary bg-body focus:border-zinc-600 disabled:bg-zinc-200 disabled:border-zinc-400 disabled:text-zinc-400 p-1"
                 :class="[{'!border-rose-500': errors}, inputClass]"
                 :style="type === 'password' || clearable ? 'padding-right: 38px;' : ''"
                 :disabled="disabled"

@@ -1,11 +1,19 @@
 <template>
-    <router-view />
+    <div class="body" :class="{ 'dark': theme === 'dark' }">
+        <router-view />
+    </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 
 export default {
-    name: 'App'
+    name: 'App',
+    computed: {
+        ...mapState({
+            theme: state => state.parameter.theme
+        })
+    }
 }
 </script>
 

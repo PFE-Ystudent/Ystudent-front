@@ -3,7 +3,7 @@
         <div class="w-80">
             <ConversationsSection @selectConversation="selectConversation" />
         </div>
-        <div class="w-full">
+        <div style="width: calc(100% - 320px)">
             <MessagesSection v-if="selectedConversation" :conversation="selectedConversation" />
         </div>
     </div>

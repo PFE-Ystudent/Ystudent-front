@@ -1,5 +1,5 @@
 <template>
-    <div class="card w-full px-4 py-2 bg-secondary border-y border-l-4 border-r border-y-zinc-300 border-r-zinc-300 border-l-sky-300 rounded-md">
+    <div class="card w-full px-4 py-2 text-color bg-secondary border-y border-l-4 border-r border-y-secondary border-r-secondary border-l-primary rounded-md">
         <div v-if="title" class="title text-sky-300 text-2xl font-semibold mb-2">
             {{ title }}
         </div>

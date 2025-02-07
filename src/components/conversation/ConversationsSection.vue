@@ -1,6 +1,6 @@
 <template>
     <div class="w-full" style="height: 85vh;">
-        <div v-if="conversations.length" class="mb-2">
+        <div v-if="conversations.length" class="mb-2 text-color">
             <text-input v-model="search" placeholder="Recherche" clearable no-margin @input="filtered" />
         </div>
         <div class="w-full flex flex-col gap-2 overflow-scroll" style="height: calc(85vh - 40px);">

@@ -1,7 +1,7 @@
 <template>
     <PopupContainer @close="close">
         <div class="text-xl font-semibold mb-2">Partager le post</div>
-        <hr class="mb-2">
+        <hr class="mb-2 border-secondary">
         <user-select-input v-model="selectedUsers" :options="users" :isBusy="isBusy" label="Avec :" max="5" :errors="errors.users" />
         <text-input v-model="content" label="Message :" placeholder="Message" :errors="errors.content" />
         <PostSingle :post="post" is-details />

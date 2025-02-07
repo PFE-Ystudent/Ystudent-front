@@ -1,5 +1,5 @@
 <template>
-    <card class="w-full p-4 !border-sky-300">
+    <card class="w-full p-4 !border-sky-300 text-color">
         <div class="flex gap-2 items-center">
             <UserAvatar class="w-8 h-8" :avatar="postReply.author.avatar" />
             <div>

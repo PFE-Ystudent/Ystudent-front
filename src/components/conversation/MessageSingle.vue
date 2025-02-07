@@ -4,7 +4,7 @@
             <UserAvatar v-if="withAvatar" class="w-12 h-12" :avatar="message.sender.avatar" />
             <div v-else class="w-12 h-12"></div>
             <div class="relative min-w-36" style="max-width: calc(100% - 56px)" @mouseenter="isHover = true" @mouseleave="isHover = false">
-                <div class="p-2 mt-2 rounded-b-md border" :class="[isCurrentUser ? 'bg-secondary border-secondary text-black rounded-tl-md' : 'bg-primary border-primary text-white rounded-tr-md', { '!bg-selected !border-selected': isEditable }]">
+                <div class="p-2 mt-2 rounded-b-md border" :class="[isCurrentUser ? 'bg-secondary border-secondary text-color rounded-tl-md' : 'bg-primary border-primary text-white rounded-tr-md', { '!bg-selected !border-selected': isEditable }]">
                     <div ref="messageContent" :contentEditable="isEditable" class="outline-none whitespace-pre-wrap" @keydown="editMessageAction">
                       {{ message.content }}
                     </div>
@@ -19,7 +19,7 @@
                             </div>
                         </a>
                     </div>
-                    <div class="text-[10px] w-full mt-1 flex items-center" :class="isCurrentUser ? 'text-black justify-start' : 'text-white justify-end'">
+                    <div class="text-[10px] w-full mt-1 flex items-center" :class="isCurrentUser ? 'text-color justify-start' : 'text-white justify-end'">
                         <template v-if="message.post">
                             <router-link :to="{ name: 'PostDetails', params: { id: message.post.id } }" class="hover:text-primary cursor-pointer mr-1">
                                 <font-awesome-icon icon="fa-solid fa-share-from-square" class="mx-1" />

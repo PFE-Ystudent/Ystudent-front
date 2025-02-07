@@ -1,5 +1,5 @@
 <template>
-    <div v-if="user" class="w-full flex justify-center mt-8 mb-32">
+    <div v-if="user" class="w-full flex justify-end mt-8 mb-32 gap-4">
         <div class="w-3/5">
             <CardForm title="Mon compte">
                 <div class="flex">
@@ -20,13 +20,27 @@
                 </div>
             </CardForm>
         </div>
+        <div class="w-1/5">
+            <submit-button @click="switchTheme">
+                <template v-if="theme === 'dark'">
+                    <font-awesome-icon icon="fa-solid fa-moon" />
+                    Thème sombre
+                </template>
+                <template v-else>
+                    <font-awesome-icon icon="fa-solid fa-sun" />
+                    Thème claire
+                </template>
+            </submit-button>
+        </div>
     </div>
 </template>
 
 <script>
 import CardForm from '@/components/container/CardForm.vue';
 import axios from '@/axios';
+import store from '@/store';
 import UserAvatar from '@/components/user/UserAvatar.vue';
+import { mapState } from 'vuex';
 
 export default {
     name: 'AccountView',
@@ -41,6 +55,11 @@ export default {
             avatar: null,
             errors: {}
         }
+    },
+    computed: {
+        ...mapState({
+            theme: state => state.parameter.theme
+        })
     },
     mounted () {
         axios.get('/api/users/me').then(res => {
@@ -76,6 +95,9 @@ export default {
                 }).catch((err) => {
                     this.errors = err.response.data.errors
                 });
+        },
+        switchTheme () {
+            store.commit('switchTheme')
         }
     },
 }

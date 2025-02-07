@@ -1,7 +1,7 @@
 <template>
-    <card class="w-full p-4 relative"
+    <card class="w-full p-4 relative text-color"
           @mouseenter="isHover = true" @mouseleave="isHover = false">
-        <div @click="showProfile = true" v-click-outside="() => {showProfile ? showProfile = false : null}" class="relative flex gap-2 items-center hover:bg-white hover:shadow-md cursor-pointer rounded-md max-w-min pl-1 pr-8">
+        <div @click="showProfile = true" v-click-outside="() => {showProfile ? showProfile = false : null}" class="relative flex gap-2 items-center hover:bg-body hover:shadow-md cursor-pointer rounded-md max-w-min pl-1 pr-8">
             <UserAvatar class="w-8 h-8" :avatar="postReply.author.avatar" />
             <div>
                 <div>{{ postReply.author.username }}</div>

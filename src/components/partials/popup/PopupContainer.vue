@@ -1,5 +1,5 @@
 <template>
-    <div class="popup-container" @click="handleBackgroundClick">
+    <div class="popup-container text-color" @click="handleBackgroundClick">
         <transition name="popup" @after-leave="close">
             <div v-if="show" class="popup bg-secondary border border-sky-300 shadow-md rounded-md p-4">
                 <slot></slot>

@@ -1,7 +1,7 @@
 <template>
-    <card class="w-full p-4">
+    <card class="w-full p-4 text-color">
         <div class="font-semibold text-lg mb-2">Recherche</div>
-        <hr class="mb-2" />
+        <hr class="mb-2 border-secondary" />
 
         <text-input v-model="filter.search" label="Mots clés :" placeholder="Mots clés" noMargin />
         <text-input v-model="filter.author" label="Auteur :" placeholder="Auteur" class="mt-2" noMargin />

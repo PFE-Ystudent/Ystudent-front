@@ -20,8 +20,6 @@ const mutations = {
         state.token = token;
     },
     setUser(state, user) {
-        console.log(user);
-        
         state.user = user;
     }
 };
