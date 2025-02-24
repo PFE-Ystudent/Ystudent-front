@@ -30,7 +30,7 @@ export default {
         selectConversation (conversation) {
             this.selectedConversation = conversation
         }
-    },
+    }
 }
 </script>
 

@@ -49,6 +49,8 @@ import MessageSingle from './MessageSingle.vue';
 import axios from '@/axios';
 import formatDate from '@/mixins/formatDate';
 import MessageSingleLoader from '@/components/loaders/MessageSingleLoader.vue';
+import echo from '@/echo';
+
 
 export default {
     name: 'MessagesSection',
@@ -76,11 +78,15 @@ export default {
             isBusy: false
         }
     },
+    beforeDestroy() {
+        this.disconnect()
+    },
     mounted () {
         this.isBusy = true
         this.fetchMessages().finally(() => {
             this.isBusy = false
         })
+        this.connect()
     },
     watch: {
         conversation () {
@@ -89,6 +95,8 @@ export default {
             this.fetchMessages().finally(() => {
                 this.isBusy = false
             })
+            this.disconnect()
+            this.connect()
         }
     },
     methods: {
@@ -119,14 +127,35 @@ export default {
             }
             this.waitSending = true
             axios.post(`/api/conversations/${this.conversation.id}/messages`, { content: this.newMessage }).then((res) => {
-                if (!this.messages.length || this.messages[0].id === this.messageBoundary.last) {
-                    this.messages.unshift(res.data.message)
-                }
+                this.addMessage(res.data.message)
                 this.newMessage = null
                 this.waitSending = false
             }).catch(() => {
                 // TODO: gérer l'erreur
             })
+        },
+        addMessage (message) {
+            if (this.messages.length && this.messageBoundary.last === this.messages[0].id) {
+                this.messages.unshift(message)
+                this.messageBoundary.last = message.id
+            }
+        },
+        disconnect () {
+            echo.disconnect(`Conversation.${this.conversation.id}`)
+        },
+        connect () {
+            echo.private(`Conversation.${this.conversation.id}`)
+                .listen('.message.create', (response) => {
+                    if (response.message.sender.id !== this.authUser.id) {
+                        this.addMessage(response.message)
+                    }
+                }).listen('.message.update', (response) => {
+                    this.messages = this.messages.map(message => {
+                        return message.id === response.message.id ? response.message : message
+                    });
+                }).listen('.message.delete', (response) => {
+                    this.messages = this.messages.filter(message => message.id !== response.messageId);
+                });
         }
     },
 }

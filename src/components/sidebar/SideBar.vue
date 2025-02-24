@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed top-0 bottom-0 bg-secondary border-r border-r-secondary rounded-r-md ease-in duration-100"
+    <div class="fixed top-0 bottom-0 bg-secondary border-r border-r-secondary rounded-br-md ease-in duration-100"
         @mouseenter="isDeploy = true" @mouseleave="isDeploy = false" :style="`z-index: 100; width: ${isDeploy ? 200 : 72}px;`">
         <div class="flex flex-col items-center">
             <div class="my-8">
