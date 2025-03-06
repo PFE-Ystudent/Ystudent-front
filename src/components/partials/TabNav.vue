@@ -2,12 +2,15 @@
     <div class="bg-color text-color flex w-full divide-x-secondary divide-x text-lg cursor-pointer font-semibold text-center border-t border-x border-t-secondary border-x-secondary rounded-t-md">
         <div v-for="tab in tabs"
             :key="tab.value"
-            class="w-full border-b border-secondary" :class="{'text-primary': tab.value === selectedTab}"
+            :ref="`tab-container-${tab.value}`"
+            class="w-full border-b border-secondary" :class="{'text-primary': tab.value === selectedTab, 'max-w-min': tab.icon && !tab.name }"
             @click="select(tab)">
-            <div class="p-2 hover:text-primary select-none">
+            <div class="p-2 hover:text-primary select-none" :style="tab.iconColor ? `color: ${tab.iconColor};` : ''">
+                <font-awesome-icon v-if="tab.icon" :icon="`fa-solid ${tab.icon}`" :class="{ 'mr-2': tab.name }" />
                 {{ tab.name }}
             </div>
-            <div v-if="tab.value === tabs[0].value" class="w-full h-1 bg-primary ease-in duration-200" :style="`transform: translate(${this.selectedIndex}00%, 1px)`"></div>
+            <div v-if="tab.value === tabs[0].value" class="h-1 bg-primary ease-in duration-200"
+                 :style="`transform: translate(${translateX}px, 1px); width: ${tabWidth}px`"></div>
         </div>
     </div>
 </template>
@@ -28,18 +31,25 @@ export default {
     data() {
         return {
             selectedTab: null,
-            selectedIndex: null,
+            tabWidth: 0
+        }
+    },
+    computed: {
+        translateX () {
+            const selectedIndex = this.tabs.findIndex(t => t.value === this.selectedTab)
+            return this.tabs.slice(0, selectedIndex !== -1 ? selectedIndex : 0).reduce(
+                (acc, curr) => acc + this.$refs[`tab-container-${curr.value}`][0].getBoundingClientRect().width, selectedIndex ? 1 : 0)
         }
     },
     mounted() {
         this.selectedTab = this.defaultTab || this.tabs[0].value
-        this.selectedIndex = this.tabs.findIndex(t => t.value === this.selectedTab)
+        this.tabWidth = this.$refs[`tab-container-${this.selectedTab}`][0].clientWidth
     },
     methods: {
         select(tab) {
             if (this.selectedTab !== tab.value) {
                 this.selectedTab = tab.value
-                this.selectedIndex = this.tabs.findIndex(t => t.value === this.selectedTab)
+                this.tabWidth = this.$refs[`tab-container-${this.selectedTab}`][0].clientWidth
                 this.$emit('select', this.selectedTab)
             }
         }

@@ -12,7 +12,7 @@
                     <template v-if="!isBusy">
                         <div v-for="post in posts" :key="post.id">
                             <PostSingle v-if="postIdToEdit !== post.id" :post="post"
-                                        @update-survey="updateSurvey" @deletePost="postIdToDelete = $event" @editPost="postIdToEdit = $event" @share="postToShare = post" />
+                                        @update="updatePost" @deletePost="postIdToDelete = $event" @editPost="postIdToEdit = $event" @share="postToShare = post" />
                             <PostEditForm v-else :post="post" @cancel="postIdToEdit = null" @confirm="editPost" />
                         </div>
                         <div class="flex justify-center mt-4">
@@ -81,9 +81,10 @@ export default {
             postIdToEdit: null,
             postToShare: null,
             tabs: [
-                {name: "Nouveaux posts", value: "new"},
-                {name: "Posts suivis", value: "followed"},
-                {name: "Vos posts", value: "me"},
+                { name: 'Nouveaux posts', value: 'new' },
+                { name: 'Posts suivis', value: 'followed' },
+                { name: 'Vos posts', value: 'me' },
+                { icon: 'fa-star', iconColor: '#fbbf24', value: 'favorite' },
             ]
         }
     },
@@ -117,10 +118,10 @@ export default {
                 this.posts = [newPost, ...this.posts]
             }
         },
-        updateSurvey (e) {
-            const post = this.posts.find(p => p.id === e.postId);
-            const surveyIndex = post.surveys.findIndex(s => s.id === e.survey.id);
-            post.surveys[surveyIndex] = e.survey;
+        updatePost ({ postId, field, value }) {
+            const post = this.posts.find(p => p.id === postId);
+            
+            post[field] = value;
         },
         editPost (editedPost) {
             this.posts = this.posts.map(p => {

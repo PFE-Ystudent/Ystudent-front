@@ -57,6 +57,7 @@ import UserProfilePopup from '@/components/user/popup/UserProfilePopup.vue';
 import UserAvatar from '@/components/user/UserAvatar.vue';
 import ExtendableContent from '@/components/partials/ExtendableContent.vue';
 import formatDate from '@/mixins/formatDate';
+import axios from '@/axios';
 
 
 export default {
@@ -94,7 +95,10 @@ export default {
                     {value: 'delete', label: 'Supprimer'},
                 ]
             }
-            return [{value: 'report', label: 'Signaler'}]
+            return [
+                {value: 'favorite', label: this.post.isFavorited ? 'Retirer des favoris' : 'Ajouter au favoris'},
+                {value: 'report', label: 'Signaler'},
+            ]
         },
         timestamp () {
             return this.formatTimestamp(this.post.createdAt)
@@ -102,9 +106,14 @@ export default {
     }, 
     methods: {
         updateSurvey (survey) {
-            this.$emit('update-survey', {
+            const surveys = [...this.post.surveys]
+            const surveyIndex = surveys.findIndex(s => s.id === survey.id);
+            surveys[surveyIndex] = survey;
+
+            this.$emit('update', {
                 postId: this.post.id,
-                survey: survey
+                field: 'surveys',
+                value: surveys
             });
         },
         selectAction (action) {
@@ -112,6 +121,14 @@ export default {
                 this.$emit('delete-post', this.post.id)
             } else if (action === 'edit') {
                 this.$emit('edit-post', this.post.id)
+            } else if (action === 'favorite') {
+                axios.post(`/api/posts/${this.post.id}/favorite`).then(() => {
+                    this.$emit('update', {
+                        postId: this.post.id,
+                        field: 'isFavorited',
+                        value: !this.post.isFavorited
+                    });
+                })
             }
         }
     }
