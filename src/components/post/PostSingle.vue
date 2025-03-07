@@ -16,19 +16,24 @@
             <PostSurvey v-for="survey in post.surveys" :key="survey.id" :survey="survey" @update-survey="updateSurvey" />
         </div>
         <template v-if="!isDetails">
-            <hr class="mx-20 mb-2 mt-4 border-secondary">
+            <hr class="w-2/3 mx-auto mb-2 mt-4 border-secondary">
             <div class="flex justify-end">
                 <div class="w-1/3 text-xs text-zinc-400 flex items-center">
                     {{ timestamp }}<div v-if="post.isEdited" class="font-semibold ml-1">• (modifié)</div>
                 </div>
-                <div class="w-1/3 flex justify-center gap-8">
-                    <button class="text-primary" @click="$emit('share')">
+                <div class="w-1/3 flex justify-center gap-4">
+                    <badge color="#00bc7d" class="cursor-pointer" @click="$emit('share')">
                         <font-awesome-icon icon="fa-solid fa-share-from-square" />
-                    </button>
-                    <div class="text-primary flex gap-2 items-center">
-                        <div class="font-semibold mb-1">{{ post.replyCount ?? 0 }}</div>
+                        Partager
+                    </badge>
+                    <badge color="#8e51ff">
                         <font-awesome-icon icon="fa-solid fa-reply" />
-                    </div>
+                        {{ post.replyCount ?? 0 }} Réponse{{ post.replyCount && post.replyCount > 1 ? 's' : '' }}
+                    </badge>
+                    <badge v-if="post.isFavorited" color="#fbbf24">
+                        <font-awesome-icon icon="fa-solid fa-star" />
+                        Favoris
+                    </badge>
                 </div>
                 <div class="w-1/3 flex justify-end">
                     <cancel-button @click="$router.push({ name: 'PostDetails', params: { id: post.id } })">

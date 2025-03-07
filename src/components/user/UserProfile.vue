@@ -7,21 +7,21 @@
                 <div class="w-full h-3/5 flex justify-end items-center gap-4">
                     <slot></slot>
                 </div>
-                <div class="w-1/2 h-2/5 flex justify-between">
+                <div class="w-2/3 h-2/5 flex justify-between">
                     <div>
                         <div class="text-xl font-semibold">{{ user.username }}</div>
                         <div class="text-xs text-zinc-400">{{ user.role.name }}</div>
                     </div>
                     <div class="h-full flex items-center">
-                        <div class="flex gap-4 py-4 text-sky-400">
-                            <div class="flex items-center font-semibold gap-2 hover:text-sky-500 cursor-pointer">
-                                <div class="text-lg">{{ user.postsCount }}</div>
+                        <div class="flex gap-4 py-4">
+                            <badge color="#c27aff">
                                 <font-awesome-icon icon="fa-solid fa-message" />
-                            </div>
-                            <div class="flex items-center font-semibold gap-2 hover:text-sky-500 cursor-pointer">
-                                <div class="text-lg">{{ user.postRepliesCount }}</div>
+                                {{ user.postsCount }} Post{{ user.postsCount > 1 ? 's' : '' }}
+                            </badge>
+                            <badge color="#8e51ff">
                                 <font-awesome-icon icon="fa-solid fa-reply" />
-                            </div>
+                                {{ user.postRepliesCount }} Réponse{{ user.postRepliesCount > 1 ? 's' : '' }}
+                            </badge>
                         </div>
                     </div>
                 </div>
