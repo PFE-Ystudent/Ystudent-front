@@ -15,6 +15,7 @@
         <div v-if="post.surveys.length" class="flex flex-col gap-4">
             <PostSurvey v-for="survey in post.surveys" :key="survey.id" :survey="survey" @update-survey="updateSurvey" />
         </div>
+        <PostFiles v-if="post.files.length" :files="post.files" />
         <template v-if="!isDetails">
             <hr class="w-2/3 mx-auto mb-2 mt-4 border-secondary">
             <div class="flex justify-end">
@@ -63,6 +64,7 @@ import UserAvatar from '@/components/user/UserAvatar.vue';
 import ExtendableContent from '@/components/partials/ExtendableContent.vue';
 import formatDate from '@/mixins/formatDate';
 import axios from '@/axios';
+import PostFiles from '@/components/post/PostFiles.vue';
 
 
 export default {
@@ -72,7 +74,8 @@ export default {
         PostSurvey,
         UserProfilePopup,
         UserAvatar,
-        ExtendableContent
+        ExtendableContent,
+        PostFiles
     },
     mixins: [formatDate],
     props: {

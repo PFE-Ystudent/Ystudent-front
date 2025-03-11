@@ -12,30 +12,42 @@
                 <text-input v-model="newPost.title" :errors="errors.title" />
             </div>
             <text-input type="textarea" v-model="newPost.content" :errors="errors.content" />
+            <select-input v-model="newPost.categories" label="Catégories :" multiple :options="categories" :errors="errors.categories" />
             <div class="flex flex-col gap-4">
                 <template v-for="(integration, index) in integrations">
-                    <SurveyForm v-if="integration.type === 'survey'" :key="index" :survey="integration.data" @update="integration.data = $event" @delete="deleteIntegration(index)" />
+                    <SurveyForm v-if="integration.type === 'survey'" :key="index" :survey="integration.data" class="mb-4" @update="integration.data = $event" @delete="deleteIntegration(index)" />
                     <div v-if="integration.type === 'annonce'" :key="index">
                         Annonce
                     </div>
                 </template>
+                <div v-if="filesInput">
+                    <upload-input id="upload" accept="image/*" multiple @select-files="selectFile" />
+                </div>
+                <PostFiles v-if="previewfiles.length" :files="previewfiles" />
             </div>
-            <div class="flex justify-end relative">
-                <TooltipAction :actions="actions" @selectAction="addIntegration">
-                    <span class="text-xs text-sky-300 hover:text-sky-400 hover:underline font-semibold cursor-pointer">
-                        Ajouter une intégration
-                    </span>
-                </TooltipAction>
-            </div>
-            <select-input v-model="newPost.categories" label="Catégories :" multiple :options="categories" :errors="errors.categories" />
         </div>
-        <div class="w-full flex justify-end gap-4">
-            <cancel-button v-if="showPostForm" @click="hidePostForm">
-                Annuler
-            </cancel-button>
-            <submit-button @click="sendPost" :icon="showPostForm ? 'fa-paper-plane': 'fa-plus'" :isBusy="isBusy">
-                {{ showPostForm ? 'Envoyer le post' : 'Ecrire un post'}}
-            </submit-button>
+        <div class="w-full flex justify-between">
+            <div class="relative">
+                <div v-if="showPostForm" class="flex gap-4">
+                    <button @click="filesInput = true" class="text-zinc-400 hover:text-primary">
+                        <font-awesome-icon icon="fa-solid fa-images" size="lg" />
+                    </button>
+                    <button @click="addIntegration('survey')" class="text-zinc-400 hover:text-primary">
+                        <font-awesome-icon icon="fa-solid fa-square-poll-vertical" size="lg" />
+                    </button>
+                    <button @click="addIntegration('annonce')" class="text-zinc-400 hover:text-primary">
+                        <font-awesome-icon icon="fa-solid fa-bullhorn" size="lg" />
+                    </button>
+                </div>
+            </div>
+            <div class="flex gap-4">
+                <cancel-button v-if="showPostForm" @click="hidePostForm">
+                    Annuler
+                </cancel-button>
+                <submit-button @click="sendPost" :icon="showPostForm ? 'fa-paper-plane': 'fa-plus'" :isBusy="isBusy">
+                    {{ showPostForm ? 'Envoyer le post' : 'Ecrire un post'}}
+                </submit-button>
+            </div>
         </div>
     </CardForm>
 </template>
@@ -44,17 +56,17 @@
 import store from '@/store';
 import axios from '@/axios';
 import CardForm from '@/components/container/CardForm.vue';
-import TooltipAction from '@/components/partials/TooltipAction.vue';
 import SurveyForm from '@/components/post/integrations/forms/SurveyForm.vue';
 import UserAvatar from '@/components/user/UserAvatar.vue';
+import PostFiles from '../PostFiles.vue';
 
 export default {
     name: 'PostForm',
     components: {
         CardForm,
-        TooltipAction,
         SurveyForm,
-        UserAvatar
+        UserAvatar,
+        PostFiles
     },
     props: {
         categories: {
@@ -71,11 +83,10 @@ export default {
                 content: null,
                 categories: []
             },
-            actions: [
-                {value: 'survey', label: 'Sondage'},
-                {value: 'annonce', label: 'Annonce'},
-            ],
             integrations: [],
+            filesInput: false,
+            files: [],
+            previewfiles: [],
             errors: {},
             isBusy: false
         }
@@ -101,6 +112,7 @@ export default {
                         content: null,
                         categories: []
                     }
+                    this.uploadFile(res.data.id)
                     this.integrations = [];
                     this.$emit('newPost', res.data);
                 })
@@ -113,6 +125,25 @@ export default {
         hidePostForm () {
             this.showPostForm = false
             this.errors = {}
+        },
+        selectFile (files) {
+            this.previewfiles = [];
+            if (files.length) {
+                for (const file of files) {
+                    this.previewfiles.push({url: URL.createObjectURL(file)});
+                }
+                this.files = files;
+            }
+        },
+        uploadFile(postId) {
+            const formData = new FormData();
+            for (const file of this.files) {
+                formData.append('files[]', file)
+            }
+            axios.post(`/api/posts/${postId}/files`, formData).then((res) => {
+                console.log(res);
+                this.files = [];
+            });
         },
         addIntegration (action) {
             this.integrations.push({type: action, data: null});

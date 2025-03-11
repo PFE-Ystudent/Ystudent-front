@@ -108,7 +108,7 @@ router.beforeEach((to, from, next) => {
     const isAdmin = store.getters.isAdmin;
 
     if (to.meta.middleware && to.meta.middleware.includes("auth") && !token) {
-        return next({ name: 'Login', query: { redirect: to.path } });
+        return next({ name: 'Login', query: to.path !== '/' ? { redirect: to.path } : {} });
     }
     if (to.meta.middleware && to.meta.middleware.includes("isAdmin") && !isAdmin) {
         return next({ name: 'NotFound' });
