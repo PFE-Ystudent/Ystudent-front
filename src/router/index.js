@@ -19,7 +19,7 @@ const routes = [
     {
         path: '/',
         component: BaseAuth,
-        meta: { middleware: ["auth"] },
+        meta: { middleware: ['auth'] },
         children: [
             {
                 path: '',
@@ -61,7 +61,7 @@ const routes = [
     {
         path: '/administration',
         component: BaseAuth,
-        meta: { middleware: ["auth", "isAdmin"] },
+        meta: { middleware: ['auth', 'isAdmin'] },
         children: [
             {
                 path: '',
@@ -107,10 +107,10 @@ router.beforeEach((to, from, next) => {
     const token = store.state.auth.token;
     const isAdmin = store.getters.isAdmin;
 
-    if (to.meta.middleware && to.meta.middleware.includes("auth") && !token) {
+    if (to.meta.middleware && to.meta.middleware.includes('auth') && !token) {
         return next({ name: 'Login', query: to.path !== '/' ? { redirect: to.path } : {} });
     }
-    if (to.meta.middleware && to.meta.middleware.includes("isAdmin") && !isAdmin) {
+    if (to.meta.middleware && to.meta.middleware.includes('isAdmin') && !isAdmin) {
         return next({ name: 'NotFound' });
     }
     return next();

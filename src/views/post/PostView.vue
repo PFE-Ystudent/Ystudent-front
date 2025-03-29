@@ -1,43 +1,66 @@
 <template>
     <div class="flex gap-4 mt-8">
         <div class="w-3/5">
-            <PostForm @new-post="addPost" :categories="categories" />
+            <PostForm :categories="categories"
+                      @new-post="addPost" />
             <div class="mt-4 mb-32">
-                <div class="sticky top-[62px]" style="z-index: 1;">
+                <div class="sticky top-[62px]"
+                     style="z-index: 1;">
                     <div class="bg-body pt-4">
-                        <TabNav :tabs="tabs" :default-tab="activeTab" @select="setTab" />
+                        <TabNav :tabs="tabs"
+                                :default-tab="activeTab"
+                                @select="setTab" />
                     </div>
                 </div>
                 <div class="mt-4 flex flex-col gap-4">
                     <template v-if="!isBusy">
-                        <div v-for="post in posts" :key="post.id">
-                            <PostSingle v-if="postIdToEdit !== post.id" :post="post"
-                                        @update="updatePost" @deletePost="postIdToDelete = $event" @editPost="postIdToEdit = $event" @share="postToShare = post" />
-                            <PostEditForm v-else :post="post" @cancel="postIdToEdit = null" @confirm="editPost" />
+                        <div v-for="post in posts"
+                             :key="post.id">
+                            <PostSingle v-if="postIdToEdit !== post.id"
+                                        :post="post"
+                                        @update="updatePost"
+                                        @delete-post="postIdToDelete = $event"
+                                        @edit-post="postIdToEdit = $event"
+                                        @share="postToShare = post" />
+                            <PostEditForm v-else
+                                          :post="post"
+                                          @cancel="postIdToEdit = null"
+                                          @confirm="editPost" />
                         </div>
                         <div class="flex justify-center mt-4">
-                            <PaginatorSelect v-if="posts.length" v-model="currentPage" :last-page="lastPage" @change="fetchPosts" />
-                            <div v-else class="text-lg font-semibold flex items-center gap-4">
-                                <font-awesome-icon icon="fa-solid fa-circle-exclamation" class="text-sky-400" />
+                            <PaginatorSelect v-if="posts.length"
+                                             v-model="currentPage"
+                                             :last-page="lastPage"
+                                             @change="fetchPosts" />
+                            <div v-else
+                                 class="text-lg font-semibold flex items-center gap-4">
+                                <font-awesome-icon icon="fa-solid fa-circle-exclamation"
+                                                   class="text-sky-400" />
                                 Pas de résultats
                             </div>
                         </div>
                     </template>
                     <template v-else>
-                        <PostSingleLoader v-for="i in 3" :key="i" />
+                        <PostSingleLoader v-for="i in 3"
+                                          :key="i" />
                     </template>
                 </div>
             </div>
         </div>
         <div class="w-2/5">
             <div class="w-2/3 mx-auto sticky top-[78px]">
-                <PostFilter :categories="categories" @filter="filter" />
+                <PostFilter :categories="categories"
+                            @filter="filter" />
             </div>
         </div>
-        <ConfirmPopup v-if="postIdToDelete" @close="postIdToDelete = null" @confirm="deletePost">
+        <ConfirmPopup v-if="postIdToDelete"
+                      @close="postIdToDelete = null"
+                      @confirm="deletePost">
             Êtes-vous sûr de vouloir supprimer ce post ?
         </ConfirmPopup>
-        <PostSharePopup v-if="postToShare" :post="postToShare" @close="postToShare = null" />
+        <PostSharePopup v-if="postToShare"
+                        :post="postToShare"
+                        @close="postToShare = null" />
     </div>
 </template>
 
@@ -47,7 +70,7 @@ import PaginatorSelect from '@/components/partials/PaginatorSelect.vue';
 import PostForm from '@/components/post/forms/PostForm.vue';
 import PostSingle from '@/components/post/PostSingle.vue';
 import PostSingleLoader from '@/components/loaders/PostSingleLoader.vue';
-import axios from '@/axios'
+import axios from '@/axios';
 import PostFilter from '@/components/post/filters/PostFilter.vue';
 import formatFilterData from '@/mixins/formatFilterData';
 import ConfirmPopup from '@/components/partials/popup/ConfirmPopup.vue';
@@ -86,13 +109,13 @@ export default {
                 { name: 'Vos posts', value: 'me' },
                 { icon: 'fa-star', iconColor: '#fbbf24', value: 'favorite' },
             ]
-        }
+        };
     },
     created () {
         this.setTab(this.tabs[0].value);
     },
     mounted () {
-        this.fetchCategories()
+        this.fetchCategories();
     },
     methods: {
         fetchCategories () {
@@ -105,47 +128,47 @@ export default {
             this.fetchPosts();
         },
         fetchPosts () {
-            this.isBusy = true
+            this.isBusy = true;
             axios.get(`/api/posts/${this.activeTab}?page=${this.currentPage}&${this.formatFilterData(this.filterData)}`).then(res => {
                     this.posts = res.data.posts;
                     this.lastPage = res.data.lastPage;
                 }).finally(() => {
-                    this.isBusy = false
-                })
+                    this.isBusy = false;
+                });
         },
         addPost (newPost) {
             if (this.activeTab === 'me') {
-                this.posts = [newPost, ...this.posts]
+                this.posts = [newPost, ...this.posts];
             }
         },
         updatePost ({ postId, field, value }) {
             const post = this.posts.find(p => p.id === postId);
-            
+
             post[field] = value;
         },
         editPost (editedPost) {
             this.posts = this.posts.map(p => {
                 if (p.id === editedPost.id) {
-                    return editedPost
+                    return editedPost;
                 }
-                return p
+                return p;
             });
             this.postIdToEdit = null;
         },
         deletePost () {
-            const postId = this.postIdToDelete
+            const postId = this.postIdToDelete;
             axios.delete(`/api/posts/${postId}`).then(() => {
                 this.posts = this.posts.filter(p => p.id !== postId);
             }).catch(() => {
                 // TODO: Gérer l'erreur
-            })
+            });
         },
         filter (data) {
-            this.filterData = data
+            this.filterData = data;
             this.fetchPosts();
         }
     }
-}
+};
 </script>
 
 <style>

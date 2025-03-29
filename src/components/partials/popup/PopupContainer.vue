@@ -1,8 +1,11 @@
 <template>
-    <div class="popup-container text-color" @click="handleBackgroundClick">
-        <transition name="popup" @after-leave="close">
-            <div v-if="show" class="popup bg-secondary border border-sky-300 shadow-md rounded-md p-4">
-                <slot></slot>
+    <div class="popup-container text-color"
+         @click="handleBackgroundClick">
+        <transition name="popup"
+                    @after-leave="close">
+            <div v-if="show"
+                 class="popup bg-secondary border border-sky-300 shadow-md rounded-md p-4">
+                <slot />
             </div>
         </transition>
     </div>
@@ -11,30 +14,30 @@
 <script>
 export default {
     name: 'PopupContainer',
-    data() {
+    data () {
         return {
             show: false
         };
     },
-    mounted() {
-        this.show = true
+    mounted () {
+        this.show = true;
         document.body.classList.add('no-scroll-in-popup');
         document.addEventListener('keydown', this.handleKeydown);
     },
-    beforeUnmount() {
+    beforeUnmount () {
         document.body.classList.remove('no-scroll-in-popup');
         document.removeEventListener('keydown', this.handleKeydown);
     },
     methods: {
         close () {
-            this.$emit('close')
+            this.$emit('close');
         },
-        handleKeydown(event) {
+        handleKeydown (event) {
             if (event.key === 'Escape') {
                 this.close();
             }
         },
-        handleBackgroundClick(event) {
+        handleBackgroundClick (event) {
             if (event.target === event.currentTarget) {
                 this.close();
             }

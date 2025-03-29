@@ -1,11 +1,14 @@
 <template>
-    <card class="w-full flex items-center p-2 gap-2 cursor-pointer text-color" :isSelected="isSelected">
-        <UserAvatar class="w-8 h-8" :avatar="conversation.avatar" />
+    <card class="w-full flex items-center p-2 gap-2 cursor-pointer text-color"
+          :is-selected="isSelected">
+        <UserAvatar class="w-8 h-8"
+                    :avatar="conversation.avatar" />
         <div style="width: calc(100% - 40px);">
             <div class="font-semibold">
                 {{ authUser.id === conversation.requester.id ? conversation.user.username : conversation.requester.username }}
             </div>
-            <div v-if="conversation.lastMessage" class="text-xs text-nowrap text-ellipsis overflow-hidden">
+            <div v-if="conversation.lastMessage"
+                 class="text-xs text-nowrap text-ellipsis overflow-hidden">
                 {{ conversation.lastMessage.content }}
             </div>
         </div>
@@ -14,7 +17,7 @@
 
 <script>
 import UserAvatar from '@/components/user/UserAvatar.vue';
-import store from '@/store'
+import store from '@/store';
 
 export default {
     name: 'ConversationSingle',
@@ -31,12 +34,12 @@ export default {
             default: false
         }
     },
-    data() {
+    data () {
         return {
             authUser: store.state.auth.user
-        }
+        };
     },
-}
+};
 </script>
 
 <style scoped>

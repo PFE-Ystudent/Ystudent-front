@@ -1,9 +1,7 @@
-import Vuex from 'vuex'
-import auth from './modules/auth'
+import Vuex from 'vuex';
+import auth from './modules/auth';
 import parameter from './modules/parameter';
-import createPersistedState from "vuex-persistedstate";
-
-
+import createPersistedState from 'vuex-persistedstate';
 
 const store = new Vuex.Store({
     modules: {
@@ -13,4 +11,4 @@ const store = new Vuex.Store({
     plugins: [createPersistedState()]
 });
 
-export default store
+export default store;

@@ -2,18 +2,34 @@
     <div class="flex justify-center">
         <div class="w-1/3">
             <CardForm title="Inscription">
-                <div class="flex flex-col items-center" @keypress.enter="login">
-                    <text-input label="Nom d'utilisateur :" v-model="username" :errors="errors.username" />
-                    <text-input label="Email :" type="email" v-model="email" :errors="errors.email" />
-                    <text-input label="Mot de passe :" type="password" v-model="password" :errors="errors.password" />
-                    <text-input label="Confirmer le mot de passe :" type="password" v-model="password_confirmation" :errors="errors.password_confirmation" />
+                <div class="flex flex-col items-center"
+                     @keypress.enter="login">
+                    <text-input v-model="username"
+                                label="Nom d'utilisateur :"
+                                :errors="errors.username" />
+                    <text-input v-model="email"
+                                label="Email :"
+                                type="email"
+                                :errors="errors.email" />
+                    <text-input v-model="password"
+                                label="Mot de passe :"
+                                type="password"
+                                :errors="errors.password" />
+                    <text-input v-model="password_confirmation"
+                                label="Confirmer le mot de passe :"
+                                type="password"
+                                :errors="errors.password_confirmation" />
                     <div class="mb-2 mt-4">
-                        <submit-button :isBusy="isBusy" @click="register">S'inscrire</submit-button>
+                        <submit-button :is-busy="isBusy"
+                                       @click="register">
+                            S'inscrire
+                        </submit-button>
                     </div>
                 </div>
             </CardForm>
             <div class="w-full text-center text-muted mt-1">
-                Vous avez déjà un compte ? <a class="text-sky-300 hover:text-sky-400 underline font-semibold" href="/login">connectez-vous ici</a>
+                Vous avez déjà un compte ? <a class="text-sky-300 hover:text-sky-400 underline font-semibold"
+                                              href="/login">connectez-vous ici</a>
             </div>
         </div>
     </div>
@@ -25,11 +41,11 @@ import store from '@/store';
 import CardForm from '@/components/container/CardForm.vue';
 
 export default {
-    name: "RegisterView",
+    name: 'RegisterView',
     components: {
         CardForm
     },
-    data() {
+    data () {
         return {
             username: '',
             email: '',
@@ -37,7 +53,7 @@ export default {
             password_confirmation: '',
             errors: {},
             isBusy: false
-        }
+        };
     },
     mounted () {
         if (store.state.auth.token) {
@@ -45,8 +61,8 @@ export default {
         }
     },
     methods: {
-        register() {
-            this.isBusy = true
+        register () {
+            this.isBusy = true;
             axios.post('/api/register', {
                 email: this.email,
                 username: this.username,
@@ -58,11 +74,11 @@ export default {
                     this.$router.push({ name: 'Dashboard' });
                 })
                 .catch(err => {
-                    this.errors = err.response.data.errors ?? {}
+                    this.errors = err.response.data.errors ?? {};
                 }).finally(() => {
-                    this.isBusy = false
+                    this.isBusy = false;
                 });
         }
     }
-}
+};
 </script>

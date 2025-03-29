@@ -1,5 +1,5 @@
 import Echo from 'laravel-echo';
-import store from '@/store'
+import store from '@/store';
 
 import Pusher from 'pusher-js';
 window.Pusher = Pusher;

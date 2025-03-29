@@ -1,11 +1,11 @@
 import './bootstrap';
-import { createApp } from 'vue'
+import { createApp } from 'vue';
 import router from './router';
 import App from './App.vue';
-import './index.css'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
+import './index.css';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 import CancelButton from '@/components/partials/input/CancelButton.vue';
 import SubmitButton from '@/components/partials/input/SubmitButton.vue';
 import TextInput from '@/components/partials/input/TextInput.vue';
@@ -16,8 +16,7 @@ import UserSelectInput from '@/components/partials/input/UserSelectInput.vue';
 import store from '@/store';
 import TextBadge from '@/components/partials/TextBadge.vue';
 
-
-library.add(fas)
+library.add(fas);
 
 const clickOutside = {
     beforeMount: (el, binding) => {
@@ -26,10 +25,10 @@ const clickOutside = {
                 binding.value();
             }
         };
-        document.addEventListener("click", el.clickOutsideEvent);
+        document.addEventListener('click', el.clickOutsideEvent);
     },
     unmounted: el => {
-        document.removeEventListener("click", el.clickOutsideEvent);
+        document.removeEventListener('click', el.clickOutsideEvent);
     },
 };
 
@@ -43,8 +42,8 @@ const app = createApp(App)
     .component('upload-input', UploadInput)
     .component('card', CardComponent)
     .component('badge', TextBadge)
-    .directive('click-outside', clickOutside)
+    .directive('click-outside', clickOutside);
 
-app.use(store)
-app.use(router)
-app.mount('#app')
+app.use(store);
+app.use(router);
+app.mount('#app');

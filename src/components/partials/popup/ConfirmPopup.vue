@@ -1,6 +1,8 @@
 <template>
     <PopupContainer @close="close">
-        <div class="text-xl font-semibold mb-2">Confirmation</div>
+        <div class="text-xl font-semibold mb-2">
+            Confirmation
+        </div>
         <hr class="mb-2 border-secondary">
         <slot>
             Êtes-vous sûr de vouloir faire cette action ?

@@ -1,24 +1,65 @@
 <template>
-    <card class="w-full shadow px-2 pb-2 cursor-auto" :isSelected="isHover">
+    <card class="w-full shadow px-2 pb-2 cursor-auto"
+          :is-selected="isHover">
         <div class="flex pl-8 split-bg">
-            <ContentLoader width="128" height="128" primaryColor="var(--loader-primary)" secondaryColor="var(--loader-secondary)" :speed="0.8" class="bg-secondary p-2 rounded-full" :class="isHover ? 'bg-selected' : 'bg-secondary'">
-                <circle cx="64" cy="64" r="64" />
+            <ContentLoader width="128"
+                           height="128"
+                           primary-color="var(--loader-primary)"
+                           secondary-color="var(--loader-secondary)"
+                           :speed="0.8"
+                           class="bg-secondary p-2 rounded-full"
+                           :class="isHover ? 'bg-selected' : 'bg-secondary'">
+                <circle cx="64"
+                        cy="64"
+                        r="64" />
             </ContentLoader>
             <div class="flex items-end pl-4 w-1/2">
                 <div class="w-full h-2/5 flex">
                     <div>
-                        <ContentLoader width="172" height="48" primaryColor="var(--loader-primary)" secondaryColor="var(--loader-secondary)" :speed="0.8">
-                            <rect x="0" y="8" rx="3" ry="3" width="128" height="16" />
-                            <rect x="0" y="32" rx="3" ry="3" width="64" height="8" />
+                        <ContentLoader width="172"
+                                       height="48"
+                                       primary-color="var(--loader-primary)"
+                                       secondary-color="var(--loader-secondary)"
+                                       :speed="0.8">
+                            <rect x="0"
+                                  y="8"
+                                  rx="3"
+                                  ry="3"
+                                  width="128"
+                                  height="16" />
+                            <rect x="0"
+                                  y="32"
+                                  rx="3"
+                                  ry="3"
+                                  width="64"
+                                  height="8" />
                         </ContentLoader>
                     </div>
                     <div class="h-full flex items-center">
                         <div class="flex gap-4 py-4 text-sky-400">
-                            <ContentLoader width="72" height="24" primaryColor="var(--loader-primary)" secondaryColor="var(--loader-secondary)" :speed="0.8">
-                                <rect x="0" y="4" rx="3" ry="3" width="72" height="20" />
+                            <ContentLoader width="72"
+                                           height="24"
+                                           primary-color="var(--loader-primary)"
+                                           secondary-color="var(--loader-secondary)"
+                                           :speed="0.8">
+                                <rect x="0"
+                                      y="4"
+                                      rx="3"
+                                      ry="3"
+                                      width="72"
+                                      height="20" />
                             </ContentLoader>
-                            <ContentLoader width="96" height="24" primaryColor="var(--loader-primary)" secondaryColor="var(--loader-secondary)" :speed="0.8">
-                                <rect x="0" y="4" rx="3" ry="3" width="96" height="20" />
+                            <ContentLoader width="96"
+                                           height="24"
+                                           primary-color="var(--loader-primary)"
+                                           secondary-color="var(--loader-secondary)"
+                                           :speed="0.8">
+                                <rect x="0"
+                                      y="4"
+                                      rx="3"
+                                      ry="3"
+                                      width="96"
+                                      height="20" />
                             </ContentLoader>
                         </div>
                     </div>
@@ -26,13 +67,41 @@
             </div>
         </div>
         <div class="bg-body rounded-b-md p-2">
-            <ContentLoader width="100%" height="64" primaryColor="var(--loader-primary)" secondaryColor="var(--loader-secondary)" :speed="0.8">
-                <rect x="0" y="8" rx="3" ry="3" width="100%" height="12" />
-                <rect x="0" y="24" rx="3" ry="3" width="100%" height="12" />
-                <rect x="0" y="40" rx="3" ry="3" width="70%" height="12" />
+            <ContentLoader width="100%"
+                           height="64"
+                           primary-color="var(--loader-primary)"
+                           secondary-color="var(--loader-secondary)"
+                           :speed="0.8">
+                <rect x="0"
+                      y="8"
+                      rx="3"
+                      ry="3"
+                      width="100%"
+                      height="12" />
+                <rect x="0"
+                      y="24"
+                      rx="3"
+                      ry="3"
+                      width="100%"
+                      height="12" />
+                <rect x="0"
+                      y="40"
+                      rx="3"
+                      ry="3"
+                      width="70%"
+                      height="12" />
             </ContentLoader>
-            <ContentLoader width="100%" height="8" primaryColor="var(--loader-primary)" secondaryColor="var(--loader-secondary)" :speed="0.8">
-                <rect x="calc(100% - 128px)" y="0" rx="3" ry="3" width="128" height="8" />
+            <ContentLoader width="100%"
+                           height="8"
+                           primary-color="var(--loader-primary)"
+                           secondary-color="var(--loader-secondary)"
+                           :speed="0.8">
+                <rect x="calc(100% - 128px)"
+                      y="0"
+                      rx="3"
+                      ry="3"
+                      width="128"
+                      height="8" />
             </ContentLoader>
         </div>
     </card>
@@ -52,7 +121,7 @@ export default {
             default: false
         }
     },
-}
+};
 </script>
 
 <style scoped>

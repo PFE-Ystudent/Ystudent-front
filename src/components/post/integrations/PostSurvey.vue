@@ -4,34 +4,51 @@
             <div class="w-4/5">
                 <div class="text-md font-semibold mb-4">
                     <div>{{ survey.question }}</div>
-                    <div class="text-muted text-xs">{{ totalReply }} votes</div>
+                    <div class="text-muted text-xs">
+                        {{ totalReply }} votes
+                    </div>
                 </div>
-                <div v-for="(option, index) in survey.options" :key="option.id" class="flex mt-2 items-center cursor-pointer survey-option" @click="selectOption(option)">
+                <div v-for="(option, index) in survey.options"
+                     :key="option.id"
+                     class="flex mt-2 items-center cursor-pointer survey-option"
+                     @click="selectOption(option)">
                     <div class="flex gap-1 w-3/4">
                         <div class="border border-primary bg-primary text-white w-8 text-center rounded-l-lg select-none survey-option-order">
                             {{ index + 1 }}.
                         </div>
-                        <div class="border border-zinc-300 px-2 mr-4 rounded-r-lg bg-body w-full" :class="selectedId === option.id || option.isSelected && !selectedId ? 'selected-survey' : 'survey-option-name'">
+                        <div class="border border-zinc-300 px-2 mr-4 rounded-r-lg bg-body w-full"
+                             :class="selectedId === option.id || option.isSelected && !selectedId ? 'selected-survey' : 'survey-option-name'">
                             <template v-if="selectedId !== option.id">
                                 {{ option.name }}
                             </template>
-                            <div v-else class="flex justify-between items-center">
-                                <div class="w-full">{{ option.name }}</div>
+                            <div v-else
+                                 class="flex justify-between items-center">
+                                <div class="w-full">
+                                    {{ option.name }}
+                                </div>
                                 <div class="pl-2 text-xs font-semibold text-nowrap select-none">
-                                    <template v-if="selectedId === option.id && option.isSelected">Supprimer ?</template>
-                                    <template v-else-if="isReply">Changer ?</template>
-                                    <template v-else>Confirmer ?</template>
+                                    <template v-if="selectedId === option.id && option.isSelected">
+                                        Supprimer ?
+                                    </template>
+                                    <template v-else-if="isReply">
+                                        Changer ?
+                                    </template>
+                                    <template v-else>
+                                        Confirmer ?
+                                    </template>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div v-if="isReply" class="text-muted text-xs">
+                    <div v-if="isReply"
+                         class="text-muted text-xs">
                         {{ Math.round(100 / totalReply * option.replyCount) }}% <span class="text-zinc-400">({{ option.replyCount }} votes)</span>
                     </div>
                 </div>
             </div>
             <div class="w-1/5 flex items-center justify-center text-sky-400">
-                <font-awesome-icon icon="fa-solid fa-square-poll-vertical" size="4x" />
+                <font-awesome-icon icon="fa-solid fa-square-poll-vertical"
+                                   size="4x" />
             </div>
         </div>
     </card>
@@ -55,14 +72,14 @@ export default {
     data () {
         return {
             selectedId: null
-        }
+        };
     },
     computed: {
         isReply () {
-            return this.survey.options.find(o => o.isSelected) !== undefined
+            return this.survey.options.find(o => o.isSelected) !== undefined;
         },
         totalReply () {
-            return this.survey.options.reduce((acc, cur) => acc + cur.replyCount, 0)
+            return this.survey.options.reduce((acc, cur) => acc + cur.replyCount, 0);
         }
     },
     methods: {
@@ -87,7 +104,7 @@ export default {
             }
         }
     }
-}
+};
 </script>
 
 <style scoped>

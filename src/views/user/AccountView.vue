@@ -1,18 +1,32 @@
 <template>
-    <div v-if="user" class="w-full flex justify-end mt-8 mb-32 gap-4">
+    <div v-if="user"
+         class="w-full flex justify-end mt-8 mb-32 gap-4">
         <div class="w-3/5">
             <CardForm title="Mon compte">
                 <div class="flex">
                     <div class="flex flex-col gap-2 items-center justify-end w-44 mr-8">
-                        <UserAvatar :avatar="previewAvatarUrl" class="w-20 h-20" customClass="shadow" />
-                        <upload-input id="avatar-upload" accept="image/*" @select-files="selectFile" />
+                        <UserAvatar :avatar="previewAvatarUrl"
+                                    class="w-20 h-20"
+                                    custom-class="shadow" />
+                        <upload-input id="avatar-upload"
+                                      accept="image/*"
+                                      @select-files="selectFile" />
                     </div>
                     <div class="w-full">
-                        <text-input v-model="user.username" type="text" label="Nom d'utilisateur :" :errors="errors.username" />
-                        <text-input v-model="user.email" type="text" label="Email :" disabled />
+                        <text-input v-model="user.username"
+                                    type="text"
+                                    label="Nom d'utilisateur :"
+                                    :errors="errors.username" />
+                        <text-input v-model="user.email"
+                                    type="text"
+                                    label="Email :"
+                                    disabled />
                     </div>
                 </div>
-                <text-input v-model="user.about" type="textarea" label="A propos :" :errors="errors.about" />
+                <text-input v-model="user.about"
+                            type="textarea"
+                            label="A propos :"
+                            :errors="errors.about" />
                 <div class="flex justify-end mt-4">
                     <submit-button @click="save">
                         Enregistrer
@@ -48,13 +62,13 @@ export default {
         CardForm,
         UserAvatar
     },
-    data() {
+    data () {
         return {
             user: null,
             previewAvatarUrl: null,
             avatar: null,
             errors: {}
-        }
+        };
     },
     computed: {
         ...mapState({
@@ -67,9 +81,9 @@ export default {
                     this.previewAvatarUrl = res.data.avatar;
                 }).catch(() => {
                     // TODO: gérer l'erreur
-                })
+                });
     },
-    beforeDestroy() {
+    beforeUnmount () {
         if (this.previewAvatarUrl) {
             URL.revokeObjectURL(this.previewAvatarUrl);
         }
@@ -93,14 +107,14 @@ export default {
                     this.user = res.data;
                     this.previewAvatarUrl = res.data.avatar;
                 }).catch((err) => {
-                    this.errors = err.response.data.errors
+                    this.errors = err.response.data.errors;
                 });
         },
         switchTheme () {
-            store.commit('switchTheme')
+            store.commit('switchTheme');
         }
     },
-}
+};
 </script>
 
 <style scoped>

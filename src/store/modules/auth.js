@@ -12,14 +12,14 @@ const state = {
 };
 
 const mutations = {
-    logout(state) {
+    logout (state) {
         state.token = null;
         state.user = null;
     },
-    login(state, token) {
+    login (state, token) {
         state.token = token;
     },
-    setUser(state, user) {
+    setUser (state, user) {
         state.user = user;
     }
 };
@@ -34,4 +34,4 @@ export default {
     state,
     mutations,
     getters
-}
+};

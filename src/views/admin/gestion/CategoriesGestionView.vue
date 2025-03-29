@@ -4,29 +4,41 @@
             <router-link :to="{ name: 'Administration' }">
                 <font-awesome-icon icon="fa-solid fa-arrow-left-long" />
             </router-link>
-            <div class="mb-[3px]">Catégorie</div>
+            <div class="mb-[3px]">
+                Catégorie
+            </div>
         </div>
-        
+
         <div class="mt-8 flex flex-col items-center">
-            <div v-if="showIndex" class="w-4/5">
+            <div v-if="showIndex"
+                 class="w-4/5">
                 <div class="flex justify-end mb-4">
-                    <submit-button icon="fa-plus" @click="showIndex = false">
+                    <submit-button icon="fa-plus"
+                                   @click="showIndex = false">
                         Créer une catégorie
                     </submit-button>
                 </div>
-                <IndexTable :headers="headers" :baseUrl="baseUrl" @edit="setEditMode" />
+                <IndexTable :headers="headers"
+                            :base-url="baseUrl"
+                            @edit="setEditMode" />
             </div>
-            <div v-else class="w-2/5">
+            <div v-else
+                 class="w-2/5">
                 <CardForm :title="`${isEdit ? 'Modifier' : 'Créer'} une catégorie`">
-                    <text-input v-model="newCategory.name" label="Nom :" placeholder="Nom" :errors="errors.name" />
+                    <text-input v-model="newCategory.name"
+                                label="Nom :"
+                                placeholder="Nom"
+                                :errors="errors.name" />
                     <div class="w-full flex justify-end gap-4 mt-4">
                         <cancel-button @click="hideForm">
                             Annuler
                         </cancel-button>
-                        <submit-button v-if="isEdit" @click="editCategory">
+                        <submit-button v-if="isEdit"
+                                       @click="editCategory">
                             Modifier
                         </submit-button>
-                        <submit-button v-else @click="createCategory">
+                        <submit-button v-else
+                                       @click="createCategory">
                             Créer
                         </submit-button>
                     </div>
@@ -47,7 +59,7 @@ export default {
         IndexTable,
         CardForm
     },
-    data() {
+    data () {
         return {
             showIndex: true,
             isEdit: false,
@@ -62,21 +74,21 @@ export default {
                 name: null
             },
             errors: {}
-        }
+        };
     },
     methods: {
         createCategory () {
             axios.post('/api/admin/categories', this.newCategory).then(() => {
-                this.hideForm()
+                this.hideForm();
             }).catch((err) => {
-                this.errors = err.response.data.errors
+                this.errors = err.response.data.errors;
             });
         },
         editCategory () {
             axios.put(`/api/admin/categories/${this.newCategory.id}`, this.newCategory).then(() => {
-                this.hideForm()
+                this.hideForm();
             }).catch((err) => {
-                this.errors = err.response.data.errors
+                this.errors = err.response.data.errors;
             });
         },
         hideForm () {
@@ -93,7 +105,7 @@ export default {
             this.isEdit = true;
         }
     }
-}
+};
 </script>
 
 <style scoped>

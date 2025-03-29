@@ -1,10 +1,21 @@
 <template>
     <PopupContainer @close="close">
-        <div class="text-xl font-semibold mb-2">Partager le post</div>
+        <div class="text-xl font-semibold mb-2">
+            Partager le post
+        </div>
         <hr class="mb-2 border-secondary">
-        <user-select-input v-model="selectedUsers" :options="users" :isBusy="isBusy" label="Avec :" max="5" :errors="errors.users" />
-        <text-input v-model="content" label="Message :" placeholder="Message" :errors="errors.content" />
-        <PostSingle :post="post" is-details />
+        <user-select-input v-model="selectedUsers"
+                           :options="users"
+                           :is-busy="isBusy"
+                           label="Avec :"
+                           max="5"
+                           :errors="errors.users" />
+        <text-input v-model="content"
+                    label="Message :"
+                    placeholder="Message"
+                    :errors="errors.content" />
+        <PostSingle :post="post"
+                    is-details />
         <div class="mt-8 flex gap-4 justify-end">
             <cancel-button @click="close">
                 Annuler
@@ -33,16 +44,16 @@ export default {
             required: true
         }
     },
-    data() {
+    data () {
         return {
             selectedUsers: [],
             content: null,
             users: [],
             errors: {}
-        }
+        };
     },
     mounted () {
-        this.fetchContacts()
+        this.fetchContacts();
     },
     methods: {
         close () {
@@ -52,17 +63,17 @@ export default {
             axios.post(`/api/posts/${this.post.id}/share`, {
                 users: this.selectedUsers.map(u => u.id),
                 content: this.content
-            }).then((res) => {
+            }).then(() => {
                 this.close();
             }).catch((err) => {
-                this.errors = err.response.data.errors
+                this.errors = err.response.data.errors;
             });
-            
+
         },
         fetchContacts () {
             axios.get('/api/users/relations/contact/select').then((res) => {
                 this.users = res.data;
-            })
+            });
         }
     }
 };

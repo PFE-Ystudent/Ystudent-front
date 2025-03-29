@@ -1,23 +1,32 @@
 <template>
     <CardForm>
-        <div v-if="showPostReplyForm" class="flex flex-col">
+        <div v-if="showPostReplyForm"
+             class="flex flex-col">
             <div class="flex gap-4">
                 <div class="flex gap-2 items-center">
-                    <UserAvatar class="w-8 h-8" :avatar="user.avatar" />
+                    <UserAvatar class="w-8 h-8"
+                                :avatar="user.avatar" />
                     <div>
                         <div>{{ user.username }}</div>
-                        <div class="text-xs text-zinc-400">{{ user.role.name }}</div>
+                        <div class="text-xs text-zinc-400">
+                            {{ user.role.name }}
+                        </div>
                     </div>
                 </div>
             </div>
-            <text-input type="textarea" v-model="replyContent" :errors="errors.content" />
+            <text-input v-model="replyContent"
+                        type="textarea"
+                        :errors="errors.content" />
         </div>
         <div class="w-full flex justify-end gap-4">
-            <cancel-button v-if="showPostReplyForm" @click="hidePostReplyForm">
+            <cancel-button v-if="showPostReplyForm"
+                           @click="hidePostReplyForm">
                 Annuler
             </cancel-button>
-            <submit-button @click="sendReply" :icon="showPostReplyForm ? 'fa-paper-plane': 'fa-plus'" :isBusy="isBusy">
-                {{ showPostReplyForm ? 'Envoyer la réponse' : 'Répondre'}}
+            <submit-button :icon="showPostReplyForm ? 'fa-paper-plane': 'fa-plus'"
+                           :is-busy="isBusy"
+                           @click="sendReply">
+                {{ showPostReplyForm ? 'Envoyer la réponse' : 'Répondre' }}
             </submit-button>
         </div>
     </CardForm>
@@ -49,35 +58,35 @@ export default {
             replyContent: null,
             errors: {},
             isBusy: false
-        }
+        };
     },
     methods: {
         sendReply () {
             if (!this.showPostReplyForm) {
                 this.showPostReplyForm = true;
-                return
+                return;
             }
             if (this.isBusy) {
-                return
+                return;
             }
-            this.isBusy = true
+            this.isBusy = true;
             axios.post(`/api/posts/${this.postId}/replies`, { content: this.replyContent }).then(res => {
-                    this.hidePostReplyForm()
+                    this.hidePostReplyForm();
                     this.replyContent = null;
-                    this.$emit('newReply', res.data)
+                    this.$emit('new-reply', res.data);
                 })
                 .catch(err => {
-                    this.errors = err.response.data.errors ?? {}
+                    this.errors = err.response.data.errors ?? {};
                 }).finally(() => {
                     this.isBusy = false;
                 });
         },
         hidePostReplyForm () {
-            this.showPostReplyForm = false
-            this.errors = {}
+            this.showPostReplyForm = false;
+            this.errors = {};
         }
     }
-}
+};
 </script>
 
 <style>

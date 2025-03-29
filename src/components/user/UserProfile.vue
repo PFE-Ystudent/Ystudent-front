@@ -1,16 +1,25 @@
 <template>
-    <card class="w-full shadow px-2 pb-2 text-color cursor-auto relative" :isSelected="isSelected"
-        @mouseenter="isHover = true" @mouseleave="isHover = false">
+    <card class="w-full shadow px-2 pb-2 text-color cursor-auto relative"
+          :is-selected="isSelected"
+          @mouseenter="isHover = true"
+          @mouseleave="isHover = false">
         <div class="split-bg flex pl-8">
-            <UserAvatar class="w-32 h-32" :avatar="user.avatar" :customClass="isSelected ? '!p-2 !bg-selected' : '!p-2 !bg-secondary'" />
-            <div class="flex flex-col pl-4" style="width: calc(100% - 128px);">
+            <UserAvatar class="w-32 h-32"
+                        :avatar="user.avatar"
+                        :custom-class="isSelected ? '!p-2 !bg-selected' : '!p-2 !bg-secondary'" />
+            <div class="flex flex-col pl-4"
+                 style="width: calc(100% - 128px);">
                 <div class="w-full h-3/5 flex justify-end items-center gap-4">
-                    <slot></slot>
+                    <slot />
                 </div>
                 <div class="w-2/3 h-2/5 flex justify-between">
                     <div>
-                        <div class="text-xl font-semibold">{{ user.username }}</div>
-                        <div class="text-xs text-zinc-400">{{ user.role.name }}</div>
+                        <div class="text-xl font-semibold">
+                            {{ user.username }}
+                        </div>
+                        <div class="text-xs text-zinc-400">
+                            {{ user.role.name }}
+                        </div>
                     </div>
                     <div class="h-full flex items-center">
                         <div class="flex gap-4 py-4">
@@ -33,8 +42,13 @@
                 Actif depuis le {{ createdAt }}
             </div>
         </div>
-        <TooltipAction v-if="actionType && actions.length" :actions="actions" :is-hover="isHover" class="absolute top-0 right-0 text-sky-400 cursor-pointer" @select-action="selectAction">
-            <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" class="p-4" />
+        <TooltipAction v-if="actionType && actions.length"
+                       :actions="actions"
+                       :is-hover="isHover"
+                       class="absolute top-0 right-0 text-sky-400 cursor-pointer"
+                       @select-action="selectAction">
+            <font-awesome-icon icon="fa-solid fa-ellipsis-vertical"
+                               class="p-4" />
         </TooltipAction>
     </card>
 </template>
@@ -64,18 +78,18 @@ export default {
             default: null
         }
     },
-    data() {
+    data () {
         return {
             isHover: false
-        }
+        };
     },
     computed: {
         createdAt () {
-            return new Date(this.user.createdAt).toLocaleString('fr', { hour12: false, dateStyle: "short" });
+            return new Date(this.user.createdAt).toLocaleString('fr', { hour12: false, dateStyle: 'short' });
         },
         actions () {
             if (this.actionType) {
-                return [{value: 'message', label: 'Messages'}];
+                return [{ value: 'message', label: 'Messages' }];
             }
             return [];
         },
@@ -84,12 +98,12 @@ export default {
         selectAction (action) {
             if (action === 'message') {
                 axios.post('/api/conversations', { user_id: this.user.id }).then((res) => {
-                    this.$router.push({ name: 'Conversation', params: { id: res.data.conversation.id } })
-                })
+                    this.$router.push({ name: 'Conversation', params: { id: res.data.conversation.id } });
+                });
             }
         }
     }
-}
+};
 </script>
 
 <style scoped>

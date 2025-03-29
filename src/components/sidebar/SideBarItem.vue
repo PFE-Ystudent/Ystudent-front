@@ -1,20 +1,23 @@
 <template>
     <div class="mx-2 rounded flex items-center font-semibold gap-2 py-2 cursor-pointer border px-4"
-        :class="{
-            'bg-selected border-selected text-sky-500': isHover && !isSelected,
-            'text-sky-300 border-sky-300': !isHover && !isSelected,
-            'bg-primary border-primary text-white': isSelected
-        }"
-        @click="$router.push({ name: route })"
-        @mouseenter="isHover = true" @mouseleave="isHover = false">
-        <font-awesome-icon :icon="`fa-solid ${icon}`" size="lg" />
-        <span v-if="isDeploy" class="overflow-x-hidden text-nowrap leading-4 select-none">{{ name }}</span>
+         :class="{
+             'bg-selected border-selected text-sky-500': isHover && !isSelected,
+             'text-sky-300 border-sky-300': !isHover && !isSelected,
+             'bg-primary border-primary text-white': isSelected
+         }"
+         @click="$router.push({ name: route })"
+         @mouseenter="isHover = true"
+         @mouseleave="isHover = false">
+        <font-awesome-icon :icon="`fa-solid ${icon}`"
+                           size="lg" />
+        <span v-if="isDeploy"
+              class="overflow-x-hidden text-nowrap leading-4 select-none">{{ name }}</span>
     </div>
 </template>
 
 <script>
 export default {
-    name: "SideBarItem",
+    name: 'SideBarItem',
     props: {
         name: {
             type: String,
@@ -36,12 +39,12 @@ export default {
     data () {
         return {
             isHover: false
-        }
+        };
     },
     computed: {
         isSelected () {
             return this.$route.name === this.route;
         }
     }
-}
+};
 </script>

@@ -1,5 +1,6 @@
 <template>
-    <div class="body" :class="{ 'dark': theme === 'dark' }">
+    <div class="body"
+         :class="{ 'dark': theme === 'dark' }">
         <router-view />
     </div>
 </template>
@@ -14,7 +15,7 @@ export default {
             theme: state => state.parameter.theme
         })
     }
-}
+};
 </script>
 
 <style>

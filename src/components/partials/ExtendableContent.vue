@@ -1,8 +1,11 @@
 <template>
     <div class="whitespace-pre-line break-words">
-        {{ displayableContent }}<span v-if="isExtendable && !isExtended" class="text-muted">...</span>
-        <div v-if="isExtendable" @click="isExtended = !isExtended" class="mt-1 text-muted text-xs hover:underline cursor-pointer w-min text-nowrap">
-            Voir {{isExtended ? 'moins' : 'plus'}}
+        {{ displayableContent }}<span v-if="isExtendable && !isExtended"
+                                      class="text-muted">...</span>
+        <div v-if="isExtendable"
+             class="mt-1 text-muted text-xs hover:underline cursor-pointer w-min text-nowrap"
+             @click="isExtended = !isExtended">
+            Voir {{ isExtended ? 'moins' : 'plus' }}
         </div>
     </div>
 </template>
@@ -24,8 +27,8 @@ export default {
             default: 4
         }
     },
-    data() {
-        return { isExtended: false }
+    data () {
+        return { isExtended: false };
     },
     computed: {
         displayableContent () {
@@ -33,28 +36,28 @@ export default {
                 return this.content;
             }
             if (this.characterExceeded) {
-                let splitedContent = this.content.slice(0, this.characterLimit)
+                let splitedContent = this.content.slice(0, this.characterLimit);
                 if (splitedContent[this.characterLimit - 1].match(/[a-zA-Z-_]/)) {
-                    const nextSpace = this.content.indexOf(' ', this.characterLimit - 1)
+                    const nextSpace = this.content.indexOf(' ', this.characterLimit - 1);
                     if (nextSpace !== -1 && nextSpace - this.characterLimit < 12) {
-                        splitedContent = this.content.slice(0, nextSpace)
+                        splitedContent = this.content.slice(0, nextSpace);
                     }
                 }
-                return splitedContent
+                return splitedContent;
             }
-            return this.content.split('\n').slice(0, this.lineLimit).join('\n')
+            return this.content.split('\n').slice(0, this.lineLimit).join('\n');
         },
         characterExceeded () {
-            return this.content.length >= this.characterLimit + 32
+            return this.content.length >= this.characterLimit + 32;
         },
         lineExceeded () {
-            return this.content.split('\n').length > this.lineLimit
+            return this.content.split('\n').length > this.lineLimit;
         },
         isExtendable () {
-            return this.lineExceeded || this.characterExceeded
+            return this.lineExceeded || this.characterExceeded;
         }
     }
-}
+};
 </script>
 
 <style scoped>

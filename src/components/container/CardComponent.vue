@@ -1,6 +1,7 @@
 <template>
-    <div class="rounded-md border" :class="isSelected ? 'border-selected bg-selected' : 'border-secondary bg-secondary'">
-        <slot></slot>
+    <div class="rounded-md border"
+         :class="isSelected ? 'border-selected bg-selected' : 'border-secondary bg-secondary'">
+        <slot />
     </div>
 </template>
 
@@ -13,9 +14,9 @@ export default {
             default: false
         }
     }
-}
+};
 </script>
 
 <style scoped>
-    
+
 </style>

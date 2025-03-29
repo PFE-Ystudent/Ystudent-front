@@ -1,16 +1,22 @@
 <template>
     <div class="w-full">
-        <div v-if="label" class="ml-1 mb-1 text-muted">
+        <div v-if="label"
+             class="ml-1 mb-1 text-muted">
             {{ label }}
         </div>
-        <multiselect v-model="internalValue" :options="options"
-            :class="{'has-error': errors && errors.length, 'mt-4': !label && !noMargin }"
-            track-by="id" label="name"
-            selectLabel="Choisir" :placeholder="placeholder" deselectLabel="Appuyer sur entrer pour retirer" selectedLabel="Sélectionner"
-            @search-change="searchChange"
-            v-bind="$attrs"
-            preserveSearch
-            searchable>
+        <multiselect v-model="internalValue"
+                     :options="options"
+                     :class="{'has-error': errors && errors.length, 'mt-4': !label && !noMargin }"
+                     track-by="id"
+                     label="name"
+                     select-label="Choisir"
+                     :placeholder="placeholder"
+                     deselect-label="Appuyer sur entrer pour retirer"
+                     selected-label="Sélectionner"
+                     v-bind="$attrs"
+                     preserve-search
+                     searchable
+                     @search-change="searchChange">
             <template #noResult="">
                 <slot name="noResult">
                     Pas de résultat
@@ -25,16 +31,20 @@
                 </slot>
             </template>
             <template #selection="{ values }">
-                <slot name="selection" :values="values"></slot>
+                <slot name="selection"
+                      :values="values" />
             </template>
             <template #option="{ option }">
-                <slot name="option" :option="option">
+                <slot name="option"
+                      :option="option">
                     {{ option.name }}
                 </slot>
             </template>
         </multiselect>
-        <div v-if="!noMargin" class="text-rose-500 text-xs h-4">
-            <div v-for="(error, index) in errors" :key="index">
+        <div v-if="!noMargin"
+             class="text-rose-500 text-xs h-4">
+            <div v-for="(error, index) in errors"
+                 :key="index">
                 {{ error }}
             </div>
         </div>
@@ -42,7 +52,7 @@
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect'
+import Multiselect from 'vue-multiselect';
 
 export default {
     name: 'SelectInput',
@@ -79,17 +89,17 @@ export default {
             default: null
         }
     },
-    data() {
+    data () {
         return {
             timeout: null
-        }
+        };
     },
     computed: {
         internalValue: {
-            get() {
+            get () {
                 return this.modelValue;
             },
-            set(value) {
+            set (value) {
                 this.$emit('update:modelValue', value);
             }
         }
@@ -109,7 +119,7 @@ export default {
             }
         }
     }
-}
+};
 </script>
 
 <!-- <style src="vue-multiselect/dist/vue-multiselect.css"></style> -->

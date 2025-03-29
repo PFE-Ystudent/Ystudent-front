@@ -1,51 +1,82 @@
 <template>
     <CardForm>
-        <div v-if="showPostForm" class="flex flex-col">
+        <div v-if="showPostForm"
+             class="flex flex-col">
             <div class="flex gap-4">
                 <div class="flex gap-2 items-center">
-                    <UserAvatar class="w-8 h-8" :avatar="user.avatar" />
+                    <UserAvatar class="w-8 h-8"
+                                :avatar="user.avatar" />
                     <div>
                         <div>{{ user.username }}</div>
-                        <div class="text-xs text-zinc-400">{{ user.role.name }}</div>
+                        <div class="text-xs text-zinc-400">
+                            {{ user.role.name }}
+                        </div>
                     </div>
                 </div>
-                <text-input v-model="newPost.title" :errors="errors.title" />
+                <text-input v-model="newPost.title"
+                            :errors="errors.title" />
             </div>
-            <text-input type="textarea" v-model="newPost.content" :errors="errors.content" />
-            <select-input v-model="newPost.categories" label="Catégories :" multiple :options="categories" :errors="errors.categories" />
+            <text-input v-model="newPost.content"
+                        type="textarea"
+                        :errors="errors.content" />
+            <select-input v-model="newPost.categories"
+                          label="Catégories :"
+                          multiple
+                          :options="categories"
+                          :errors="errors.categories" />
             <div class="flex flex-col gap-4">
                 <template v-for="(integration, index) in integrations">
-                    <SurveyForm v-if="integration.type === 'survey'" :key="index" :survey="integration.data" class="mb-4" @update="integration.data = $event" @delete="deleteIntegration(index)" />
-                    <div v-if="integration.type === 'annonce'" :key="index">
+                    <SurveyForm v-if="integration.type === 'survey'"
+                                :key="index"
+                                :survey="integration.data"
+                                class="mb-4"
+                                @update="integration.data = $event"
+                                @delete="deleteIntegration(index)" />
+                    <div v-if="integration.type === 'annonce'"
+                         :key="index">
                         Annonce
                     </div>
                 </template>
                 <div v-if="filesInput">
-                    <upload-input id="upload" accept="image/*" multiple @select-files="selectFile" />
+                    <upload-input id="upload"
+                                  accept="image/*"
+                                  multiple
+                                  @select-files="selectFile" />
                 </div>
-                <PostFiles v-if="previewfiles.length" :files="previewfiles" />
+                <PostFiles v-if="previewfiles.length"
+                           :files="previewfiles" />
             </div>
         </div>
         <div class="w-full flex justify-between">
             <div class="relative">
-                <div v-if="showPostForm" class="flex gap-4">
-                    <button @click="filesInput = true" class="text-zinc-400 hover:text-primary">
-                        <font-awesome-icon icon="fa-solid fa-images" size="lg" />
+                <div v-if="showPostForm"
+                     class="flex gap-4">
+                    <button class="text-zinc-400 hover:text-primary"
+                            @click="filesInput = true">
+                        <font-awesome-icon icon="fa-solid fa-images"
+                                           size="lg" />
                     </button>
-                    <button @click="addIntegration('survey')" class="text-zinc-400 hover:text-primary">
-                        <font-awesome-icon icon="fa-solid fa-square-poll-vertical" size="lg" />
+                    <button class="text-zinc-400 hover:text-primary"
+                            @click="addIntegration('survey')">
+                        <font-awesome-icon icon="fa-solid fa-square-poll-vertical"
+                                           size="lg" />
                     </button>
-                    <button @click="addIntegration('annonce')" class="text-zinc-400 hover:text-primary">
-                        <font-awesome-icon icon="fa-solid fa-bullhorn" size="lg" />
+                    <button class="text-zinc-400 hover:text-primary"
+                            @click="addIntegration('annonce')">
+                        <font-awesome-icon icon="fa-solid fa-bullhorn"
+                                           size="lg" />
                     </button>
                 </div>
             </div>
             <div class="flex gap-4">
-                <cancel-button v-if="showPostForm" @click="hidePostForm">
+                <cancel-button v-if="showPostForm"
+                               @click="hidePostForm">
                     Annuler
                 </cancel-button>
-                <submit-button @click="sendPost" :icon="showPostForm ? 'fa-paper-plane': 'fa-plus'" :isBusy="isBusy">
-                    {{ showPostForm ? 'Envoyer le post' : 'Ecrire un post'}}
+                <submit-button :icon="showPostForm ? 'fa-paper-plane': 'fa-plus'"
+                               :is-busy="isBusy"
+                               @click="sendPost">
+                    {{ showPostForm ? 'Envoyer le post' : 'Ecrire un post' }}
                 </submit-button>
             </div>
         </div>
@@ -89,16 +120,16 @@ export default {
             previewfiles: [],
             errors: {},
             isBusy: false
-        }
+        };
     },
     methods: {
         sendPost () {
             if (!this.showPostForm) {
                 this.showPostForm = true;
-                return
+                return;
             }
             if (this.isBusy) {
-                return
+                return;
             }
             this.isBusy = true;
             axios.post('/api/posts', {
@@ -106,39 +137,39 @@ export default {
                 categories: this.newPost.categories.map(c => c.id),
                 integrations: this.integrations
             }).then(res => {
-                    this.hidePostForm()
+                    this.hidePostForm();
                     this.newPost = {
                         title: null,
                         content: null,
                         categories: []
-                    }
-                    this.uploadFile(res.data.id)
+                    };
+                    this.uploadFile(res.data.id);
                     this.integrations = [];
-                    this.$emit('newPost', res.data);
+                    this.$emit('new-post', res.data);
                 })
                 .catch(err => {
-                    this.errors = err.response.data.errors ?? {}
+                    this.errors = err.response.data.errors ?? {};
                 }).finally(() => {
-                    this.isBusy = false
+                    this.isBusy = false;
                 });
         },
         hidePostForm () {
-            this.showPostForm = false
-            this.errors = {}
+            this.showPostForm = false;
+            this.errors = {};
         },
         selectFile (files) {
             this.previewfiles = [];
             if (files.length) {
                 for (const file of files) {
-                    this.previewfiles.push({url: URL.createObjectURL(file)});
+                    this.previewfiles.push({ url: URL.createObjectURL(file) });
                 }
                 this.files = files;
             }
         },
-        uploadFile(postId) {
+        uploadFile (postId) {
             const formData = new FormData();
             for (const file of this.files) {
-                formData.append('files[]', file)
+                formData.append('files[]', file);
             }
             axios.post(`/api/posts/${postId}/files`, formData).then((res) => {
                 console.log(res);
@@ -146,13 +177,13 @@ export default {
             });
         },
         addIntegration (action) {
-            this.integrations.push({type: action, data: null});
+            this.integrations.push({ type: action, data: null });
         },
-        deleteIntegration(index) {
-            this.integrations = this.integrations.filter((o, i) => i !== index)
+        deleteIntegration (index) {
+            this.integrations = this.integrations.filter((o, i) => i !== index);
         }
     }
-}
+};
 </script>
 
 <style scoped>

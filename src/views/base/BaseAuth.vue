@@ -1,19 +1,26 @@
 <template>
     <div>
         <div class="flex">
-            <div class="relative min-h-screen" style="width: 72px;">
+            <div class="relative min-h-screen"
+                 style="width: 72px;">
                 <SideBar />
             </div>
             <div style="width: calc(100% - 72px);">
-                <div class="h-16" style="width: calc(100% - 72px);">
-                    <div class="h-16 px-4 bg-primary border-b-2 border-primary fixed" style="z-index: 90; width: calc(100% - 72px);">
+                <div class="h-16"
+                     style="width: calc(100% - 72px);">
+                    <div class="h-16 px-4 bg-primary border-b-2 border-primary fixed"
+                         style="z-index: 90; width: calc(100% - 72px);">
                         <div class="flex h-full justify-between">
-                            <div></div>
+                            <div />
                             <div class="flex items-center justify-center relative">
-                                <TooltipAction :actions="[{ value: 'account', label: 'Mon compte'}, {value: 'logout', label: 'Déconnexion'}]" @select-action="selectAction">
+                                <TooltipAction :actions="[{ value: 'account', label: 'Mon compte'}, {value: 'logout', label: 'Déconnexion'}]"
+                                               @select-action="selectAction">
                                     <card class="cursor-pointer px-4 py-2 flex items-center gap-4 w-48">
-                                        <UserAvatar class="w-8 h-8" :avatar="user.avatar" />
-                                        <div class="w-2/3 overflow-y-hidden truncate select-none text-color">{{ user.username }}</div>
+                                        <UserAvatar class="w-8 h-8"
+                                                    :avatar="user.avatar" />
+                                        <div class="w-2/3 overflow-y-hidden truncate select-none text-color">
+                                            {{ user.username }}
+                                        </div>
                                     </card>
                                 </TooltipAction>
                             </div>
@@ -36,7 +43,7 @@ import TooltipAction from '@/components/partials/TooltipAction.vue';
 import UserAvatar from '@/components/user/UserAvatar.vue';
 
 export default {
-    name: "BaseAuth",
+    name: 'BaseAuth',
     components: {
         TooltipAction,
         SideBar,
@@ -46,7 +53,7 @@ export default {
         return {
             user: store.state.auth.user,
             showUserDropdown: false
-        }
+        };
     },
     methods: {
         selectAction (action) {
@@ -64,7 +71,7 @@ export default {
                 .catch(err => console.log(err));
         }
     }
-}
+};
 </script>
 
 <style scoped>
