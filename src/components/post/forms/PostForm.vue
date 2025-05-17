@@ -57,6 +57,7 @@
                                            size="lg" />
                     </button>
                     <button class="text-zinc-400 hover:text-primary"
+                            data-testid="add-survey"
                             @click="addIntegration('survey')">
                         <font-awesome-icon icon="fa-solid fa-square-poll-vertical"
                                            size="lg" />

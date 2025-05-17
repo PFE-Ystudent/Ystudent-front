@@ -50,7 +50,6 @@ export default {
         if (store.state.auth.token) {
             this.$router.push({ name: 'Dashboard' });
         }
-
     },
     methods: {
         login () {
