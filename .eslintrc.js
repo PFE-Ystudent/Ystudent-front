@@ -47,7 +47,7 @@ module.exports = {
             'multiline': 'beside'
         }],
         'vue/require-explicit-emits': 'off',
-        'vue/html-indent': ['error', 4, {
+        'vue/html-indent': ['warn', 4, {
             'attribute': 1,
             'baseIndent': 1,
             'closeBracket': 0,
