@@ -6,13 +6,12 @@ window.Pusher = Pusher;
 
 const echo = new Echo({
     broadcaster: 'reverb',
-    key: 'o3bzov3fzsxoqsb83rtv',
-    wsHost: 'localhost',
-    wsPort: 8008,
-    wssPort: 8008,
+    key: import.meta.env.VITE_REVERB_APP_KEY,
+    wsHost: import.meta.env.VITE_WS_HOST,
+    wsPort: import.meta.env.VITE_WS_PORT,
     forceTLS: false,
-    enabledTransports: ['ws', 'wss'],
-    authEndpoint: 'http://localhost:8000/broadcasting/auth',
+    enabledTransports: ['ws'],
+    authEndpoint: `http://${import.meta.env.VITE_API_HOST}/broadcasting/auth`,
     auth: {
         headers: {
             Authorization: `Bearer ${store.state.auth.token}`,

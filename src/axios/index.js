@@ -3,7 +3,7 @@ import store from '@/store';
 import router from '@/router';
 
 const axios = axiosClient.create({
-    baseURL: 'http://localhost:8000'
+    baseURL: `http://${import.meta.env.VITE_API_HOST}`
 });
 
 axios.interceptors.request.use(config => {
