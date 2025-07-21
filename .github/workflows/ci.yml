@@ -1,68 +1,27 @@
-name: CI Workflow
+name: Deploy Frontend
 
 on:
   push:
     branches:
-      - '**'
-  pull_request:
-    branches:
       - main
 
 jobs:
-  lint:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout Front Repository
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
-
-    - name: Install dependencies
-      run: npm install
-
-    - name: Run linter
-      run: npm run lint
-
-  build:
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request' && github.base_ref == 'main'
-
-    steps:
-    - name: Checkout Ystudent-front repository
-      uses: actions/checkout@v2
-
-    - name: Clone Ystudent-back repository
-      env:
-        CLONE_TOKEN: ${{ secrets.CLONE_TOKEN }}
-      run: |
-        git clone https://CelienFiorelli:${{ secrets.CLONE_TOKEN }}@github.com/PFE-Ystudent/Ystudent-back.git
-
-    - name: Clone Ystudent-docker repository
-      env:
-        CLONE_TOKEN: ${{ secrets.CLONE_TOKEN }}
-      run: |
-        git clone https://CelienFiorelli:${{ secrets.CLONE_TOKEN }}@github.com/PFE-Ystudent/Ystudent-Docker.git
-
-    - name: Create .env file
-      run: |
-        echo "VUE_APP_PATH=$(pwd)" > Ystudent-Docker/.env
-        echo "LARAVEL_APP_PATH=$(pwd)/Ystudent-back" >> Ystudent-Docker/.env
-
-    - name: Build and run Docker Compose
-      working-directory: ./Ystudent-Docker
-      run: docker-compose up --build -d
-
-    - name: Wait for container to be ready
-      run: sleep 15
-
-    - name: Make curl request to nginx
-      working-directory: ./Ystudent-Docker
-      run: docker-compose exec -T web curl -s http://localhost:8080
-
-    - name: Docker compose down
-      working-directory: ./Ystudent-Docker
-      run: docker-compose down
+      - name: Deploy Front via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd ~/ystudent/ystudent-front
+            git pull origin main
+            docker compose -f ~/ystudent/docker-compose.yml build front
+            docker compose -f ~/ystudent/docker-compose.yml up -d front
