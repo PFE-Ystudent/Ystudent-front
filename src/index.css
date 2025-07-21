@@ -1,3 +1,56 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+    --color-secondary: #fafafa;
+    --border-secondary: #d4d4d8;
+    --color-selected: #f0f9ff;
+    --color-body: #fbfeff;
+    --text-color: #18181b;
+    --text-muted: #71717b;
+    --bg-color: white;
+
+    --loader-primary: #efefef;
+    --loader-secondary: #eaeaea;
+}
+
+:root .dark {
+    --color-secondary: #27272a;
+    --border-secondary: #52525c;
+    --color-selected: #192936;
+    --color-body: #18181b;
+    --text-color: white;
+    --text-muted: #c2c2c6;
+    --bg-color: #18181b;
+
+    --loader-primary: #616161;
+    --loader-secondary: #555555;
+}
+
+.body {
+    background-color: var(--color-body);
+}
+
+.admin-table {
+    width: 100%;
+    background-color: white;
+    text-align: left;
+}
+
+.admin-table thead tr {
+    background-color: var(--border-secondary);
+    border: 1px var(--border-secondary) solid;
+}
+
+.admin-table tbody tr {
+    border: 1px var(--border-secondary) solid;
+}
+
+.admin-table tr:nth-child(even) {
+    background-color: #f0f9ff;
+}
+
+.admin-table td, .admin-table th {
+    padding: 6px 8px;
+}

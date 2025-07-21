@@ -8,8 +8,8 @@ fieldset[disabled] .multiselect {
     position: absolute;
     right: 1px;
     top: 1px;
-  width: 40px;
-  height: 38px;
+    width: 40px;
+    height: 38px;
     background: #fff;
     display: block;
   }
@@ -66,7 +66,7 @@ fieldset[disabled] .multiselect {
     width: 100%;
     min-height: 32px;
     text-align: left;
-    color: #35495e;
+    color: var(--text-color);
   }
 
   .multiselect * {
@@ -113,7 +113,7 @@ fieldset[disabled] .multiselect {
     line-height: 20px;
     border: none;
     border-radius: 5px;
-    background: #fff;
+    background: var(--bg-color);
     /* padding: 0 0 0 5px; */
     width: calc(100%);
     transition: border 0.1s ease;
@@ -122,9 +122,9 @@ fieldset[disabled] .multiselect {
     vertical-align: top;
   }
 
-  .multiselect__input::placeholder {
-    color: #35495e;
-  }
+  /* .multiselect__input::placeholder {
+    color: ivory;
+  } */
 
   .multiselect__tag ~ .multiselect__input,
   .multiselect__tag ~ .multiselect__single {
@@ -158,7 +158,7 @@ fieldset[disabled] .multiselect {
     border-radius: 5px;
     border: 1px solid #d4d4d8;
     box-shadow: inset 0 1px 3px #ddd;
-    background: #fff;
+    background: var(--bg-color);
     font-size: 14px;
   }
   .multiselect.has-error .multiselect__tags {
@@ -263,8 +263,9 @@ fieldset[disabled] .multiselect {
   }
 
   .multiselect__placeholder {
-    color: #adadad;
+    color: #888e98;
     display: inline-block;
+    user-select: none;
     /* margin-bottom: 10px; */
     /* padding-top: 2px; */
   }
@@ -276,7 +277,7 @@ fieldset[disabled] .multiselect {
   .multiselect__content-wrapper {
     position: absolute;
     display: block;
-    background: #fff;
+    background: var(--bg-color);
     width: 100%;
     max-height: 240px;
     overflow: auto;
@@ -317,7 +318,7 @@ fieldset[disabled] .multiselect {
 
   .multiselect__option {
     display: block;
-    padding: 12px;
+    padding: 8px;
     min-height: 32px;
     line-height: 16px;
     text-decoration: none;
@@ -332,7 +333,9 @@ fieldset[disabled] .multiselect {
     top: 0;
     right: 0;
     position: absolute;
-    line-height: 40px;
+    height: 100%;
+    display: flex;
+    align-items: center;
     padding-right: 12px;
     padding-left: 20px;
     font-size: 13px;
@@ -359,7 +362,7 @@ fieldset[disabled] .multiselect {
   .multiselect__option--selected::after {
     content: attr(data-selected);
     color: silver;
-  background: inherit;
+    background: inherit;
   }
 
   .multiselect__option--selected.multiselect__option--highlight {
@@ -375,7 +378,6 @@ fieldset[disabled] .multiselect {
 
   .multiselect--disabled .multiselect__current,
   .multiselect--disabled .multiselect__select {
-    background: #ededed;
     color: #a6a6a6;
   }
 

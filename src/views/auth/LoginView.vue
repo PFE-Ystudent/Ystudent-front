@@ -1,46 +1,50 @@
 <template>
-    <BaseUnAuth>
-        <div class="flex justify-center">
-            <div class="w-1/3">
-                <CardForm title="Connexion">
-                    <div class="flex flex-col items-center" @keypress.enter="login">
-                        <TextInput v-model="email" label="Email :" type="email" :errors="errors.email" />
-                        <TextInput v-model="password" label="Mot de passe :" type="password" :errors="errors.password" />
-                        <div class="mb-2 mt-4">
-                            <SubmitButton @click="login">Se connecter</SubmitButton>
-                        </div>
+    <div class="flex justify-center">
+        <div class="w-1/3">
+            <CardForm title="Connexion">
+                <div class="flex flex-col items-center"
+                     @keypress.enter="login">
+                    <text-input v-model="email"
+                                label="Email :"
+                                type="email"
+                                :errors="errors.email" />
+                    <text-input v-model="password"
+                                label="Mot de passe :"
+                                type="password"
+                                :errors="errors.password" />
+                    <div class="mb-2 mt-4">
+                        <submit-button :is-busy="isBusy"
+                                       @click="login">
+                            Se connecter
+                        </submit-button>
                     </div>
-                </CardForm>
-                <div class="w-full text-center text-zinc-500 mt-1">
-                    Vous n'avez pas encore de compte ? <a class="text-sky-300 hover:text-sky-400 underline font-semibold" href="/register">inscrivez-vous ici</a>
                 </div>
+            </CardForm>
+            <div class="w-full text-center text-muted mt-1">
+                Vous n'avez pas encore de compte ? <a class="text-sky-300 hover:text-sky-400 underline font-semibold"
+                                                      href="/register">inscrivez-vous ici</a>
             </div>
         </div>
-    </BaseUnAuth>
+    </div>
 </template>
 
 <script>
-import axios from '../../axios';
-import store from '../../store';
-import BaseUnAuth from '../BaseUnAuth.vue';
-import TextInput from '../../components/TextInput.vue';
-import CardForm from '../../components/CardForm.vue';
-import SubmitButton from '../../components/SubmitButton.vue';
+import axios from '@/axios';
+import store from '@/store';
+import CardForm from '@/components/container/CardForm.vue';
 
 export default {
-    name: "LoginView",
+    name: 'LoginView',
     components: {
-        BaseUnAuth,
-        TextInput,
-        CardForm,
-        SubmitButton
+        CardForm
     },
-    data() {
+    data () {
         return {
             email: '',
             password: '',
-            errors: {}
-        }
+            errors: {},
+            isBusy: false
+        };
     },
     mounted () {
         if (store.state.auth.token) {
@@ -48,19 +52,26 @@ export default {
         }
     },
     methods: {
-        login() {
+        login () {
+            this.isBusy = true;
             axios.post('/api/login', {
                 email: this.email,
                 password: this.password
             }).then(res => {
                     store.commit('login', res.data.token);
                     store.commit('setUser', res.data.user);
+                    if (this.$router.currentRoute.value.query.redirect) {
+                        this.$router.push({ path: this.$router.currentRoute.value.query.redirect });
+                        return;
+                    }
                     this.$router.push({ name: 'Dashboard' });
                 })
                 .catch(err => {
-                    this.errors = err.response.data.errors
+                    this.errors = err.response.data.errors;
+                }).finally(() => {
+                    this.isBusy = false;
                 });
         }
     }
-}
+};
 </script>

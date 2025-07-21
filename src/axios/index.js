@@ -1,16 +1,27 @@
-import axios from "axios";
-import store from '../store'
-// import store from "../store";
-// store.state.user.token
-const axiosClient = axios.create({
-  baseURL: 'http://localhost:8000'
-})
+import axiosClient from 'axios';
+import store from '@/store';
+import router from '@/router';
 
-axiosClient.interceptors.request.use(config => {
-  if (store.state.auth.token) {
-    config.headers.Authorization = `Bearer ${store.state.auth.token}`
-  }
-  return config;
-})
+const axios = axiosClient.create({
+    baseURL: `http://${import.meta.env.VITE_API_HOST}`
+});
 
-export default axiosClient;
+axios.interceptors.request.use(config => {
+    if (store.state.auth.token) {
+        config.headers.Authorization = `Bearer ${store.state.auth.token}`;
+    }
+    return config;
+});
+
+axios.interceptors.response.use(
+    response => response,
+    error => {
+        if (error.response && error.response.status === 401) {
+            store.commit('logout');
+            router.push('/login');
+        }
+        return Promise.reject(error);
+    }
+);
+
+export default axios;
