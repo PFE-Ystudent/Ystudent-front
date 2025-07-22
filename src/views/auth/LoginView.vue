@@ -1,6 +1,6 @@
 <template>
     <div class="flex justify-center">
-        <div class="w-1/3">
+        <div class="w-full px-4 sm:px-0 sm:w-2/3 lg:w-1/3">
             <CardForm title="Connexion">
                 <div class="flex flex-col items-center"
                      @keypress.enter="login">

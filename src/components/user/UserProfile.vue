@@ -4,7 +4,7 @@
           @mouseenter="isHover = true"
           @mouseleave="isHover = false">
         <div class="split-bg flex pl-8">
-            <UserAvatar class="w-32 h-32"
+            <UserAvatar class="w-24 h-24 md:w-32 md:h-32"
                         :avatar="user.avatar"
                         :custom-class="isSelected ? '!p-2 !bg-selected' : '!p-2 !bg-secondary'" />
             <div class="flex flex-col pl-4"
@@ -14,14 +14,14 @@
                 </div>
                 <div class="w-2/3 h-2/5 flex justify-between">
                     <div>
-                        <div class="text-xl font-semibold">
+                        <div class="text-md md:text-xl font-semibold">
                             {{ user.username }}
                         </div>
                         <div class="text-xs text-zinc-400">
                             {{ user.role.name }}
                         </div>
                     </div>
-                    <div class="h-full flex items-center">
+                    <div class="hidden md:flex h-full items-center">
                         <div class="flex gap-4 py-4">
                             <badge color="#c27aff">
                                 <font-awesome-icon icon="fa-solid fa-message" />
@@ -37,6 +37,16 @@
             </div>
         </div>
         <div class="bg-body rounded-b-md p-2">
+            <div class="flex md:hidden items-center justify-around py-1">
+                <badge color="#c27aff">
+                    <font-awesome-icon icon="fa-solid fa-message" />
+                    {{ user.postsCount }} Post{{ user.postsCount > 1 ? 's' : '' }}
+                </badge>
+                <badge color="#8e51ff">
+                    <font-awesome-icon icon="fa-solid fa-reply" />
+                    {{ user.postRepliesCount }} Réponse{{ user.postRepliesCount > 1 ? 's' : '' }}
+                </badge>
+            </div>
             <div>{{ user.about }}</div>
             <div class="text-end text-xs text-zinc-400">
                 Actif depuis le {{ createdAt }}

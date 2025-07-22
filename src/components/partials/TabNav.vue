@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-color text-color flex w-full divide-x-secondary divide-x text-lg cursor-pointer font-semibold text-center border-t border-x border-t-secondary border-x-secondary rounded-t-md">
+    <div class="bg-color text-color flex w-full divide-x-secondary divide-x text-sm md:text-lg cursor-pointer font-semibold text-center border-t border-x border-t-secondary border-x-secondary rounded-t-md">
         <div v-for="tab in tabs"
              :key="tab.value"
              :ref="`tab-container-${tab.value}`"

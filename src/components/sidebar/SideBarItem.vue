@@ -5,13 +5,13 @@
              'text-sky-300 border-sky-300': !isHover && !isSelected,
              'bg-primary border-primary text-white': isSelected
          }"
-         @click="$router.push({ name: route })"
+         @click="selected"
          @mouseenter="isHover = true"
          @mouseleave="isHover = false">
         <font-awesome-icon :icon="`fa-solid ${icon}`"
                            size="lg" />
         <span v-if="isDeploy"
-              class="overflow-x-hidden text-nowrap leading-4 select-none">{{ name }}</span>
+              class="overflow-hidden text-nowrap leading-4 select-none">{{ name }}</span>
     </div>
 </template>
 
@@ -45,6 +45,12 @@ export default {
         isSelected () {
             return this.$route.name === this.route;
         }
-    }
+    },
+    methods: {
+        selected () {
+            this.$emit('selected', this.name);
+            this.$router.push({ name: this.route });
+        }
+    },
 };
 </script>

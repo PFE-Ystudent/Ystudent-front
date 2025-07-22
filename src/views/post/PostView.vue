@@ -1,6 +1,6 @@
 <template>
-    <div class="flex gap-4 mt-8">
-        <div class="w-3/5">
+    <div class="flex flex-col-reverse md:flex-row gap-4 mt-8">
+        <div class="w-full md:w-3/5">
             <PostForm :categories="categories"
                       @new-post="addPost" />
             <div class="mt-4 mb-32">
@@ -47,8 +47,8 @@
                 </div>
             </div>
         </div>
-        <div class="w-2/5">
-            <div class="w-2/3 mx-auto sticky top-[78px]">
+        <div class="w-full md:w-2/5">
+            <div class="w-full md:w-2/3 md:mx-auto sticky top-[78px]">
                 <PostFilter :categories="categories"
                             @filter="filter" />
             </div>

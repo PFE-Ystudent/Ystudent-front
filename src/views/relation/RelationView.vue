@@ -1,6 +1,6 @@
 <template>
-    <div class="flex gap-4 mt-8">
-        <div class="w-1/2">
+    <div class="flex gap-4 mt-8o">
+        <div class="w-full md:w-2/3 lg:w-1/2">
             <div class="mt-4 mb-32">
                 <div class="sticky top-[62px]"
                      style="z-index: 1;">
@@ -18,13 +18,20 @@
                                          :user="user"
                                          :action-type="activeTab">
                                 <template v-if="activeTab === 'request'">
-                                    <cancel-button @click="replyRequest(user.id, false)">
-                                        <font-awesome-icon icon="fa-solid fa-xmark" /> Refuser
-                                    </cancel-button>
-                                    <submit-button @click="replyRequest(user.id, true)">
-                                        <font-awesome-icon icon="fa-solid fa-user-group" />
-                                        Accepter
-                                    </submit-button>
+                                    <template v-if="isDesktop">
+                                        <cancel-button @click="replyRequest(user.id, false)">
+                                            <font-awesome-icon icon="fa-solid fa-user-xmark" /> Refuser
+                                        </cancel-button>
+                                        <submit-button @click="replyRequest(user.id, true)">
+                                            <font-awesome-icon icon="fa-solid fa-user-check" /> Accepter
+                                        </submit-button>
+                                    </template>
+                                    <template v-else>
+                                        <cancel-button icon="fa-user-xmark"
+                                                       @click="replyRequest(user.id, false)" />
+                                        <submit-button icon="fa-user-check"
+                                                       @click="replyRequest(user.id, true)" />
+                                    </template>
                                 </template>
                             </UserProfile>
                         </template>
@@ -69,7 +76,8 @@ export default {
                 { name: 'Recherche', value: 'search' },
                 { name: 'Demandes', value: 'request' },
                 { name: 'Masqués', value: 'blocked' },
-            ]
+            ],
+            isDesktop: window.innerWidth >= 768,
         };
     },
     created () {
