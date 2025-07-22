@@ -5,7 +5,7 @@
                  v-click-outside="clickOutside"
                  class="relative min-h-screen"
                  style="width: 72px;">
-                <SideBar @selected="isSideBarVisible = false" />
+                <SideBar @selected="selected" />
             </div>
             <div :style="`width: ${isDesktop ? 'calc(100% - 72px)' : '100%'};`">
                 <div class="h-16"
@@ -86,6 +86,11 @@ export default {
         },
         clickOutside () {
             if (!this.isDesktop && this.isSideBarVisible) {
+                this.isSideBarVisible = false;
+            }
+        },
+        selected () {
+            if (!this.isDesktop) {
                 this.isSideBarVisible = false;
             }
         }

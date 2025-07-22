@@ -1,6 +1,6 @@
 <template>
-    <div class="flex mt-8">
-        <div class="w-1/5 flex justify-end px-8">
+    <div class="flex flex-col md:flex-row mt-8">
+        <div class="w-full md:w-1/5 flex justify-between md:justify-end md:px-8 mb-4 md:mb-0">
             <div>
                 <button class="flex gap-4 items-center text-zinc-400 hover:text-color cursor-pointer"
                         @click="$router.push({ name: 'Post' })">
@@ -10,8 +10,27 @@
                     </div>
                 </button>
             </div>
+
+            <div v-if="post && !isDesktop"
+                 class="w-auto md:w-1/5 pl-4 flex flex-col items-start gap-4">
+                <submit-button @click="isShared = true">
+                    <font-awesome-icon icon="fa-solid fa-share-from-square" />
+                    Partager
+                </submit-button>
+                <template v-if="user.id === post.author.id">
+                    <submit-button @click="isEdited = true">
+                        Modifier
+                    </submit-button>
+                    <submit-button @click="deleteIsVisible = true">
+                        Supprimer
+                    </submit-button>
+                </template>
+                <cancel-button v-else>
+                    Signaler
+                </cancel-button>
+            </div>
         </div>
-        <div class="w-3/5">
+        <div class="w-full md:w-3/5">
             <template v-if="post">
                 <PostSingle v-if="!isEdited"
                             :post="post"
@@ -23,12 +42,12 @@
             </template>
             <PostSingleLoader v-else />
             <div v-if="postId"
-                 class="px-4 mb-32">
+                 class="px-2 md:px-4 mb-32">
                 <PostReplies :post-id="postId" />
             </div>
         </div>
-        <div v-if="post"
-             class="w-1/5 pl-4 flex flex-col items-start gap-4">
+        <div v-if="post && isDesktop"
+             class="w-full md:w-1/5 pl-4 flex flex-col items-start gap-4">
             <submit-button @click="isShared = true">
                 <font-awesome-icon icon="fa-solid fa-share-from-square" />
                 Partager
@@ -83,7 +102,8 @@ export default {
             post: null,
             isEdited: false,
             isShared: false,
-            deleteIsVisible: false
+            deleteIsVisible: false,
+            isDesktop: window.innerWidth >= 768
         };
     },
     mounted () {

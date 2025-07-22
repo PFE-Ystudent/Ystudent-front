@@ -1,18 +1,24 @@
 <template>
-    <div class="bg-body border border-selected rounded-md text-color"
-         style="height: 85vh">
-        <div class="h-12 bg-selected px-8 flex items-center justify-between border-b border-selected rounded-t-md">
-            <div class="font-semibold text-lg flex items-center gap-4">
-                <font-awesome-icon icon="fa-solid fa-comments"
+    <div class="bg-body border border-selected lg:rounded-md text-color"
+         :style="`height: ${gtLg ? '85vh' : 'calc(100vh - 64px)' }`">
+        <div class="h-12 bg-selected px-2 lg:px-8 flex items-center justify-between border-b border-selected rounded-t-md">
+            <div class="font-semibold text-lg flex items-center gap-2 lg:gap-4">
+                <font-awesome-icon v-if="gtLg"
+                                   icon="fa-solid fa-comments"
                                    class="text-sky-300"
                                    size="lg" />
+                <font-awesome-icon v-else
+                                   icon="fa-solid fa-angles-left"
+                                   class="text-sky-300"
+                                   size="lg"
+                                   @click="$emit('toggle-section')" />
                 <div>
                     {{ authUser.id === conversation.requester.id ? conversation.user.username : conversation.requester.username }}
                 </div>
             </div>
         </div>
         <div class="px-2 overflow-y-scroll flex flex-col-reverse pb-2"
-             style="height: calc(85vh - 114px)">
+             :style="`height: ${gtLg ? 'calc(85vh - 114px)' : 'calc(100vh - 114px - 64px)'}`">
             <template v-if="!isBusy || !conversation.lastMessage">
                 <div v-for="(message, i) in messages"
                      :key="message.id">
@@ -94,7 +100,8 @@ export default {
             },
             newMessage: null,
             waitSending: false,
-            isBusy: false
+            isBusy: false,
+            gtLg: window.innerWidth >= 1024
         };
     },
     watch: {

@@ -2,21 +2,21 @@
     <div class="w-full"
          style="height: 85vh;">
         <div v-if="conversations.length"
-             class="mb-2 text-color">
+             class="mb-2 text-color mx-2 lg:mx-0 mt-4 lg:mt-0">
             <text-input v-model="search"
                         placeholder="Recherche"
                         clearable
                         no-margin
                         @input="filtered" />
         </div>
-        <div class="w-full flex flex-col gap-2 overflow-scroll"
+        <div class="flex flex-col gap-2 overflow-scroll mx-2 lg:mx-0"
              style="height: calc(85vh - 40px);">
             <template v-if="!isBusy">
                 <ConversationSingle v-for="conversation in filteredConversations"
                                     :key="conversation.id"
                                     :conversation="conversation"
-                                    :is-selected="selectedConversationId === conversation.id"
-                                    @click="selectConversation(conversation)" />
+                                    :is-selected="selectedConversation.id === conversation.id"
+                                    @click="selectConversation(conversation, true)" />
             </template>
             <template v-else>
                 <ConversationSingleLoader v-for="i in 3"
@@ -44,7 +44,9 @@ export default {
             authUser: store.state.auth.user,
             conversations: [],
             filteredConversations: [],
-            selectedConversationId: null,
+            selectedConversation: {
+                id: null
+            },
             search: null,
             isBusy: false,
         };
@@ -72,11 +74,14 @@ export default {
                 this.isBusy = false;
             });
         },
-        selectConversation (conversation) {
+        selectConversation (conversation, toggleSection = false) {
             this.$emit('select-conversation', conversation);
-            this.selectedConversationId = conversation.id;
-            if (conversation.id !==  parseInt(this.$route.params.id)) {
+            this.selectedConversation = conversation;
+            if (conversation.id !== parseInt(this.$route.params.id)) {
                 this.$router.push({ name: 'Conversation', params: { id: conversation.id } });
+            }
+            if (toggleSection) {
+                this.$emit('toggle-section');
             }
         },
         filtered () {
