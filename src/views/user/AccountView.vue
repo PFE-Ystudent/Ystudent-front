@@ -1,13 +1,15 @@
 <template>
     <div v-if="user"
-         class="w-full flex justify-end mt-8 mb-32 gap-4">
-        <div class="w-3/5">
+         class="w-full flex flex-col md:flex-row md:justify-end mt-8 mb-32 gap-4">
+        <div class="w-full md:w-3/5">
             <CardForm title="Mon compte">
-                <div class="flex">
-                    <div class="flex flex-col gap-2 items-center justify-end w-44 mr-8">
-                        <UserAvatar :avatar="previewAvatarUrl"
-                                    class="w-20 h-20"
-                                    custom-class="shadow" />
+                <div class="flex flex-col md:flex-row">
+                    <div class="flex flex-row md:flex-col gap-2 items-end md:items-center md:justify-end md:w-44 md:mr-8">
+                        <div class="w-24 h-24 md:w-20 md:h-20">
+                            <UserAvatar :avatar="previewAvatarUrl"
+                                        class="w-24 h-24 md:w-20 md:h-20"
+                                        custom-class="shadow" />
+                        </div>
                         <upload-input id="avatar-upload"
                                       accept="image/*"
                                       @select-files="selectFile" />

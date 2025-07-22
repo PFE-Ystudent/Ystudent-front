@@ -36,13 +36,14 @@
         <template v-if="!isDetails">
             <hr class="w-2/3 mx-auto mb-2 mt-4 border-secondary">
             <div class="flex justify-end">
-                <div class="w-1/3 text-xs text-zinc-400 flex items-center">
+                <div class="w-1/2 md:w-1/3 text-xs text-zinc-400 flex items-center">
                     {{ timestamp }}<div v-if="post.isEdited"
                                         class="font-semibold ml-1">
                         • (modifié)
                     </div>
                 </div>
-                <div class="w-1/3 flex justify-center gap-4">
+                <div v-if="isDesktop"
+                     class="w-1/3 flex justify-center gap-4">
                     <badge color="#00bc7d"
                            class="cursor-pointer"
                            @click="$emit('share')">
@@ -59,7 +60,7 @@
                         Favoris
                     </badge>
                 </div>
-                <div class="w-1/3 flex justify-end">
+                <div class="w-1/2 md:w-1/3 flex justify-end">
                     <cancel-button @click="$router.push({ name: 'PostDetails', params: { id: post.id } })">
                         <div class="flex gap-4 items-center">
                             <div class="mb-px">
@@ -125,7 +126,8 @@ export default {
         return {
             user: store.state.auth.user,
             isHover: false,
-            showProfile: false
+            showProfile: false,
+            isDesktop: window.innerWidth >= 768
         };
     },
     computed: {

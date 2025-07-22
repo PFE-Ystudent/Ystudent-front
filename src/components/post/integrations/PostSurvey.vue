@@ -1,7 +1,7 @@
 <template>
     <card class="py-2 px-4">
         <div class="flex">
-            <div class="w-4/5">
+            <div class="w-full md:w-4/5">
                 <div class="text-md font-semibold mb-4">
                     <div>{{ survey.question }}</div>
                     <div class="text-muted text-xs">
@@ -41,12 +41,15 @@
                         </div>
                     </div>
                     <div v-if="isReply"
-                         class="text-muted text-xs">
-                        {{ Math.round(100 / totalReply * option.replyCount) }}% <span class="text-zinc-400">({{ option.replyCount }} votes)</span>
+                         class="text-muted text-xs flex flex-col items-center md:flex-row gap-1">
+                        <div>{{ Math.round(100 / totalReply * option.replyCount) }}%</div>
+                        <div class="text-zinc-400">
+                            ({{ option.replyCount }} votes)
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="w-1/5 flex items-center justify-center text-sky-400">
+            <div class="hidden md:w-1/5 md:flex items-center justify-center text-sky-400">
                 <font-awesome-icon icon="fa-solid fa-square-poll-vertical"
                                    size="4x" />
             </div>

@@ -1,17 +1,26 @@
 <template>
     <div>
         <div class="flex">
-            <div class="relative min-h-screen"
+            <div v-if="isSideBarVisible"
+                 v-click-outside="clickOutside"
+                 class="relative min-h-screen"
                  style="width: 72px;">
-                <SideBar />
+                <SideBar @selected="selected" />
             </div>
-            <div style="width: calc(100% - 72px);">
+            <div :style="`width: ${isDesktop ? 'calc(100% - 72px)' : '100%'};`">
                 <div class="h-16"
-                     style="width: calc(100% - 72px);">
+                     :style="`width: ${isDesktop ? 'calc(100% - 72px)' : '100%'};`">
                     <div class="h-16 px-4 bg-primary border-b-2 border-primary fixed"
-                         style="z-index: 90; width: calc(100% - 72px);">
+                         style="z-index: 90;"
+                         :style="`width: ${isDesktop ? 'calc(100% - 72px)' : '100%'};`">
                         <div class="flex h-full justify-between">
-                            <div />
+                            <div class="flex items-center">
+                                <card v-if="!isSideBarVisible"
+                                      class="cursor-pointer text-color w-12 h-12 flex items-center justify-center"
+                                      @mouseup="toggleSidebar">
+                                    <font-awesome-icon icon="fa-bars" />
+                                </card>
+                            </div>
                             <div class="flex items-center justify-center relative">
                                 <TooltipAction :actions="[{ value: 'account', label: 'Mon compte'}, {value: 'logout', label: 'Déconnexion'}]"
                                                @select-action="selectAction">
@@ -52,7 +61,9 @@ export default {
     data () {
         return {
             user: store.state.auth.user,
-            showUserDropdown: false
+            showUserDropdown: false,
+            isDesktop: window.innerWidth >= 768,
+            isSideBarVisible: window.innerWidth >= 768
         };
     },
     methods: {
@@ -69,6 +80,19 @@ export default {
                     this.$router.push({ name: 'Login' });
                 })
                 .catch(err => console.log(err));
+        },
+        toggleSidebar () {
+            this.isSideBarVisible = !this.isSideBarVisible;
+        },
+        clickOutside () {
+            if (!this.isDesktop && this.isSideBarVisible) {
+                this.isSideBarVisible = false;
+            }
+        },
+        selected () {
+            if (!this.isDesktop) {
+                this.isSideBarVisible = false;
+            }
         }
     }
 };

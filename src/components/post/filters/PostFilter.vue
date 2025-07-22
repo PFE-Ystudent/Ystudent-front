@@ -1,35 +1,42 @@
 <template>
-    <card class="w-full p-4 text-color">
-        <div class="font-semibold text-lg mb-2">
+    <card class="w-full p-2 md:p-4 text-color">
+        <div class="font-semibold text-lg flex justify-between">
             Recherche
+            <button class="md:hidden text-primary text-sm pr-2"
+                    @click="collapsed = !collapsed">
+                <font-awesome-icon :icon="collapsed ? 'fa-chevron-up' : 'fa-chevron-down'" />
+            </button>
         </div>
-        <hr class="mb-2 border-secondary">
 
-        <text-input v-model="filter.search"
-                    label="Mots clés :"
-                    placeholder="Mots clés"
-                    no-margin />
-        <text-input v-model="filter.author"
-                    label="Auteur :"
-                    placeholder="Auteur"
-                    class="mt-2"
-                    no-margin />
-        <select-input v-model="filter.categories"
-                      label="Catégories :"
-                      multiple
-                      :options="categories"
-                      class="mt-2"
-                      no-margin />
+        <template v-if="!collapsed">
+            <hr class="my-2 border-secondary">
 
-        <div class="flex justify-end mt-4 gap-4">
-            <cancel-button @click="clear">
-                <font-awesome-icon icon="fa-solid fa-filter-circle-xmark" />
-            </cancel-button>
-            <submit-button icon="fa-filter"
-                           @click="send">
-                Filtrer
-            </submit-button>
-        </div>
+            <text-input v-model="filter.search"
+                        label="Mots clés :"
+                        placeholder="Mots clés"
+                        no-margin />
+            <text-input v-model="filter.author"
+                        label="Auteur :"
+                        placeholder="Auteur"
+                        class="mt-2"
+                        no-margin />
+            <select-input v-model="filter.categories"
+                          label="Catégories :"
+                          multiple
+                          :options="categories"
+                          class="mt-2"
+                          no-margin />
+
+            <div class="flex justify-end mt-4 gap-4">
+                <cancel-button @click="clear">
+                    <font-awesome-icon icon="fa-solid fa-filter-circle-xmark" />
+                </cancel-button>
+                <submit-button icon="fa-filter"
+                               @click="send">
+                    Filtrer
+                </submit-button>
+            </div>
+        </template>
     </card>
 </template>
 
@@ -48,7 +55,8 @@ export default {
                 search: null,
                 author: null,
                 categories: []
-            }
+            },
+            collapsed: window.innerWidth < 768
         };
     },
     methods: {

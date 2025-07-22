@@ -12,21 +12,25 @@
                 <SideBarItem name="Posts"
                              icon="fa-message"
                              route="Post"
-                             :is-deploy="isDeploy" />
+                             :is-deploy="isDeploy"
+                             @selected="selected" />
                 <SideBarItem name="Relations"
                              icon="fa-user-group"
                              route="Relation"
-                             :is-deploy="isDeploy" />
+                             :is-deploy="isDeploy"
+                             @selected="selected" />
                 <SideBarItem name="Conversations"
                              icon="fa-comments"
                              route="Conversation"
-                             :is-deploy="isDeploy" />
+                             :is-deploy="isDeploy"
+                             @selected="selected" />
                 <template v-if="isAdmin">
                     <hr class="w-12 mx-auto border-secondary">
                     <SideBarItem name="Administration"
                                  icon="fa-toolbox"
                                  route="Administration"
-                                 :is-deploy="isDeploy" />
+                                 :is-deploy="isDeploy"
+                                 @selected="selected" />
                 </template>
             </div>
         </div>
@@ -45,8 +49,13 @@ export default {
     data () {
         return {
             isAdmin: store.getters.isAdmin,
-            isDeploy: false
+            isDeploy: window.innerWidth < 768
         };
-    }
+    },
+    methods: {
+        selected (name) {
+            this.$emit('selected', name);
+        }
+    },
 };
 </script>

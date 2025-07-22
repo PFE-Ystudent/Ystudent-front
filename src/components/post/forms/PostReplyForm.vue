@@ -23,11 +23,16 @@
                            @click="hidePostReplyForm">
                 Annuler
             </cancel-button>
-            <submit-button :icon="showPostReplyForm ? 'fa-paper-plane': 'fa-plus'"
+            <submit-button v-if="isDesktop || !showPostReplyForm"
+                           :icon="showPostForm ? 'fa-paper-plane': 'fa-plus'"
                            :is-busy="isBusy"
                            @click="sendReply">
-                {{ showPostReplyForm ? 'Envoyer la réponse' : 'Répondre' }}
+                {{ showPostReplyForm ? 'Envoyer la réponse' : 'Ecrire un post' }}
             </submit-button>
+            <submit-button v-else
+                           :icon="showPostReplyForm ? 'fa-paper-plane': 'fa-plus'"
+                           :is-busy="isBusy"
+                           @click="sendReply" />
         </div>
     </CardForm>
 </template>
@@ -57,7 +62,8 @@ export default {
             categories: [],
             replyContent: null,
             errors: {},
-            isBusy: false
+            isBusy: false,
+            isDesktop: window.innerWidth >= 768
         };
     },
     methods: {

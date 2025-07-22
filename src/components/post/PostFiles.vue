@@ -1,7 +1,7 @@
 <template>
     <div class="w-full flex justify-center bg-color border-y border-secondary relative gap-px"
          :class="{ 'flex-col': number === 4 }">
-        <template v-if="number <= 3">
+        <template v-if="number === 1 || (number <= 3 && isDesktop)">
             <div v-for="(file, i) in files"
                  :key="i">
                 <img :src="file.url"
@@ -9,7 +9,7 @@
                      :class="{ 'max-w-full': number === 1, 'max-w-1/2': number === 2, 'max-w-1/3': number === 3 }">
             </div>
         </template>
-        <template v-else-if="number === 4">
+        <template v-else-if="number === 4 && isDesktop">
             <div class="flex justify-center items-center gap-px">
                 <img :src="files[0].url"
                      class="max-h-52 max-w-1/2 hover:scale-[101%] cursor-pointer">
@@ -49,7 +49,8 @@ export default {
     },
     data () {
         return {
-            index: 0
+            index: 0,
+            isDesktop: window.innerWidth >= 768
         };
     },
     computed: {

@@ -8,12 +8,12 @@ import store from '@/store';
 import PostDetails from '@/views/post/PostDetails.vue';
 import AccountView from '@/views/user/AccountView.vue';
 import UserDetails from '@/views/user/UserDetails.vue';
-import ConversationView from '@/views/conversation/ConversationView.vue';
 import NotFound from '@/views/default/NotFound.vue';
 import BaseUnAuth from '@/views/base/BaseUnAuth.vue';
 import BaseAuth from '@/views/base/BaseAuth.vue';
 import AdministrationView from '@/views/admin/AdministrationView.vue';
 import CategoriesGestionView from '@/views/admin/gestion/CategoriesGestionView.vue';
+import ConversationView from '@/views/conversation/ConversationView.vue';
 
 const routes = [
     {

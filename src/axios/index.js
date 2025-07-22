@@ -1,6 +1,5 @@
 import axiosClient from 'axios';
 import store from '@/store';
-import router from '@/router';
 
 const axios = axiosClient.create({
     baseURL: `http://${import.meta.env.VITE_API_HOST}`
@@ -13,15 +12,16 @@ axios.interceptors.request.use(config => {
     return config;
 });
 
-axios.interceptors.response.use(
-    response => response,
-    error => {
-        if (error.response && error.response.status === 401) {
-            store.commit('logout');
-            router.push('/login');
-        }
-        return Promise.reject(error);
-    }
-);
+// TODO: not working
+// axios.interceptors.response.use(
+//     response => response,
+//     error => {
+//         if (error.response && error.response.status === 401) {
+//             store.commit('logout');
+//             window.location.href = '/login';
+//         }
+//         return Promise.reject(error);
+//     }
+// );
 
 export default axios;

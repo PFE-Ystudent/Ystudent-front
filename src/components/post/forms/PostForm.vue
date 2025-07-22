@@ -6,7 +6,7 @@
                 <div class="flex gap-2 items-center">
                     <UserAvatar class="w-8 h-8"
                                 :avatar="user.avatar" />
-                    <div>
+                    <div v-if="isDesktop">
                         <div>{{ user.username }}</div>
                         <div class="text-xs text-zinc-400">
                             {{ user.role.name }}
@@ -74,11 +74,16 @@
                                @click="hidePostForm">
                     Annuler
                 </cancel-button>
-                <submit-button :icon="showPostForm ? 'fa-paper-plane': 'fa-plus'"
+                <submit-button v-if="isDesktop || !showPostForm"
+                               :icon="showPostForm ? 'fa-paper-plane': 'fa-plus'"
                                :is-busy="isBusy"
                                @click="sendPost">
                     {{ showPostForm ? 'Envoyer le post' : 'Ecrire un post' }}
                 </submit-button>
+                <submit-button v-else
+                               :icon="showPostForm ? 'fa-paper-plane': 'fa-plus'"
+                               :is-busy="isBusy"
+                               @click="sendPost" />
             </div>
         </div>
     </CardForm>
@@ -120,7 +125,8 @@ export default {
             files: [],
             previewfiles: [],
             errors: {},
-            isBusy: false
+            isBusy: false,
+            isDesktop: window.innerWidth >= 768
         };
     },
     methods: {

@@ -7,11 +7,22 @@
                            primary-color="var(--loader-primary)"
                            secondary-color="var(--loader-secondary)"
                            :speed="0.8"
-                           class="bg-secondary p-2 rounded-full"
+                           class="bg-secondary p-2 rounded-full hidden md:block"
                            :class="isHover ? 'bg-selected' : 'bg-secondary'">
                 <circle cx="64"
                         cy="64"
                         r="64" />
+            </ContentLoader>
+            <ContentLoader width="96"
+                           height="96"
+                           primary-color="var(--loader-primary)"
+                           secondary-color="var(--loader-secondary)"
+                           :speed="0.8"
+                           class="bg-secondary p-2 rounded-full md:hidden block"
+                           :class="isHover ? 'bg-selected' : 'bg-secondary'">
+                <circle cx="48"
+                        cy="48"
+                        r="48" />
             </ContentLoader>
             <div class="flex items-end pl-4 w-1/2">
                 <div class="w-full h-2/5 flex">
@@ -35,7 +46,7 @@
                                   height="8" />
                         </ContentLoader>
                     </div>
-                    <div class="h-full flex items-center">
+                    <div class="hidden md:flex h-full items-center">
                         <div class="flex gap-4 py-4 text-sky-400">
                             <ContentLoader width="72"
                                            height="24"

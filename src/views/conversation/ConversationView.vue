@@ -1,11 +1,15 @@
 <template>
-    <div class="flex gap-4 mt-8">
-        <div class="w-80">
-            <ConversationsSection @select-conversation="selectConversation" />
+    <div class="flex flex-col lg:flex-row gap-4 mt-0 lg:mt-8 -mx-4 lg:mx-0">
+        <div v-if="showConversation || gtLg"
+             class="w-full lg:w-80">
+            <ConversationsSection @select-conversation="selectConversation"
+                                  @toggle-section="toggleSection" />
         </div>
-        <div style="width: calc(100% - 320px)">
+        <div v-if="!showConversation || gtLg"
+             :style="`width: ${gtLg ? 'calc(100% - 320px)' : '100%'};'`">
             <MessagesSection v-if="selectedConversation"
-                             :conversation="selectedConversation" />
+                             :conversation="selectedConversation"
+                             @toggle-section="toggleSection" />
         </div>
     </div>
 </template>
@@ -16,7 +20,7 @@ import ConversationsSection from '@/components/conversation/ConversationsSection
 import MessagesSection from '@/components/conversation/MessagesSection.vue';
 
 export default {
-    name: 'RelationView',
+    name: 'ConversationView',
     components: {
         ConversationsSection,
         MessagesSection
@@ -24,12 +28,19 @@ export default {
     data () {
         return {
             authUser: store.state.auth.user,
-            selectedConversation: null
+            selectedConversation: null,
+            gtLg: window.innerWidth >= 1024,
+            showConversation: window.innerWidth < 1024
         };
     },
     methods: {
         selectConversation (conversation) {
             this.selectedConversation = conversation;
+        },
+        toggleSection () {
+            if (!this.gtLg) {
+                this.showConversation = !this.showConversation;
+            }
         }
     }
 };
