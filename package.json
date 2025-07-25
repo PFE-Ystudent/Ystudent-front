@@ -9,7 +9,6 @@
     "js-lint": "vue-cli-service lint",
     "lint": "eslint --ext .js,.vue src",
     "test": "vitest",
-    "temp": "vite --debug hmr",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage"
   },
