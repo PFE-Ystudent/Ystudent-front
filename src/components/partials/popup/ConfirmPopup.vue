@@ -1,11 +1,12 @@
 <template>
     <PopupContainer @close="close">
-        <div class="text-xl font-semibold mb-2">
+        <div id="dialog-label"
+             class="text-xl font-semibold mb-2">
             Confirmation
         </div>
         <hr class="mb-2 border-secondary">
         <slot>
-            Êtes-vous sûr de vouloir faire cette action ?
+            <span id="dialog-desc">Êtes-vous sûr de vouloir faire cette action ?</span>
         </slot>
         <div class="mt-8 flex gap-4 justify-end">
             <cancel-button @click="close">

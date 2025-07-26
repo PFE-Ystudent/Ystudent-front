@@ -57,6 +57,7 @@ import axios from '@/axios';
 import store from '@/store';
 import UserAvatar from '@/components/user/UserAvatar.vue';
 import { mapState } from 'vuex';
+import { useToast } from '@/plugins/useToast';
 
 export default {
     name: 'AccountView',
@@ -108,6 +109,8 @@ export default {
             axios.post('/api/users/me', formData).then((res) => {
                     this.user = res.data;
                     this.previewAvatarUrl = res.data.avatar;
+                    const { sucessToast } = useToast();
+                    sucessToast('Profil enregistré !');
                 }).catch((err) => {
                     this.errors = err.response.data.errors;
                 });

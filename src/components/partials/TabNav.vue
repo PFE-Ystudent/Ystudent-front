@@ -1,11 +1,13 @@
 <template>
     <div class="bg-color text-color flex w-full divide-x-secondary divide-x text-sm md:text-lg cursor-pointer font-semibold text-center border-t border-x border-t-secondary border-x-secondary rounded-t-md">
-        <div v-for="tab in tabs"
-             :key="tab.value"
-             :ref="`tab-container-${tab.value}`"
-             class="w-full border-b border-secondary"
-             :class="{'text-primary': tab.value === selectedTab, 'max-w-min': tab.icon && !tab.name }"
-             @click="select(tab)">
+        <button v-for="tab in tabs"
+                :key="tab.value"
+                :ref="`tab-container-${tab.value}`"
+                class="w-full border-b border-secondary"
+                :class="{'text-primary': tab.value === selectedTab, 'max-w-min': tab.icon && !tab.name }"
+                role="navigation"
+                :aria-current="tab.value === selectedTab ? 'true' : 'false'"
+                @click="select(tab)">
             <div class="p-2 hover:text-primary select-none"
                  :style="tab.iconColor ? `color: ${tab.iconColor};` : ''">
                 <font-awesome-icon v-if="tab.icon"
@@ -16,7 +18,7 @@
             <div v-if="tab.value === tabs[0].value"
                  class="h-1 bg-primary ease-in duration-200"
                  :style="`transform: translate(${translateX}px, 1px); width: ${tabWidth}px`" />
-        </div>
+        </button>
     </div>
 </template>
 

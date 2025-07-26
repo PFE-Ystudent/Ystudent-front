@@ -78,14 +78,14 @@ export default {
     },
     methods: {
         createCategory () {
-            axios.post('/api/admin/categories', this.newCategory).then(() => {
+            axios.post(this.baseUrl, this.newCategory).then(() => {
                 this.hideForm();
             }).catch((err) => {
                 this.errors = err.response.data.errors;
             });
         },
         editCategory () {
-            axios.put(`/api/admin/categories/${this.newCategory.id}`, this.newCategory).then(() => {
+            axios.put(`${this.baseUrl}/${this.newCategory.id}`, this.newCategory).then(() => {
                 this.hideForm();
             }).catch((err) => {
                 this.errors = err.response.data.errors;

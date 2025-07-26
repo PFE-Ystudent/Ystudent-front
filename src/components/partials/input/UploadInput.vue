@@ -1,7 +1,10 @@
 <template>
     <label :for="id"
            class="w-full">
-        <div class="flex w-full h-8 cursor-pointer">
+        <div class="flex w-full h-8 cursor-pointer"
+             tabindex="0"
+             role="button"
+             @keydown.enter="$refs.file.click()">
             <div class="h-full flex items-center justify-center text-white bg-primary border border-primary rounded-l-md py-1 px-2">
                 <font-awesome-icon icon="fa-solid fa-arrow-up-from-bracket" />
             </div>
@@ -12,10 +15,10 @@
                     <div v-for="(file, index) in files"
                          :key="index"
                          class="flex items-center bg-primary rounded-lg text-sm text-white p-1">
-                        <div class="p-1"
-                             @click="deleteFile($event, index)">
+                        <button class="p-1"
+                                @click="deleteFile($event, index)">
                             <font-awesome-icon icon="fa-solid fa-xmark" />
-                        </div>
+                        </button>
                         <div>
                             {{ file.name }}
                         </div>
@@ -33,6 +36,7 @@
             </div>
         </div>
         <input :id="id"
+               ref="file"
                type="file"
                class="hidden"
                :accept="accept"

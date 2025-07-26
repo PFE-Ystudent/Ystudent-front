@@ -1,6 +1,8 @@
 <template>
-    <div class="card w-full px-2 md:px-4 py-2 text-color bg-secondary border-y border-l-4 border-r border-y-secondary border-r-secondary border-l-primary rounded-md">
+    <div class="card w-full px-2 md:px-4 py-2 text-color bg-secondary border-y border-l-4 border-r border-y-secondary border-r-secondary border-l-primary rounded-md"
+         :aria-labelledby="`form-${id}`">
         <div v-if="title"
+             :id="`form-${id}`"
              class="title text-primary text-2xl font-semibold mb-2">
             {{ title }}
         </div>
@@ -9,6 +11,7 @@
 </template>
 
 <script>
+import { getCurrentInstance } from 'vue';
 
 export default {
     name: 'CardForm',
@@ -17,7 +20,13 @@ export default {
             type: String,
             default: ''
         }
-    }
+    },
+    data () {
+        const { uid } = getCurrentInstance();
+        return {
+            id: uid
+        };
+    },
 };
 </script>
 

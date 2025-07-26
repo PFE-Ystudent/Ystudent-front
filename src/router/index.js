@@ -14,6 +14,9 @@ import BaseAuth from '@/views/base/BaseAuth.vue';
 import AdministrationView from '@/views/admin/AdministrationView.vue';
 import CategoriesGestionView from '@/views/admin/gestion/CategoriesGestionView.vue';
 import ConversationView from '@/views/conversation/ConversationView.vue';
+import ChangeLog from '@/views/ChangeLog.vue';
+import ReportingCategoriesGestionView from '@/views/admin/gestion/ReportingCategoriesGestionView.vue';
+import BugReportView from '@/views/report/BugReportView.vue';
 
 const routes = [
     {
@@ -55,6 +58,11 @@ const routes = [
                 path: 'conversations/:id?',
                 name: 'Conversation',
                 component: ConversationView
+            },
+            {
+                path: 'bug-report',
+                name: 'BugReportView',
+                component: BugReportView
             }
         ]
     },
@@ -73,6 +81,11 @@ const routes = [
                 name: 'CategoriesGestion',
                 component: CategoriesGestionView
             },
+            {
+                path: 'reporting-categories',
+                name: 'ReportingCategoriesGestion',
+                component: ReportingCategoriesGestionView
+            },
         ]
     },
     {
@@ -88,6 +101,11 @@ const routes = [
                 path: 'register',
                 name: 'Register',
                 component: RegisterView
+            },
+            {
+                path: 'changelog',
+                name: 'ChangeLog',
+                component: ChangeLog
             }
         ]
     },

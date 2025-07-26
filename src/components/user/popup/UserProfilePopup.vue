@@ -193,13 +193,22 @@ export default {
         }
     },
     mounted () {
+        document.addEventListener('keydown', this.handleKeydown);
         axios.get(`/api/users/${this.userId}`).then(res => {
                     this.user = res.data;
                 }).catch(() => {
                     // TODO: gérer l'erreur
                 });
     },
+    beforeUnmount () {
+        document.removeEventListener('keydown', this.handleKeydown);
+    },
     methods: {
+        handleKeydown (event) {
+            if (event.key === 'Escape') {
+                this.$emit('close');
+            }
+        },
         selectAction (action) {
             if (action === 'show') {
                 this.$router.push({ name: 'UserDetails', params: { id: this.userId } });

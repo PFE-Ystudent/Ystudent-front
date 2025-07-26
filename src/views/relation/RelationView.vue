@@ -28,8 +28,10 @@
                                     </template>
                                     <template v-else>
                                         <cancel-button icon="fa-user-xmark"
+                                                       :aria-label="`Refuser la demande de ${user.username}`"
                                                        @click="replyRequest(user.id, false)" />
                                         <submit-button icon="fa-user-check"
+                                                       :aria-label="`Accepter la demande de ${user.username}`"
                                                        @click="replyRequest(user.id, true)" />
                                     </template>
                                 </template>
@@ -56,6 +58,7 @@ import axios from '@/axios';
 import UserProfile from '@/components/user/UserProfile.vue';
 import UserProfileLoader from '@/components/loaders/UserProfileLoader.vue';
 import UserSearch from '@/components/user/UserSearch.vue';
+import { useToast } from '@/plugins/useToast';
 
 export default {
     name: 'RelationView',
@@ -102,6 +105,8 @@ export default {
         replyRequest (userId, isAccepted) {
             axios.post(`/api/users/${userId}/relations/request/reply`, { is_accepted: isAccepted }).then(() => {
                     this.users = this.users.filter(u => u.id !== userId);
+                    const { sucessToast } = useToast();
+                    sucessToast(`Demande ${isAccepted ? 'acceptée' : 'refusée'} !`);
                 });
         }
     },

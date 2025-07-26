@@ -29,7 +29,8 @@
             </CardForm>
             <div class="w-full text-center text-muted mt-1">
                 Vous avez déjà un compte ? <a class="text-sky-300 hover:text-sky-400 underline font-semibold"
-                                              href="/login">connectez-vous ici</a>
+                                              href="/login"
+                                              aria-label="Accéder à la page de connexion">connectez-vous ici</a>
             </div>
         </div>
     </div>

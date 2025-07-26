@@ -1,6 +1,7 @@
 <template>
     <div class="w-full">
         <div v-if="label"
+             :id="`label-${id}`"
              class="ml-1 mb-1 text-muted">
             {{ label }}
         </div>
@@ -11,6 +12,8 @@
                       class="w-full flex border rounded-md shadow hover:outline-none outline-none border-secondary bg-body focus:border-zinc-600 p-1"
                       :class="[{'!border-rose-500': errors}, inputClass]"
                       :disabled="disabled"
+                      :aria-labelledby="`label-${id}`"
+                      :aria-errormessage="`error-${id}-0`"
                       @keypress.enter="$emit('enter')"
                       @change="$emit('change', $event)" />
             <input v-else
@@ -21,22 +24,27 @@
                    :class="[{'!border-rose-500': errors}, inputClass]"
                    :style="type === 'password' || clearable ? 'padding-right: 38px;' : ''"
                    :disabled="disabled"
+                   :aria-labelledby="`label-${id}`"
+                   :aria-errormessage="`error-${id}-0`"
                    @keypress.enter="$emit('enter')"
                    @input="$emit('input', $event)"
                    @change="$emit('change', $event)">
             <template v-if="type === 'password'">
-                <div v-if="inputType === 'password'"
-                     class="absolute right-3 top-1/2 transform -translate-y-1/2"
-                     @click="inputType = 'text'">
+                <button v-if="inputType === 'password'"
+                        class="absolute right-3 top-1/2 transform -translate-y-1/2"
+                        aria-label="Masquer le mot de passe"
+                        @click="inputType = 'text'">
                     <font-awesome-icon icon="fa-solid fa-eye"
                                        class="text-sky-400 cursor-pointer" />
-                </div>
-                <div v-else
-                     class="absolute right-3 top-1/2 transform -translate-y-1/2">
+                </button>
+                <button v-else
+                        class="absolute right-3 top-1/2 transform -translate-y-1/2"
+                        aria-label="Afficher le mot de passe"
+                        aria-pressed="true">
                     <font-awesome-icon icon="fa-solid fa-eye-slash"
                                        class="text-sky-400 cursor-pointer"
                                        @click="inputType = 'password'" />
-                </div>
+                </button>
             </template>
             <template v-else-if="clearable">
                 <div class="absolute right-3 top-1/2 transform -translate-y-1/2"
@@ -49,6 +57,7 @@
         <div v-if="!noMargin"
              class="text-rose-500 text-xs h-4">
             <div v-for="(error, index) in errors"
+                 :id="`error-${id}-${index}`"
                  :key="index">
                 {{ error }}
             </div>
@@ -57,6 +66,7 @@
 </template>
 
 <script>
+import { getCurrentInstance } from 'vue';
 
 export default {
     name: 'TextInput',
@@ -99,8 +109,10 @@ export default {
         }
     },
     data () {
+        const { uid } = getCurrentInstance();
         return {
             inputType: 'text',
+            id: uid
         };
     },
     computed: {

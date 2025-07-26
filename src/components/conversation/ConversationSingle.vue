@@ -1,6 +1,10 @@
 <template>
     <card class="w-full flex items-center p-2 gap-2 cursor-pointer text-color"
-          :is-selected="isSelected">
+          tabindex="1"
+          role="button"
+          :aria-current="isSelected.toString()"
+          :is-selected="isSelected"
+          @keydown.enter="!isSelected ? $emit('click') : null">
         <UserAvatar class="w-8 h-8"
                     :avatar="conversation.avatar" />
         <div style="width: calc(100% - 40px);">

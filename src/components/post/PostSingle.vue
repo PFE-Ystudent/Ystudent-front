@@ -1,11 +1,22 @@
 <template>
     <card class="w-full relative px-4 pt-4 text-color"
           :class="isDetails ? 'pb-4' : 'pb-2'"
+          tabindex="0"
           @mouseenter="isHover = true"
-          @mouseleave="isHover = false">
-        <div v-click-outside="() => {showProfile ? showProfile = false : null}"
-             class="relative flex gap-2 items-center hover:bg-body hover:shadow-md cursor-pointer rounded-md max-w-min pl-1 pr-8"
-             @click="showProfile = true">
+          @mouseleave="isHover = false"
+          @focus="isFocus = true">
+        <TooltipAction v-if="!isDetails"
+                       :actions="actions"
+                       :is-hover="isHover || isFocus"
+                       class="absolute top-0 right-0 text-sky-400 cursor-pointer"
+                       @select-action="selectAction"
+                       @blur="isFocus = false">
+            <font-awesome-icon icon="fa-solid fa-ellipsis-vertical"
+                               class="p-4" />
+        </TooltipAction>
+        <button v-click-outside="() => {showProfile ? showProfile = false : null}"
+                class="relative flex gap-2 items-center hover:bg-body hover:shadow-md cursor-pointer rounded-md max-w-min pl-1 pr-8"
+                @click="showProfile = true">
             <UserAvatar class="w-8 h-8"
                         :avatar="post.author.avatar" />
             <div>
@@ -17,8 +28,9 @@
             <UserProfilePopup v-if="showProfile"
                               :user-id="post.author.id"
                               class="left-full ml-4"
-                              :class="{ 'top-0': isDetails }" />
-        </div>
+                              :class="{ 'top-0': isDetails }"
+                              @close="showProfile = false" />
+        </button>
         <div class="text-xl font-semibold my-2">
             {{ post.title }}
         </div>
@@ -45,7 +57,8 @@
                 <div v-if="isDesktop"
                      class="w-1/3 flex justify-center gap-4">
                     <badge color="#00bc7d"
-                           class="cursor-pointer"
+                           clickable
+                           aria-haspopup="true"
                            @click="$emit('share')">
                         <font-awesome-icon icon="fa-solid fa-share-from-square" />
                         Partager
@@ -79,14 +92,6 @@
                 • (modifié)
             </div>
         </div>
-        <TooltipAction v-if="!isDetails"
-                       :actions="actions"
-                       :is-hover="isHover"
-                       class="absolute top-0 right-0 text-sky-400 cursor-pointer"
-                       @select-action="selectAction">
-            <font-awesome-icon icon="fa-solid fa-ellipsis-vertical"
-                               class="p-4" />
-        </TooltipAction>
     </card>
 </template>
 
@@ -126,6 +131,7 @@ export default {
         return {
             user: store.state.auth.user,
             isHover: false,
+            isFocus: false,
             showProfile: false,
             isDesktop: window.innerWidth >= 768
         };

@@ -4,6 +4,7 @@
         <div v-if="conversations.length"
              class="mb-2 text-color mx-2 lg:mx-0 mt-4 lg:mt-0">
             <text-input v-model="search"
+                        tabindex="1"
                         placeholder="Recherche"
                         clearable
                         no-margin
