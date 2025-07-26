@@ -45,8 +45,11 @@
         <div>
             <div v-if="isDeploy"
                  class="text-muted text-sm mb-8 text-center">
-                <button @click="navigate('ChangeLog')">
+                <button @click="navigate('ChangeLog', true)">
                     notes de mise à jour
+                </button>
+                <button @click="navigate('BugReportView')">
+                    Remonter un problème
                 </button>
             </div>
         </div>
@@ -75,9 +78,13 @@ export default {
         deploy (state) {
             this.isDeploy = state;
         },
-        navigate (route) {
+        navigate (route, newTab) {
             this.selected(route);
-            window.open(this.$router.resolve({ name: route }).href, '_blank');
+            if (newTab) {
+                window.open(this.$router.resolve({ name: route }).href, '_blank');
+            } else {
+                this.$router.push({ name: route });
+            }
         }
     },
 };

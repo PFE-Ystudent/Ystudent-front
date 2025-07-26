@@ -17,6 +17,14 @@
             </div>
             <div class="w-1/4">
                 <div>
+                    <router-link class="hover:text-primary cursor-pointer underline"
+                                 :to="{ name: 'ReportingCategoriesGestion' }">
+                        Gestion des catégories de rapport
+                    </router-link>
+                </div>
+            </div>
+            <div class="w-1/4">
+                <div>
                     <a class="hover:text-primary cursor-pointer underline">
                         Gestion des rôles
                     </a>

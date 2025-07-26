@@ -5,7 +5,7 @@
                 <font-awesome-icon icon="fa-solid fa-arrow-left-long" />
             </router-link>
             <div class="mb-[3px]">
-                Catégorie
+                Catégorie de rapport
             </div>
         </div>
 
@@ -15,7 +15,7 @@
                 <div class="flex justify-end mb-4">
                     <submit-button icon="fa-plus"
                                    @click="showIndex = false">
-                        Créer une catégorie
+                        Créer une catégorie de rapport
                     </submit-button>
                 </div>
                 <IndexTable :headers="headers"
@@ -24,11 +24,16 @@
             </div>
             <div v-else
                  class="w-2/5">
-                <CardForm :title="`${isEdit ? 'Modifier' : 'Créer'} une catégorie`">
-                    <text-input v-model="newCategory.name"
+                <CardForm :title="`${isEdit ? 'Modifier' : 'Créer'} une catégorie de rapport`">
+                    <text-input v-model="newReportingCategory.name"
                                 label="Nom :"
                                 placeholder="Nom"
                                 :errors="errors.name" />
+                    <div>
+                        Pour un bug :
+                        <input v-model="newReportingCategory.forBug"
+                               type="checkbox">
+                    </div>
                     <div class="w-full flex justify-end gap-4 mt-4">
                         <cancel-button @click="hideForm">
                             Annuler
@@ -63,29 +68,39 @@ export default {
         return {
             showIndex: true,
             isEdit: false,
-            baseUrl: '/api/admin/categories',
+            baseUrl: '/api/admin/reporting-categories',
             headers: [
                 { key: 'id', label: 'Identifiant' },
                 { key: 'name', label: 'Nom' },
+                { key: 'forBug', label: 'Pour un bug', type: 'bool' },
                 { key: 'isArchived', label: 'Archivé', type: 'bool' },
                 { key: 'createdAt', label: 'Créé le', type: 'date' },
             ],
-            newCategory: {
-                name: null
+            newReportingCategory: {
+                name: null,
+                forBug: false
             },
             errors: {}
         };
     },
     methods: {
         createCategory () {
-            axios.post(this.baseUrl, this.newCategory).then(() => {
+            const data = {
+                name: this.newReportingCategory.name,
+                for_bug: this.newReportingCategory.forBug
+            };
+            axios.post(this.baseUrl, data).then(() => {
                 this.hideForm();
             }).catch((err) => {
                 this.errors = err.response.data.errors;
             });
         },
         editCategory () {
-            axios.put(`${this.baseUrl}/${this.newCategory.id}`, this.newCategory).then(() => {
+            const data = {
+                name: this.newReportingCategory.name,
+                for_bug: this.newReportingCategory.forBug
+            };
+            axios.put(`${this.baseUrl}/${this.newReportingCategory.id}`, data).then(() => {
                 this.hideForm();
             }).catch((err) => {
                 this.errors = err.response.data.errors;
@@ -95,12 +110,13 @@ export default {
             this.showIndex = true;
             this.isEdit = false;
             this.errors = {};
-            this.newCategory = {
-                name: null
+            this.newReportingCategory = {
+                name: null,
+                forBug: false,
             };
         },
-        setEditMode (category) {
-            this.newCategory = category;
+        setEditMode (reportingCategory) {
+            this.newReportingCategory = reportingCategory;
             this.showIndex = false;
             this.isEdit = true;
         }
