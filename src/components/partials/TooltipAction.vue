@@ -1,9 +1,10 @@
 <template>
-    <div v-if="isHover || showAction"
+    <div v-show="isHover || showAction"
          v-click-outside="() => { showAction ? showAction = false : null}">
-        <div @click="showAction = true">
+        <button @click="showAction = true"
+                @blur="$emit('blur')">
             <slot />
-        </div>
+        </button>
         <div v-if="showAction"
              class="absolute bg-white rounded-md text-black top-full right-2 z-50 shadow">
             <div class="card w-full divide-y divide-y-zinc-300 border border-zinc-300 rounded-md">

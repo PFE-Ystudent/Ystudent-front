@@ -14,9 +14,10 @@
                 </div>
                 <div class="mt-4 flex flex-col gap-4">
                     <template v-if="!isBusy">
-                        <div v-for="post in posts"
+                        <div v-for="(post, index) in posts"
                              :key="post.id">
                             <PostSingle v-if="postIdToEdit !== post.id"
+                                        :ref="`post-${index}`"
                                         :post="post"
                                         @update="updatePost"
                                         @delete-post="postIdToDelete = $event"

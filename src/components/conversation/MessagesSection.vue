@@ -57,10 +57,12 @@
         </div>
         <div class="h-16 flex items-center gap-4 px-4 bg-secondary border-t border-selected rounded-b-md">
             <textarea v-model="newMessage"
+                      tabindex="1"
                       rows="1"
                       class="w-full resize-none flex border rounded-md shadow hover:outline-none outline-none border-secondary bg-body focus:border-zinc-600 p-1"
                       @keydown.enter="sendMessage($event)" />
             <submit-button class="h-8"
+                           tabindex="1"
                            @click="sendMessage()">
                 <font-awesome-icon icon="fa-solid fa-paper-plane"
                                    class="text-white" />

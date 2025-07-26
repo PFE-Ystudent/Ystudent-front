@@ -1,8 +1,10 @@
 <template>
     <card class="w-full shadow px-2 pb-2 text-color cursor-auto relative"
           :is-selected="isSelected"
+          tabindex="0"
           @mouseenter="isHover = true"
-          @mouseleave="isHover = false">
+          @mouseleave="isHover = false"
+          @focus="isFocus = true">
         <div class="split-bg flex pl-8">
             <UserAvatar class="w-24 h-24 md:w-32 md:h-32"
                         :avatar="user.avatar"
@@ -54,9 +56,10 @@
         </div>
         <TooltipAction v-if="actionType && actions.length"
                        :actions="actions"
-                       :is-hover="isHover"
+                       :is-hover="isHover || isFocus"
                        class="absolute top-0 right-0 text-sky-400 cursor-pointer"
-                       @select-action="selectAction">
+                       @select-action="selectAction"
+                       @blur="isFocus = false">
             <font-awesome-icon icon="fa-solid fa-ellipsis-vertical"
                                class="p-4" />
         </TooltipAction>
@@ -90,7 +93,8 @@ export default {
     },
     data () {
         return {
-            isHover: false
+            isHover: false,
+            isFocus: false
         };
     },
     computed: {

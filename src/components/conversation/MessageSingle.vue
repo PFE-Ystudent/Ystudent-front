@@ -8,11 +8,13 @@
                         :avatar="message.sender.avatar" />
             <div v-else
                  class="w-12 h-12" />
-            <div class="relative min-w-36"
+            <div class="relative min-w-36 mt-2"
                  style="max-width: calc(100% - 56px)"
+                 tabindex="0"
                  @mouseenter="isHover = true"
-                 @mouseleave="isHover = false">
-                <div class="p-2 mt-2 rounded-b-md border"
+                 @mouseleave="isHover = false"
+                 @focus="isFocus = true">
+                <div class="p-2 rounded-b-md border"
                      :class="[isCurrentUser ? 'bg-secondary border-secondary text-color rounded-tl-md' : 'bg-primary border-primary text-white rounded-tr-md', { '!bg-selected !border-selected': isEditable }]">
                     <div ref="messageContent"
                          :contentEditable="isEditable"
@@ -55,26 +57,28 @@
                         </template>
                     </div>
                 </div>
-                <div v-if="isHover && isCurrentUser"
+                <div v-if="(isHover || isFocus) && isCurrentUser"
                      class="absolute -bottom-2 text-white flex shadow rounded-md border right-2 bg-zinc-400">
                     <template v-if="!isEditable">
-                        <div class="px-1.5 py-px hover:bg-primary cursor-pointer"
-                             @click="isEditable = true">
+                        <button class="px-1.5 py-px hover:bg-primary cursor-pointer"
+                                @click="makeEditable">
                             <font-awesome-icon icon="fa-solid fa-pen" />
-                        </div>
-                        <div class="px-1.5 py-px hover:bg-primary cursor-pointer">
+                        </button>
+                        <button class="px-1.5 py-px hover:bg-primary cursor-pointer">
                             <font-awesome-icon icon="fa-solid fa-reply" />
-                        </div>
-                        <div class="px-1.5 py-px hover:bg-primary cursor-pointer"
-                             @click="deleteMessageAction">
+                        </button>
+                        <button class="px-1.5 py-px hover:bg-primary cursor-pointer"
+                                @blur="isFocus = false"
+                                @click="deleteMessageAction">
                             <font-awesome-icon icon="fa-solid fa-trash" />
-                        </div>
+                        </button>
                     </template>
-                    <div v-else
-                         class="px-1.5 py-px hover:bg-primary cursor-pointer"
-                         @click="saveEdit">
+                    <button v-else
+                            class="px-1.5 py-px hover:bg-primary cursor-pointer"
+                            @click="saveEdit"
+                            @blur="isFocus = false">
                         <font-awesome-icon icon="fa-solid fa-check" />
-                    </div>
+                    </button>
                 </div>
             </div>
         </div>
@@ -111,7 +115,8 @@ export default {
     data () {
         return {
             isHover: false,
-            isEditable: false
+            isEditable: false,
+            isFocus: false
         };
     },
     methods: {
@@ -123,6 +128,10 @@ export default {
                 this.$refs.messageContent.innerText = this.message.content;
                 this.isEditable = false;
             }
+        },
+        makeEditable () {
+            this.isEditable = true;
+            this.$nextTick(() => this.$refs.messageContent.focus());
         },
         saveEdit () {
             this.isEditable = false;

@@ -1,11 +1,14 @@
 <template>
-    <div class="mx-2 rounded flex items-center font-semibold gap-2 py-2 cursor-pointer border px-4"
+    <div ref="item"
+         class="mx-2 rounded flex items-center font-semibold gap-2 py-2 cursor-pointer border px-4"
          :class="{
              'bg-selected border-selected text-sky-500': isHover && !isSelected,
              'text-sky-300 border-sky-300': !isHover && !isSelected,
              'bg-primary border-primary text-white': isSelected
          }"
+         tabindex="0"
          @click="selected"
+         @keydown.enter="selected"
          @mouseenter="isHover = true"
          @mouseleave="isHover = false">
         <font-awesome-icon :icon="`fa-solid ${icon}`"
@@ -48,6 +51,7 @@ export default {
     },
     methods: {
         selected () {
+            this.$refs.item.blur();
             this.$emit('selected', this.name);
             this.$router.push({ name: this.route });
         }

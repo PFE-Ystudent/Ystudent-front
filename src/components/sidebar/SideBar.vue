@@ -13,24 +13,32 @@
                              icon="fa-message"
                              route="Post"
                              :is-deploy="isDeploy"
-                             @selected="selected" />
+                             @selected="selected"
+                             @focus="deploy(true)"
+                             @blur="deploy(false)" />
                 <SideBarItem name="Relations"
                              icon="fa-user-group"
                              route="Relation"
                              :is-deploy="isDeploy"
-                             @selected="selected" />
+                             @selected="selected"
+                             @focus="deploy(true)"
+                             @blur="deploy(false)" />
                 <SideBarItem name="Conversations"
                              icon="fa-comments"
                              route="Conversation"
                              :is-deploy="isDeploy"
-                             @selected="selected" />
+                             @selected="selected"
+                             @focus="deploy(true)"
+                             @blur="deploy(false)" />
                 <template v-if="isAdmin">
                     <hr class="w-12 mx-auto border-secondary">
                     <SideBarItem name="Administration"
                                  icon="fa-toolbox"
                                  route="Administration"
                                  :is-deploy="isDeploy"
-                                 @selected="selected" />
+                                 @selected="selected"
+                                 @focus="deploy(true)"
+                                 @blur="deploy(false)" />
                 </template>
             </div>
         </div>
@@ -55,6 +63,9 @@ export default {
     methods: {
         selected (name) {
             this.$emit('selected', name);
+        },
+        deploy (state) {
+            this.isDeploy = state;
         }
     },
 };
