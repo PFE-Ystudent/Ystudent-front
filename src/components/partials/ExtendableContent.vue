@@ -2,10 +2,13 @@
     <div class="whitespace-pre-line break-words">
         {{ displayableContent }}<span v-if="isExtendable && !isExtended"
                                       class="text-muted">...</span>
-        <div v-if="isExtendable"
-             class="mt-1 text-muted text-xs hover:underline cursor-pointer w-min text-nowrap"
-             @click="isExtended = !isExtended">
-            Voir {{ isExtended ? 'moins' : 'plus' }}
+        <div>
+            <button v-if="isExtendable"
+                    class="mt-1 text-muted text-xs hover:underline cursor-pointer w-min text-nowrap"
+                    :aria-expanded="isExtended.toString()"
+                    @click="isExtended = !isExtended">
+                Voir {{ isExtended ? 'moins' : 'plus' }}
+            </button>
         </div>
     </div>
 </template>

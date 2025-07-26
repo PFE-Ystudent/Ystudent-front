@@ -11,7 +11,7 @@ describe('BaseUnAuth.vue', () => {
         });
 
         const headerText = wrapper.find('.text-3xl').text();
-        expect(headerText).toBe('YStudent');
+        expect(headerText).toBe('NeoCap');
 
         const images = wrapper.findAll('img');
         expect(images.length).toBe(2);

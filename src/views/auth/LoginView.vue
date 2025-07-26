@@ -22,7 +22,8 @@
             </CardForm>
             <div class="w-full text-center text-muted mt-1">
                 Vous n'avez pas encore de compte ? <a class="text-sky-300 hover:text-sky-400 underline font-semibold"
-                                                      href="/register">inscrivez-vous ici</a>
+                                                      href="/register"
+                                                      aria-label="Accéder à la page d'inscription">inscrivez-vous ici</a>
             </div>
         </div>
     </div>

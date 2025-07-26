@@ -28,8 +28,10 @@
                                     </template>
                                     <template v-else>
                                         <cancel-button icon="fa-user-xmark"
+                                                       :aria-label="`Refuser la demande de ${user.username}`"
                                                        @click="replyRequest(user.id, false)" />
                                         <submit-button icon="fa-user-check"
+                                                       :aria-label="`Accepter la demande de ${user.username}`"
                                                        @click="replyRequest(user.id, true)" />
                                     </template>
                                 </template>

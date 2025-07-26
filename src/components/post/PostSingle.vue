@@ -58,6 +58,7 @@
                      class="w-1/3 flex justify-center gap-4">
                     <badge color="#00bc7d"
                            clickable
+                           aria-haspopup="true"
                            @click="$emit('share')">
                         <font-awesome-icon icon="fa-solid fa-share-from-square" />
                         Partager

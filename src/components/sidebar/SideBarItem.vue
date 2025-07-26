@@ -7,6 +7,9 @@
              'bg-primary border-primary text-white': isSelected
          }"
          tabindex="0"
+         role="button"
+         :aria-label="`Accéder à ${name}`"
+         :aria-current="isSelected ? 'true' : 'false'"
          @click="selected"
          @keydown.enter="selected"
          @mouseenter="isHover = true"

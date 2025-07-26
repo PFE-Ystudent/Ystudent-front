@@ -19,21 +19,35 @@
                 </div>
             </CardForm>
             <div class="text-muted mt-8">
-                <div class="font-semibold text-md">
+                <div class="font-semibold text-md"
+                     aria-level="1">
                     Comment faire un rapport efficace
                 </div>
                 <ul class="list-disc px-4">
-                    <li>Essayer d'être le plus précis possible, décrivez clairement le problème que vous avez rencontré</li>
-                    <li>Si possible, indiquez les étapes pour reproduire le problème</li>
-                    <li>Si besoin, joigniez une capture d'écran</li>
+                    <li aria-level="2">
+                        Essayer d'être le plus précis possible, décrivez clairement le problème que vous avez rencontré
+                    </li>
+                    <li aria-level="2">
+                        Si possible, indiquez les étapes pour reproduire le problème
+                    </li>
+                    <li aria-level="2">
+                        Si besoin, joigniez une capture d'écran
+                    </li>
                 </ul>
                 <div class="px-4 text-center">
-                    <div class="font-semibold text-md mt-8">
+                    <div class="font-semibold text-md mt-8"
+                         aria-level="1">
                         Merci pour votre contribution !
                     </div>
-                    <div>Votre retour est précieux et nous aide à améliorer l’expérience utilisateur.</div>
-                    <div>Nous vous remercions de prendre le temps de nous faire part de vos suggestions et de vos rapports.</div>
-                    <div>Votre aide est essentielle pour rendre l'application encore meilleure.</div>
+                    <div aria-level="2">
+                        Votre retour est précieux et nous aide à améliorer l’expérience utilisateur.
+                    </div>
+                    <div aria-level="2">
+                        Nous vous remercions de prendre le temps de nous faire part de vos suggestions et de vos rapports.
+                    </div>
+                    <div aria-level="2">
+                        Votre aide est essentielle pour rendre l'application encore meilleure.
+                    </div>
                 </div>
             </div>
         </div>

@@ -19,6 +19,8 @@
                     <div ref="messageContent"
                          :contentEditable="isEditable"
                          class="outline-none whitespace-pre-wrap"
+                         role="textbox"
+                         aria-placeholder="Entrez votre texte d'édition"
                          @keydown="editMessageAction">
                         {{ message.content }}
                     </div>
@@ -45,7 +47,8 @@
                          :class="isCurrentUser ? 'text-color justify-start' : 'text-white justify-end'">
                         <template v-if="message.post">
                             <router-link :to="{ name: 'PostDetails', params: { id: message.post.id } }"
-                                         class="hover:text-primary cursor-pointer mr-1">
+                                         class="hover:text-primary cursor-pointer mr-1"
+                                         aria-label="Aller voir le post partagé">
                                 <font-awesome-icon icon="fa-solid fa-share-from-square"
                                                    class="mx-1" />
                                 <span class="underline">Post partagé</span>

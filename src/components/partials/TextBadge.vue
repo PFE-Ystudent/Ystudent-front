@@ -4,6 +4,7 @@
          :class="{'cursor-pointer': clickable }"
          :style="`color: ${color}; background-color: ${color}10; border: 1px solid ${color}16;`"
          :tabindex="clickable ? 0 : -1"
+         role="button"
          @keydown.enter="enter">
         <slot />
     </div>

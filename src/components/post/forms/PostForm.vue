@@ -82,6 +82,7 @@
                 </submit-button>
                 <submit-button v-else
                                :icon="showPostForm ? 'fa-paper-plane': 'fa-plus'"
+                               aria-label="Envoyer le post"
                                :is-busy="isBusy"
                                @click="sendPost" />
             </div>

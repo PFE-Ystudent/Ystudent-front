@@ -5,6 +5,8 @@
                 :ref="`tab-container-${tab.value}`"
                 class="w-full border-b border-secondary"
                 :class="{'text-primary': tab.value === selectedTab, 'max-w-min': tab.icon && !tab.name }"
+                role="navigation"
+                :aria-current="tab.value === selectedTab ? 'true' : 'false'"
                 @click="select(tab)">
             <div class="p-2 hover:text-primary select-none"
                  :style="tab.iconColor ? `color: ${tab.iconColor};` : ''">

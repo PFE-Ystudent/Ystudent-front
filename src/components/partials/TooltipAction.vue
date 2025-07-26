@@ -1,7 +1,9 @@
 <template>
     <div v-show="isHover || showAction"
          v-click-outside="() => { showAction ? showAction = false : null}">
-        <button @click="showAction = true"
+        <button aria-haspopup="true"
+                :aria-expanded="showAction.toString()"
+                @click="showAction = true"
                 @blur="$emit('blur')">
             <slot />
         </button>
@@ -11,6 +13,7 @@
                 <button v-for="action in actions"
                         :key="action.value"
                         class="w-full text-nowrap px-2 py-1"
+                        role="menuitem"
                         @click="selectAction(action.value)">
                     {{ action.label }}
                 </button>

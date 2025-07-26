@@ -3,6 +3,7 @@
         <div class="w-full md:w-1/5 flex justify-between md:justify-end md:px-8 mb-4 md:mb-0">
             <div>
                 <button class="flex gap-4 items-center text-zinc-400 hover:text-color cursor-pointer"
+                        aria-label="Retourner à la liste des posts"
                         @click="$router.push({ name: 'Post' })">
                     <font-awesome-icon icon="fa-solid fa-arrow-left-long" />
                     <div class="mb-[3px]">

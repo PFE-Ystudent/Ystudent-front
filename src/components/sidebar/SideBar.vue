@@ -1,12 +1,16 @@
 <template>
     <div class="fixed top-0 bottom-0 bg-secondary border-r border-r-secondary rounded-br-md ease-in duration-100 flex flex-col justify-between"
          :style="`z-index: 100; width: ${isDeploy ? 200 : 72}px;`"
+         role="navigation"
+         :aria-expanded="isDeploy.toString()"
          @mouseenter="isDeploy = true"
          @mouseleave="isDeploy = false">
         <div class="flex flex-col items-center">
             <div class="my-8">
-                <div class="w-12 h-12 bg-zinc-300 cursor-pointer"
-                     @click="$router.push({ name: 'Dashboard' })" />
+                <img :src="`/logo-${theme === 'light' ? 'dark' : 'light'}.png`"
+                     class="w-[54px] h-[54px] cursor-pointer"
+                     alt="Logo"
+                     @click="$router.push({ name: 'Dashboard' })">
             </div>
             <div class="mt-8 w-full flex flex-col gap-4">
                 <SideBarItem name="Posts"
@@ -46,10 +50,12 @@
             <div v-if="isDeploy"
                  class="text-muted text-sm mb-8 text-center overflow-hidden">
                 <button class="text-nowrap"
+                        aria-label="Voir les notes de mise à jour"
                         @click="navigate('ChangeLog', true)">
                     notes de mise à jour
                 </button>
                 <button class="mt-1 text-nowrap"
+                        aria-label="Afficher le formulaire de report de problème"
                         @click="navigate('BugReportView')">
                     Remonter un problème
                 </button>
@@ -61,6 +67,7 @@
 <script>
 import store from '@/store';
 import SideBarItem from '@/components/sidebar/SideBarItem.vue';
+import { mapState } from 'vuex';
 
 export default {
     name: 'SideBar',
@@ -72,6 +79,11 @@ export default {
             isAdmin: store.getters.isAdmin,
             isDeploy: window.innerWidth < 768
         };
+    },
+    computed: {
+        ...mapState({
+            theme: state => state.parameter.theme
+        })
     },
     methods: {
         selected (name) {

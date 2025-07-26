@@ -1,5 +1,9 @@
 <template>
     <div class="popup-container text-color"
+         role="alertdialog"
+         aria-modal="true"
+         aria-labelledby="dialog-label"
+         aria-describedby="dialog-desc"
          @click="handleBackgroundClick">
         <transition name="popup"
                     @after-leave="close">
