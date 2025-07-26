@@ -14,6 +14,7 @@ import BaseAuth from '@/views/base/BaseAuth.vue';
 import AdministrationView from '@/views/admin/AdministrationView.vue';
 import CategoriesGestionView from '@/views/admin/gestion/CategoriesGestionView.vue';
 import ConversationView from '@/views/conversation/ConversationView.vue';
+import ChangeLog from '@/views/ChangeLog.vue';
 
 const routes = [
     {
@@ -88,6 +89,11 @@ const routes = [
                 path: 'register',
                 name: 'Register',
                 component: RegisterView
+            },
+            {
+                path: 'changelog',
+                name: 'ChangeLog',
+                component: ChangeLog
             }
         ]
     },

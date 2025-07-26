@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed top-0 bottom-0 bg-secondary border-r border-r-secondary rounded-br-md ease-in duration-100"
+    <div class="fixed top-0 bottom-0 bg-secondary border-r border-r-secondary rounded-br-md ease-in duration-100 flex flex-col justify-between"
          :style="`z-index: 100; width: ${isDeploy ? 200 : 72}px;`"
          @mouseenter="isDeploy = true"
          @mouseleave="isDeploy = false">
@@ -42,6 +42,14 @@
                 </template>
             </div>
         </div>
+        <div>
+            <div v-if="isDeploy"
+                 class="text-muted text-sm mb-8 text-center">
+                <button @click="navigate('ChangeLog')">
+                    notes de mise à jour
+                </button>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -66,6 +74,10 @@ export default {
         },
         deploy (state) {
             this.isDeploy = state;
+        },
+        navigate (route) {
+            this.selected(route);
+            window.open(this.$router.resolve({ name: route }).href, '_blank');
         }
     },
 };
