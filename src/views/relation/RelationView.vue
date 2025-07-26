@@ -56,6 +56,7 @@ import axios from '@/axios';
 import UserProfile from '@/components/user/UserProfile.vue';
 import UserProfileLoader from '@/components/loaders/UserProfileLoader.vue';
 import UserSearch from '@/components/user/UserSearch.vue';
+import { useToast } from '@/plugins/useToast';
 
 export default {
     name: 'RelationView',
@@ -102,6 +103,8 @@ export default {
         replyRequest (userId, isAccepted) {
             axios.post(`/api/users/${userId}/relations/request/reply`, { is_accepted: isAccepted }).then(() => {
                     this.users = this.users.filter(u => u.id !== userId);
+                    const { sucessToast } = useToast();
+                    sucessToast(`Demande ${isAccepted ? 'acceptée' : 'refusée'} !`);
                 });
         }
     },

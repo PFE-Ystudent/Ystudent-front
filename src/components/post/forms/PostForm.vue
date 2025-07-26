@@ -95,7 +95,8 @@ import axios from '@/axios';
 import CardForm from '@/components/container/CardForm.vue';
 import SurveyForm from '@/components/post/integrations/forms/SurveyForm.vue';
 import UserAvatar from '@/components/user/UserAvatar.vue';
-import PostFiles from '../PostFiles.vue';
+import PostFiles from '@/components/post/PostFiles.vue';
+import { useToast } from '@/plugins/useToast';
 
 export default {
     name: 'PostForm',
@@ -153,6 +154,8 @@ export default {
                     this.uploadFile(res.data.id);
                     this.integrations = [];
                     this.$emit('new-post', res.data);
+                    const { sucessToast } = useToast();
+                    sucessToast('Post envoyé !');
                 })
                 .catch(err => {
                     this.errors = err.response.data.errors ?? {};

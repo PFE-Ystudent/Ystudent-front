@@ -42,6 +42,7 @@ import store from '@/store';
 import axios from '@/axios';
 import CardForm from '@/components/container/CardForm.vue';
 import UserAvatar from '@/components/user/UserAvatar.vue';
+import { useToast } from '@/plugins/useToast';
 
 export default {
     name: 'PostForm',
@@ -80,6 +81,8 @@ export default {
                     this.hidePostReplyForm();
                     this.replyContent = null;
                     this.$emit('new-reply', res.data);
+                    const { sucessToast } = useToast();
+                    sucessToast('Réponse envoyée !');
                 })
                 .catch(err => {
                     this.errors = err.response.data.errors ?? {};

@@ -44,11 +44,13 @@
         </div>
         <div>
             <div v-if="isDeploy"
-                 class="text-muted text-sm mb-8 text-center">
-                <button @click="navigate('ChangeLog', true)">
+                 class="text-muted text-sm mb-8 text-center overflow-hidden">
+                <button class="text-nowrap"
+                        @click="navigate('ChangeLog', true)">
                     notes de mise à jour
                 </button>
-                <button @click="navigate('BugReportView')">
+                <button class="mt-1 text-nowrap"
+                        @click="navigate('BugReportView')">
                     Remonter un problème
                 </button>
             </div>

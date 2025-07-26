@@ -36,7 +36,9 @@ export default {
                     version: 'v1.0.1',
                     date: '27/07/2025',
                     content: [
-                        { type: 'add', text: 'Navigation au clavier' }
+                        { type: 'add', text: 'Navigation au clavier' },
+                        { type: 'add', text: 'Formulaire de rapport de bug' },
+                        { type: 'add', text: 'Ajout de notification de validation lorsque des actions effectués sont validées' },
                     ]
                 },
             ]

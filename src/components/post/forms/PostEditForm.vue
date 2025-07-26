@@ -41,6 +41,7 @@
 import UserAvatar from '@/components/user/UserAvatar.vue';
 import axios from '@/axios';
 import PostSurvey from '../integrations/PostSurvey.vue';
+import { useToast } from '@/plugins/useToast';
 
 export default {
     name: 'PostEditForm',
@@ -70,6 +71,8 @@ export default {
             axios.patch(`/api/posts/${this.editedPost.id}`, data)
                 .then(res => {
                     this.$emit('confirm', res.data);
+                    const { sucessToast } = useToast();
+                    sucessToast('Modification enregistrée !');
                 }).catch(err => {
                     this.errors = err.response.data.errors ?? {};
                 });

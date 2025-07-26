@@ -18,6 +18,24 @@
                     </submit-button>
                 </div>
             </CardForm>
+            <div class="text-muted mt-8">
+                <div class="font-semibold text-md">
+                    Comment faire un rapport efficace
+                </div>
+                <ul class="list-disc px-4">
+                    <li>Essayer d'être le plus précis possible, décrivez clairement le problème que vous avez rencontré</li>
+                    <li>Si possible, indiquez les étapes pour reproduire le problème</li>
+                    <li>Si besoin, joigniez une capture d'écran</li>
+                </ul>
+                <div class="px-4 text-center">
+                    <div class="font-semibold text-md mt-8">
+                        Merci pour votre contribution !
+                    </div>
+                    <div>Votre retour est précieux et nous aide à améliorer l’expérience utilisateur.</div>
+                    <div>Nous vous remercions de prendre le temps de nous faire part de vos suggestions et de vos rapports.</div>
+                    <div>Votre aide est essentielle pour rendre l'application encore meilleure.</div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -25,6 +43,7 @@
 <script>
 import axios from '@/axios';
 import CardForm from '@/components/container/CardForm.vue';
+import { useToast } from '@/plugins/useToast';
 
 export default {
     name: 'BugReportView',
@@ -55,6 +74,8 @@ export default {
                 reporting_category_id: this.form.category?.id
             };
             axios.post('/api/bug-report', data).then(() => {
+                const { sucessToast } = useToast();
+                sucessToast('Rapport envoyé, merci !');
                 this.$router.push({ name: 'Dashboard' });
             }).catch(err => {
                 this.errors = err.response.data.errors ?? {};
