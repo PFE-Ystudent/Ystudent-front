@@ -3,14 +3,33 @@ import { describe, it, expect, vi, beforeEach } from 'vitest';
 import SideBar from '@/components/sidebar/SideBar.vue';
 import SideBarItem from '@/components/sidebar/SideBarItem.vue';
 import { createRouter, createMemoryHistory } from 'vue-router';
+import { createStore } from 'vuex';
 
 vi.mock('@/store', () => ({
     default: {
         getters: {
             isAdmin: true
         }
-    }
+    },
+    state: {
+        parameter: {
+            theme: 'dark'
+        }
+    },
 }));
+
+const fakeStore = createStore({
+    state: {
+        parameter: {
+            theme: 'dark'
+        }
+    },
+    default: {
+        getters: {
+            isAdmin: () => true
+        }
+    }
+});
 
 const routes = [
     { path: '/dashboard', name: 'Dashboard', component: { template: '<div />' } },
@@ -31,7 +50,7 @@ describe('SideBar.vue', () => {
     beforeEach(async () => {
         wrapper = mount(SideBar, {
             global: {
-                plugins: [router],
+                plugins: [router, fakeStore],
                 stubs: ['font-awesome-icon']
             }
         });
@@ -56,6 +75,6 @@ describe('SideBar.vue', () => {
         const divLogo = wrapper.find('div.cursor-pointer');
         await divLogo.trigger('click');
         await flushPromises();
-        expect(wrapper.vm.$router.currentRoute.value.name).toBe('Dashboard');
+        expect(wrapper.vm.$router.currentRoute.value.name).toBe('Post');
     });
 });

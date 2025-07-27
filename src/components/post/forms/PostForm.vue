@@ -159,7 +159,7 @@ export default {
                     sucessToast('Post envoyé !');
                 })
                 .catch(err => {
-                    this.errors = err.response.data.errors ?? {};
+                    this.errors = err.response?.data.errors ?? {};
                 }).finally(() => {
                     this.isBusy = false;
                 });

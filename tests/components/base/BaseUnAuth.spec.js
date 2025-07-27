@@ -14,7 +14,7 @@ describe('BaseUnAuth.vue', () => {
         expect(headerText).toBe('NeoCap');
 
         const images = wrapper.findAll('img');
-        expect(images.length).toBe(2);
+        expect(images.length).toBe(3);
 
         expect(wrapper.findComponent({ name: 'RouterView' }).exists()).toBe(true);
     });
