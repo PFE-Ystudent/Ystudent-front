@@ -71,6 +71,7 @@ import UserAvatar from '@/components/user/UserAvatar.vue';
 import TooltipAction from '@/components/partials/TooltipAction.vue';
 import axios from '@/axios';
 import store from '@/store';
+import { useToast } from '@/plugins/useToast';
 
 export default {
     name: 'UserProfile',
@@ -137,7 +138,8 @@ export default {
                 this.$router.push({ name: 'Account' });
             } else if (action === 'add') {
                 axios.post(`/api/users/${this.user.id}/relations/request`).then(() => {
-                    // TODO: toast
+                    const { sucessToast } = useToast();
+                    sucessToast('Demande envoyée !');
                 });
             }
         }

@@ -149,6 +149,7 @@ import TooltipAction from '@/components/partials/TooltipAction.vue';
 import { ContentLoader } from 'vue-content-loader';
 import store from '@/store';
 import UserAvatar from '@/components/user/UserAvatar.vue';
+import { useToast } from '@/plugins/useToast';
 
 export default {
     name: 'UserProfilePopup',
@@ -215,6 +216,8 @@ export default {
             } else if (action === 'add') {
                 axios.post(`/api/users/${this.userId}/relations/request`).then(() => {
                     this.user.relationType = 3;
+                    const { sucessToast } = useToast();
+                    sucessToast('Demande envoyée !');
                 });
             }
         }

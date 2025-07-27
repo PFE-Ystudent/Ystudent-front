@@ -1,6 +1,6 @@
 <template>
-    <div class="flex flex-row items-center justify-between gap-2 px-4 py-3 text-nowrap rounded-lg font-semibold select-none w-60 text-sm"
-         :style="`color: ${color}; background-color: ${color}10; border: 1px solid ${color}50;`">
+    <div class="flex flex-row items-center justify-between gap-2 px-4 py-3 text-nowrap rounded-lg font-semibold select-none w-72 text-sm"
+         :style="`color: ${color}; background-color: ${color}32; border: 1px solid ${color}64;`">
         <slot />
         <button @click="$emit('close')">
             <font-awesome-icon icon="fa-solid fa-xmark"

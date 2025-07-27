@@ -37,16 +37,26 @@
         <ExtendableContent class="mb-4"
                            :content="post.content" />
         <div v-if="post.surveys.length"
-             class="flex flex-col gap-4">
+             class="flex flex-col gap-4 mb-4">
             <PostSurvey v-for="survey in post.surveys"
                         :key="survey.id"
                         :survey="survey"
                         @update-survey="updateSurvey" />
         </div>
         <PostFiles v-if="post.files.length"
-                   :files="post.files" />
+                   :files="post.files"
+                   class="mb-4" />
+        <div class="mb-4 flex justify-end gap-4">
+            <badge v-for="category in post.categories"
+                   :key="category.id"
+                   color="#38bdf8">
+                <font-awesome-icon icon="fa-solid fa-hashtag"
+                                   size="sm" />
+                {{ category.name }}
+            </badge>
+        </div>
         <template v-if="!isDetails">
-            <hr class="w-2/3 mx-auto mb-2 mt-4 border-secondary">
+            <hr class="w-2/3 mx-auto mb-2 border-secondary">
             <div class="flex justify-end">
                 <div class="w-1/2 md:w-1/3 text-xs text-zinc-400 flex items-center">
                     {{ timestamp }}<div v-if="post.isEdited"
