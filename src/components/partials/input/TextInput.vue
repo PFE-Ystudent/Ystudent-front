@@ -8,13 +8,14 @@
         <div :class="['w-full relative', {'mt-4': !label && !noMargin}]">
             <textarea v-if="inputType === 'textarea'"
                       v-model="internalValue"
-                      rows="8"
+                      :rows="rowNumber"
                       class="w-full flex border rounded-md shadow hover:outline-none outline-none border-secondary bg-body focus:border-zinc-600 p-1"
                       :class="[{'!border-rose-500': errors}, inputClass]"
                       :disabled="disabled"
                       :aria-labelledby="`label-${id}`"
                       :aria-errormessage="`error-${id}-0`"
                       @keypress.enter="$emit('enter')"
+                      @blur="$emit('blur')"
                       @change="$emit('change', $event)" />
             <input v-else
                    v-model="internalValue"
@@ -106,6 +107,10 @@ export default {
         errors: {
             type: Array,
             default: null
+        },
+        rowNumber: {
+            type: Number,
+            default: 8
         }
     },
     data () {

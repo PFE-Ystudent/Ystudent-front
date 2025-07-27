@@ -7,28 +7,26 @@
         </div>
         <div class="mt-4 h-72" />
         <div class="mt-4 flex">
-            <div class="w-1/4">
-                <div>
-                    <router-link class="hover:text-primary cursor-pointer underline"
-                                 :to="{ name: 'CategoriesGestion' }">
-                        Gestion des catégories
-                    </router-link>
-                </div>
+            <div class="w-1/4 flex flex-col">
+                <router-link class="hover:text-primary cursor-pointer underline"
+                             :to="{ name: 'CategoriesGestion' }">
+                    Gestion des catégories
+                </router-link>
+                <router-link class="hover:text-primary cursor-pointer underline"
+                             :to="{ name: 'ReportingCategoriesGestion' }">
+                    Gestion des catégories de rapport
+                </router-link>
             </div>
             <div class="w-1/4">
-                <div>
-                    <router-link class="hover:text-primary cursor-pointer underline"
-                                 :to="{ name: 'ReportingCategoriesGestion' }">
-                        Gestion des catégories de rapport
-                    </router-link>
-                </div>
+                <router-link class="hover:text-primary cursor-pointer underline"
+                             :to="{ name: 'BugReportIndex' }">
+                    Gestion des rapports de bug
+                </router-link>
             </div>
             <div class="w-1/4">
-                <div>
-                    <a class="hover:text-primary cursor-pointer underline">
-                        Gestion des rôles
-                    </a>
-                </div>
+                <a class="hover:text-primary cursor-pointer underline">
+                    Gestion des rôles
+                </a>
             </div>
         </div>
     </div>

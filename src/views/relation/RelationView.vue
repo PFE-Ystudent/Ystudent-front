@@ -1,5 +1,5 @@
 <template>
-    <div class="flex gap-4 mt-8o">
+    <div class="flex gap-4 mt-8">
         <div class="w-full md:w-2/3 lg:w-1/2">
             <div class="mt-4 mb-32">
                 <div class="sticky top-[62px]"
