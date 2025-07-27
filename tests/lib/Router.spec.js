@@ -11,6 +11,15 @@ vi.mock('@/store', () => {
     };
 });
 
+vi.mock('@/echo', () => ({
+  default: {
+    private: vi.fn(() => ({
+      listen: vi.fn().mockReturnThis(),
+    })),
+    disconnect: vi.fn(),
+  },
+}));
+
 describe('Router middleware tests', () => {
     beforeEach(() => {
         store.state.auth.token = null;
