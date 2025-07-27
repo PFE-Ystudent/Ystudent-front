@@ -63,11 +63,15 @@ export default {
     },
     data () {
         return {
-            user: store.state.auth.user,
             showUserDropdown: false,
             isDesktop: window.innerWidth >= 768,
             isSideBarVisible: window.innerWidth >= 768
         };
+    },
+    computed: {
+        user () {
+            return store.state.auth.user;
+        }
     },
     methods: {
         selectAction (action) {

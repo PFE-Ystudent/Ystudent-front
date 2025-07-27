@@ -15,8 +15,7 @@
                         <template v-if="!isBusy">
                             <UserProfile v-for="user in users"
                                          :key="user.id"
-                                         :user="user"
-                                         :action-type="activeTab">
+                                         :user="user">
                                 <template v-if="activeTab === 'request'">
                                     <template v-if="isDesktop">
                                         <cancel-button @click="replyRequest(user.id, false)">

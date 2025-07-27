@@ -215,8 +215,6 @@ export default {
             } else if (action === 'add') {
                 axios.post(`/api/users/${this.userId}/relations/request`).then(() => {
                     this.user.relationType = 3;
-                }).catch(() => {
-                    // TODO: Gérer l'erreur
                 });
             }
         }

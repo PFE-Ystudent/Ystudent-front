@@ -71,6 +71,7 @@ export default {
             return axios.get('/api/conversations').then((res) => {
                 this.conversations = res.data.conversations;
                 this.filteredConversations = this.conversations;
+                this.$emit('has-conversation', this.conversations.length > 0);
             }).finally(() => {
                 this.isBusy = false;
             });

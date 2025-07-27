@@ -109,6 +109,8 @@ export default {
             axios.post('/api/users/me', formData).then((res) => {
                     this.user = res.data;
                     this.previewAvatarUrl = res.data.avatar;
+                    store.commit('setUser', this.user);
+
                     const { sucessToast } = useToast();
                     sucessToast('Profil enregistré !');
                 }).catch((err) => {

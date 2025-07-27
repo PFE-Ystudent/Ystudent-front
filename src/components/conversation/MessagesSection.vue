@@ -163,7 +163,10 @@ export default {
                 });
         },
         addMessage (message) {
-            if (this.messages.length && this.messageBoundary.last === this.messages[0].id) {
+            if (!this.messages.length || (this.messages.length && this.messageBoundary.last === this.messages[0].id)) {
+                if (!this.messages.length) {
+                    this.messageBoundary.first = message.id;
+                }
                 this.messages.unshift(message);
                 this.messageBoundary.last = message.id;
             }

@@ -4,7 +4,8 @@
             <div class="w-3/5">
                 <UserProfile v-if="user"
                              :user="user"
-                             is-selected />
+                             is-selected
+                             no-action />
                 <UserProfileLoader v-else
                                    is-selected />
             </div>
