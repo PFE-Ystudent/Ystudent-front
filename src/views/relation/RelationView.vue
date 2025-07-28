@@ -15,7 +15,8 @@
                         <template v-if="!isBusy">
                             <UserProfile v-for="user in users"
                                          :key="user.id"
-                                         :user="user">
+                                         :user="user"
+                                         @update-relation="removeUser">
                                 <template v-if="activeTab === 'request'">
                                     <template v-if="isDesktop">
                                         <cancel-button @click="replyRequest(user.id, false)">
@@ -76,11 +77,16 @@ export default {
             tabs: [
                 { name: 'Contacts', value: 'contact' },
                 { name: 'Recherche', value: 'search' },
-                { name: 'Demandes', value: 'request' },
+                { name: 'Demandes', value: 'request', number: 0 },
                 { name: 'Bloqués', value: 'blocked' },
             ],
             isDesktop: window.innerWidth >= 768,
         };
+    },
+    mounted () {
+        axios.get('/api/users/relations/waiting-request-number').then((res) => {
+            this.tabs[2].number = res.data.waitingRequestNumber;
+        });
     },
     created () {
         this.setTab(this.tabs[0].value);
@@ -103,10 +109,16 @@ export default {
         },
         replyRequest (userId, isAccepted) {
             axios.post(`/api/users/${userId}/relations/request/reply`, { is_accepted: isAccepted }).then(() => {
-                    this.users = this.users.filter(u => u.id !== userId);
+                    this.removeUser(userId);
+                    this.tabs[2].number -= 1;
                     const { sucessToast } = useToast();
                     sucessToast(`Demande ${isAccepted ? 'acceptée' : 'refusée'} !`);
                 });
+        },
+        removeUser (userId) {
+            if (this.activeTab !== 'search') {
+                this.users = this.users.filter(u => u.id !== userId);
+            }
         }
     },
 };

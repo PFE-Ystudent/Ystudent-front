@@ -62,6 +62,7 @@ export default {
                         { type: 'wrench', text: 'Les informations utilisateurs sont maintenant rafraichi correctement lors de leurs modifications' },
                         { type: 'wrench', text: 'Correction de l\'affichage lors de l\'envoi du premier message dans une conversation' },
                         { type: 'wrench', text: 'Lors de la première connexion, l\'envoi de post ne marchais pas' },
+                        { type: 'add', text: 'Affichage des catégories en bas a droite des posts' },
                         {
                             type: 'add',
                             text: 'Amélioration du système de relation',

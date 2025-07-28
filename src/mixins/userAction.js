@@ -11,7 +11,10 @@ export default {
                 actions.push({ value: 'edit', label: 'Modifier' });
             } else {
                 if (!this.user.relationType) {
-                    actions.push({ value: 'add', label: 'Ajouter' });
+                    actions.push(
+                        { value: 'add', label: 'Ajouter' },
+                        { value: 'block', label: 'Bloquer' },
+                    );
                 }
                 if (this.user.relationType === 1) {
                     actions.push({ value: 'uncontact', label: 'Retirer le contact' });
@@ -46,11 +49,19 @@ export default {
                 axios.post(`/api/users/${this.user.id}/relations/unblocked`).then(() => {
                     const { sucessToast } = useToast();
                     sucessToast('Utilisateur débloqué !');
+                    this.$emit('update-relation', this.user.id);
+                });
+            }  else if (action === 'block') {
+                axios.post(`/api/users/${this.user.id}/relations/blocked`).then(() => {
+                    const { sucessToast } = useToast();
+                    sucessToast('Utilisateur bloqué !');
+                    this.$emit('update-relation', this.user.id);
                 });
             } else if (action === 'uncontact') {
                 axios.delete(`/api/users/${this.user.id}/relations/contact`).then(() => {
                     const { sucessToast } = useToast();
                     sucessToast('Utilisateur retiré !');
+                    this.$emit('update-relation', this.user.id);
                 });
             }
         }

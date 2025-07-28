@@ -46,14 +46,24 @@
         <PostFiles v-if="post.files.length"
                    :files="post.files"
                    class="mb-4" />
-        <div class="mb-4 flex justify-end gap-4">
-            <badge v-for="category in post.categories"
-                   :key="category.id"
-                   color="#38bdf8">
-                <font-awesome-icon icon="fa-solid fa-hashtag"
-                                   size="sm" />
-                {{ category.name }}
-            </badge>
+        <div class="mb-4 flex gap-4"
+             :class="isDetails ? 'justify-between' : 'justify-end'">
+            <div v-if="isDetails"
+                 class="text-xs text-zinc-400 pt-2 flex">
+                {{ timestamp }}<div v-if="post.isEdited"
+                                    class="font-semibold ml-1">
+                    • (modifié)
+                </div>
+            </div>
+            <div class="flex gap-4">
+                <badge v-for="category in post.categories"
+                       :key="category.id"
+                       color="#38bdf8">
+                    <font-awesome-icon icon="fa-solid fa-hashtag"
+                                       size="sm" />
+                    {{ category.name }}
+                </badge>
+            </div>
         </div>
         <template v-if="!isDetails">
             <hr class="w-2/3 mx-auto mb-2 border-secondary">
@@ -95,13 +105,6 @@
                 </div>
             </div>
         </template>
-        <div v-else
-             class="text-xs text-zinc-400 pt-2 flex">
-            {{ timestamp }}<div v-if="post.isEdited"
-                                class="font-semibold ml-1">
-                • (modifié)
-            </div>
-        </div>
     </card>
 </template>
 

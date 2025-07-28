@@ -8,12 +8,16 @@
                 role="navigation"
                 :aria-current="tab.value === selectedTab ? 'true' : 'false'"
                 @click="select(tab)">
-            <div class="p-2 hover:text-primary select-none"
+            <div class="p-2 hover:text-primary select-none flex justify-center items-center"
                  :style="tab.iconColor ? `color: ${tab.iconColor};` : ''">
                 <font-awesome-icon v-if="tab.icon"
                                    :icon="`fa-solid ${tab.icon}`"
                                    :class="{ 'mr-2': tab.name }" />
                 {{ tab.name }}
+                <span v-if="tab.number"
+                      class="ml-2 mt-0.5 rounded-full text-xs text-white bg-primary w-5 h-5 flex items-center justify-center tracking-tight">
+                    <template v-if="tab.number > 9">+</template>{{ Math.min(9, tab.number) }}
+                </span>
             </div>
             <div v-if="tab.value === tabs[0].value"
                  class="h-1 bg-primary ease-in duration-200"

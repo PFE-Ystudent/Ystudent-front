@@ -12,7 +12,8 @@
             <div class="card w-full divide-y divide-y-zinc-300 border border-zinc-300 rounded-md">
                 <button v-for="action in actions"
                         :key="action.value"
-                        class="w-full text-nowrap px-2 py-1"
+                        class="w-full text-nowrap px-2 py-1 text-sm"
+                        style="min-width: 128px;"
                         role="menuitem"
                         @click="selectAction(action.value)">
                     {{ action.label }}

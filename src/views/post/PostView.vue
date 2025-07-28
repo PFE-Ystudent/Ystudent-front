@@ -105,7 +105,7 @@ export default {
             postIdToEdit: null,
             postToShare: null,
             tabs: [
-                { name: 'Nouveaux posts', value: 'new' },
+                { name: 'Nouveaux', value: 'new' },
                 { name: 'Posts suivis', value: 'followed' },
                 { name: 'Vos posts', value: 'me' },
                 { icon: 'fa-star', iconColor: '#fbbf24', value: 'favorite' },
