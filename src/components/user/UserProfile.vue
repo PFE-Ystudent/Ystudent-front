@@ -69,9 +69,8 @@
 <script>
 import UserAvatar from '@/components/user/UserAvatar.vue';
 import TooltipAction from '@/components/partials/TooltipAction.vue';
-import axios from '@/axios';
 import store from '@/store';
-import { useToast } from '@/plugins/useToast';
+import userAction from '@/mixins/userAction';
 
 export default {
     name: 'UserProfile',
@@ -79,6 +78,7 @@ export default {
         UserAvatar,
         TooltipAction
     },
+    mixins: [userAction],
     props: {
         user: {
             type: Object,
@@ -103,45 +103,6 @@ export default {
     computed: {
         createdAt () {
             return new Date(this.user.createdAt).toLocaleString('fr', { hour12: false, dateStyle: 'short' });
-        },
-        actions () {
-            if (this.noAction) {
-                return [];
-            }
-            const actions = [
-                { value: 'show', label: 'Voir' },
-            ];
-            if (this.user.id === this.authUser.id) {
-                actions.push({ value: 'edit', label: 'Modifier' });
-            } else {
-                if (!this.user.relationType) {
-                    actions.push({ value: 'add', label: 'Ajouter' });
-                }
-                if (this.user.relationType !== 1) {
-                    actions.push({ value: 'report', label: 'Signaler' });
-                }
-                actions.push({ value: 'message', label: 'Message' });
-            }
-            return actions;
-
-        },
-    },
-    methods: {
-        selectAction (action) {
-            if (action === 'message') {
-                axios.post('/api/conversations', { user_id: this.user.id }).then((res) => {
-                    this.$router.push({ name: 'Conversation', params: { id: res.data.conversation.id } });
-                });
-            } else if (action === 'show') {
-                this.$router.push({ name: 'UserDetails', params: { id: this.user.id } });
-            } else if (action === 'edit') {
-                this.$router.push({ name: 'Account' });
-            } else if (action === 'add') {
-                axios.post(`/api/users/${this.user.id}/relations/request`).then(() => {
-                    const { sucessToast } = useToast();
-                    sucessToast('Demande envoyée !');
-                });
-            }
         }
     }
 };

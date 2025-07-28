@@ -149,7 +149,7 @@ import TooltipAction from '@/components/partials/TooltipAction.vue';
 import { ContentLoader } from 'vue-content-loader';
 import store from '@/store';
 import UserAvatar from '@/components/user/UserAvatar.vue';
-import { useToast } from '@/plugins/useToast';
+import userAction from '@/mixins/userAction';
 
 export default {
     name: 'UserProfilePopup',
@@ -158,6 +158,7 @@ export default {
         ContentLoader,
         UserAvatar
     },
+    mixins: [userAction],
     props: {
         userId: {
             type: Number,
@@ -172,23 +173,6 @@ export default {
         };
     },
     computed: {
-        actions () {
-            const actions = [
-                { value: 'show', label: 'Voir' },
-            ];
-            if (this.user.id === this.authUser.id) {
-                actions.push({ value: 'edit', label: 'Modifier' });
-            } else {
-                actions.push({ value: 'contact', label: 'Contacter' });
-
-                if (!this.user.relationType) {
-                    actions.push({ value: 'add', label: 'Ajouter' });
-                }
-
-                actions.push({ value: 'report', label: 'Signaler' });
-            }
-            return actions;
-        },
         createdAt () {
             return new Date(this.user.createdAt).toLocaleString('fr', { hour12: false, dateStyle: 'short' });
         }
@@ -208,17 +192,6 @@ export default {
         handleKeydown (event) {
             if (event.key === 'Escape') {
                 this.$emit('close');
-            }
-        },
-        selectAction (action) {
-            if (action === 'show') {
-                this.$router.push({ name: 'UserDetails', params: { id: this.userId } });
-            } else if (action === 'add') {
-                axios.post(`/api/users/${this.userId}/relations/request`).then(() => {
-                    this.user.relationType = 3;
-                    const { sucessToast } = useToast();
-                    sucessToast('Demande envoyée !');
-                });
             }
         }
     },

@@ -77,7 +77,7 @@ export default {
                 { name: 'Contacts', value: 'contact' },
                 { name: 'Recherche', value: 'search' },
                 { name: 'Demandes', value: 'request' },
-                { name: 'Masqués', value: 'blocked' },
+                { name: 'Bloqués', value: 'blocked' },
             ],
             isDesktop: window.innerWidth >= 768,
         };
