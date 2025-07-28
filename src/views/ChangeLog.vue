@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center">
+    <div class="flex justify-center mb-32">
         <div class="text-color w-full px-4 md:px-0 md:w-1/2">
             <div v-for="(log, index) in logs"
                  :key="index">
@@ -69,7 +69,8 @@ export default {
                             subTexts: [
                                 'Il est maintenant possible de bloquer/débloquer une personne',
                                 'Vous ne voyez plus les posts des personnes bloquées',
-                                'Vous pouvez maintenant retiré une personne de vos contacts'
+                                'Vous pouvez maintenant retiré une personne de vos contacts',
+                                'Ajout du nombre de demande en attente sur l\'onglet des demandes en attentes'
                             ]
                         },
                     ]

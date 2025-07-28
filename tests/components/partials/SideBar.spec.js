@@ -72,7 +72,7 @@ describe('SideBar.vue', () => {
     });
 
     it('redirect to Dashboard', async () => {
-        const divLogo = wrapper.find('div.cursor-pointer');
+        const divLogo = wrapper.find('a.cursor-pointer');
         await divLogo.trigger('click');
         await flushPromises();
         expect(wrapper.vm.$router.currentRoute.value.name).toBe('Post');
