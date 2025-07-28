@@ -15,6 +15,12 @@ const conversationsMock = [
     },
 ];
 
+vi.mock('@/axios', () => ({
+  default: {
+    get: vi.fn(() => Promise.resolve({ data: { conversations: conversationsMock } })),
+  },
+}));
+
 describe('ConversationsSection.vue', () => {
     let wrapper;
     let mockRouter;
@@ -35,8 +41,11 @@ describe('ConversationsSection.vue', () => {
         });
     });
 
-    it('fetches conversations and filters correctly', async () => {
-        await wrapper.setData({ conversations: conversationsMock, search: 'Charlie' });
+    it('fetches conversations on mount and filters correctly', async () => {
+        await wrapper.vm.$nextTick();
+        await wrapper.vm.$nextTick();
+
+        await wrapper.setData({ search: 'Charlie' });
         await wrapper.vm.filtered();
         await wrapper.vm.$nextTick();
 

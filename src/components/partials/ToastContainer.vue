@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed right-3 bottom-3 flex flex-col gap-3">
+    <div class="fixed right-4 bottom-8 flex flex-col gap-3">
         <TextToast v-for="(toast, index) in toasts"
                    :key="index"
                    :type="toast.type"

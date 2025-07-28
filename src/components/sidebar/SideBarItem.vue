@@ -1,24 +1,25 @@
 <template>
-    <div ref="item"
-         class="mx-2 rounded flex items-center font-semibold gap-2 py-2 cursor-pointer border px-4"
-         :class="{
-             'bg-selected border-selected text-sky-500': isHover && !isSelected,
-             'text-sky-300 border-sky-300': !isHover && !isSelected,
-             'bg-primary border-primary text-white': isSelected
-         }"
-         tabindex="0"
-         role="button"
-         :aria-label="`Accéder à ${name}`"
-         :aria-current="isSelected ? 'true' : 'false'"
-         @click="selected"
-         @keydown.enter="selected"
-         @mouseenter="isHover = true"
-         @mouseleave="isHover = false">
+    <router-link ref="item"
+                 :to="{ name: route }"
+                 class="mx-2 rounded flex items-center font-semibold gap-2 py-2 cursor-pointer border px-4"
+                 :class="{
+                     'bg-selected border-selected text-sky-500': isHover && !isSelected,
+                     'text-sky-300 border-sky-300': !isHover && !isSelected,
+                     'bg-primary border-primary text-white': isSelected
+                 }"
+                 tabindex="0"
+                 role="button"
+                 :aria-label="`Accéder à ${name}`"
+                 :aria-current="isSelected ? 'true' : 'false'"
+                 @click="click"
+                 @keydown.enter="click"
+                 @mouseenter="isHover = true"
+                 @mouseleave="isHover = false">
         <font-awesome-icon :icon="`fa-solid ${icon}`"
                            size="lg" />
         <span v-if="isDeploy"
               class="overflow-hidden text-nowrap leading-4 select-none">{{ name }}</span>
-    </div>
+    </router-link>
 </template>
 
 <script>
@@ -53,10 +54,9 @@ export default {
         }
     },
     methods: {
-        selected () {
-            this.$refs.item.blur();
+        click () {
+            this.$refs.item.$el.blur();
             this.$emit('selected', this.name);
-            this.$router.push({ name: this.route });
         }
     },
 };

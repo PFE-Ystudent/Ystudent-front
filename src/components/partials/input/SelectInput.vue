@@ -15,7 +15,7 @@
                      selected-label="Sélectionner"
                      v-bind="$attrs"
                      preserve-search
-                     searchable
+                     :searchable="searchable"
                      @search-change="searchChange">
             <template #noResult="">
                 <slot name="noResult">
@@ -24,6 +24,9 @@
             </template>
             <template #noOptions="">
                 Aucun choix disponible
+            </template>
+            <template #maxElements>
+                Nombre d'option maximum atteint
             </template>
             <template #placeholder="">
                 <slot name="placeholder">
@@ -79,6 +82,10 @@ export default {
         debounce: {
             type: Number,
             default: null
+        },
+        searchable: {
+            type: Boolean,
+            default: true
         },
         noMargin: {
             type: Boolean,

@@ -7,7 +7,7 @@
          @mouseleave="isDeploy = false">
         <div class="flex flex-col items-center">
             <div class="my-8">
-                <img :src="`/logo-${theme === 'light' ? 'dark' : 'light'}.png`"
+                <img :src="`/logo-${theme === 'dark' ? 'light' : 'dark'}.png`"
                      class="w-[54px] h-[54px] cursor-pointer"
                      alt="Logo"
                      @click="$router.push({ name: 'Dashboard' })">

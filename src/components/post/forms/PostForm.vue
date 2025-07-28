@@ -44,7 +44,8 @@
                                   @select-files="selectFile" />
                 </div>
                 <PostFiles v-if="previewfiles.length"
-                           :files="previewfiles" />
+                           :files="previewfiles"
+                           class="mb-4" />
             </div>
         </div>
         <div class="w-full flex justify-between">
@@ -159,7 +160,7 @@ export default {
                     sucessToast('Post envoyé !');
                 })
                 .catch(err => {
-                    this.errors = err.response.data.errors ?? {};
+                    this.errors = err.response?.data.errors ?? {};
                 }).finally(() => {
                     this.isBusy = false;
                 });
@@ -182,9 +183,9 @@ export default {
             for (const file of this.files) {
                 formData.append('files[]', file);
             }
-            axios.post(`/api/posts/${postId}/files`, formData).then((res) => {
-                console.log(res);
+            axios.post(`/api/posts/${postId}/files`, formData).then(() => {
                 this.files = [];
+                this.previewfiles = [];
             });
         },
         addIntegration (action) {

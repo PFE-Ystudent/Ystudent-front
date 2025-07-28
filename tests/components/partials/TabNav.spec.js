@@ -42,7 +42,7 @@ describe('TabNav.vue', () => {
     });
 
     it('update selectedTab and tabWidth', async () => {
-        const tab3 = wrapper.findAll('.cursor-pointer > div')[2];
+        const tab3 = wrapper.findAll('.cursor-pointer > button')[2];
         await tab3.trigger('click');
 
         const updatedWidth = wrapper.vm.tabWidth;

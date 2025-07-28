@@ -17,6 +17,7 @@ import ConversationView from '@/views/conversation/ConversationView.vue';
 import ChangeLog from '@/views/ChangeLog.vue';
 import ReportingCategoriesGestionView from '@/views/admin/gestion/ReportingCategoriesGestionView.vue';
 import BugReportView from '@/views/report/BugReportView.vue';
+import BugReportIndexView from '@/views/admin/gestion/BugReportIndexView.vue';
 
 const routes = [
     {
@@ -60,7 +61,7 @@ const routes = [
                 component: ConversationView
             },
             {
-                path: 'bug-report',
+                path: 'bug-reports',
                 name: 'BugReportView',
                 component: BugReportView
             }
@@ -85,6 +86,11 @@ const routes = [
                 path: 'reporting-categories',
                 name: 'ReportingCategoriesGestion',
                 component: ReportingCategoriesGestionView
+            },
+            {
+                path: 'reporting-bug',
+                name: 'BugReportIndex',
+                component: BugReportIndexView
             },
         ]
     },

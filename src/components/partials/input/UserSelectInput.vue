@@ -4,6 +4,7 @@
                   multiple
                   :max="max"
                   placeholder="Recherche"
+                  :searchable="!internalValue || internalValue.length < max"
                   :show-no-options="false">
         <template #option="{ option }">
             <div class="flex gap-4 items-center">

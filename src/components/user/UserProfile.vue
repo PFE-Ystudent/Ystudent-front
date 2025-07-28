@@ -54,7 +54,7 @@
                 Actif depuis le {{ createdAt }}
             </div>
         </div>
-        <TooltipAction v-if="actionType && actions.length"
+        <TooltipAction v-if="!noAction && actions.length"
                        :actions="actions"
                        :is-hover="isHover || isFocus"
                        class="absolute top-0 right-0 text-sky-400 cursor-pointer"
@@ -69,7 +69,8 @@
 <script>
 import UserAvatar from '@/components/user/UserAvatar.vue';
 import TooltipAction from '@/components/partials/TooltipAction.vue';
-import axios from '@/axios';
+import store from '@/store';
+import userAction from '@/mixins/userAction';
 
 export default {
     name: 'UserProfile',
@@ -77,6 +78,7 @@ export default {
         UserAvatar,
         TooltipAction
     },
+    mixins: [userAction],
     props: {
         user: {
             type: Object,
@@ -86,13 +88,14 @@ export default {
             type: Boolean,
             default: false
         },
-        actionType: {
-            type: String,
-            default: null
+        noAction: {
+            type: Boolean,
+            default: false
         }
     },
     data () {
         return {
+            authUser: store.state.auth.user,
             isHover: false,
             isFocus: false
         };
@@ -100,21 +103,6 @@ export default {
     computed: {
         createdAt () {
             return new Date(this.user.createdAt).toLocaleString('fr', { hour12: false, dateStyle: 'short' });
-        },
-        actions () {
-            if (this.actionType) {
-                return [{ value: 'message', label: 'Messages' }];
-            }
-            return [];
-        },
-    },
-    methods: {
-        selectAction (action) {
-            if (action === 'message') {
-                axios.post('/api/conversations', { user_id: this.user.id }).then((res) => {
-                    this.$router.push({ name: 'Conversation', params: { id: res.data.conversation.id } });
-                });
-            }
         }
     }
 };

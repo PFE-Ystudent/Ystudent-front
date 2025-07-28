@@ -2,7 +2,16 @@ import ConversationsSection from '@/components/conversation/ConversationsSection
 import MessagesSection from '@/components/conversation/MessagesSection.vue';
 import ConversationView from '@/views/conversation/ConversationView.vue';
 import { shallowMount } from '@vue/test-utils';
-import { beforeEach, describe, expect, it } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
+
+vi.mock('@/echo', () => ({
+  default: {
+    private: vi.fn(() => ({
+      listen: vi.fn().mockReturnThis(),
+    })),
+    disconnect: vi.fn(),
+  },
+}));
 
 describe('ConversationView.vue', () => {
     let wrapper;

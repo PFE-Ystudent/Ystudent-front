@@ -4,7 +4,7 @@
          :class="{'cursor-pointer': clickable }"
          :style="`color: ${color}; background-color: ${color}10; border: 1px solid ${color}16;`"
          :tabindex="clickable ? 0 : -1"
-         role="button"
+         :role="clickable ? 'button' : null"
          @keydown.enter="enter">
         <slot />
     </div>
@@ -18,7 +18,10 @@ export default {
             type: String,
             required: true
         },
-        clickable: Boolean
+        clickable: {
+            type: Boolean,
+            default: false
+        }
     },
     methods: {
         enter () {

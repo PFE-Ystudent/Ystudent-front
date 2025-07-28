@@ -1,5 +1,5 @@
 <template>
-    <div class="flex gap-4 mt-8o">
+    <div class="flex gap-4 mt-8">
         <div class="w-full md:w-2/3 lg:w-1/2">
             <div class="mt-4 mb-32">
                 <div class="sticky top-[62px]"
@@ -16,7 +16,7 @@
                             <UserProfile v-for="user in users"
                                          :key="user.id"
                                          :user="user"
-                                         :action-type="activeTab">
+                                         @update-relation="removeUser">
                                 <template v-if="activeTab === 'request'">
                                     <template v-if="isDesktop">
                                         <cancel-button @click="replyRequest(user.id, false)">
@@ -77,11 +77,16 @@ export default {
             tabs: [
                 { name: 'Contacts', value: 'contact' },
                 { name: 'Recherche', value: 'search' },
-                { name: 'Demandes', value: 'request' },
-                { name: 'Masqués', value: 'blocked' },
+                { name: 'Demandes', value: 'request', number: 0 },
+                { name: 'Bloqués', value: 'blocked' },
             ],
             isDesktop: window.innerWidth >= 768,
         };
+    },
+    mounted () {
+        axios.get('/api/users/relations/waiting-request-number').then((res) => {
+            this.tabs[2].number = res.data.waitingRequestNumber;
+        });
     },
     created () {
         this.setTab(this.tabs[0].value);
@@ -104,10 +109,16 @@ export default {
         },
         replyRequest (userId, isAccepted) {
             axios.post(`/api/users/${userId}/relations/request/reply`, { is_accepted: isAccepted }).then(() => {
-                    this.users = this.users.filter(u => u.id !== userId);
+                    this.removeUser(userId);
+                    this.tabs[2].number -= 1;
                     const { sucessToast } = useToast();
                     sucessToast(`Demande ${isAccepted ? 'acceptée' : 'refusée'} !`);
                 });
+        },
+        removeUser (userId) {
+            if (this.activeTab !== 'search') {
+                this.users = this.users.filter(u => u.id !== userId);
+            }
         }
     },
 };

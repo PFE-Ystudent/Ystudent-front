@@ -37,16 +37,36 @@
         <ExtendableContent class="mb-4"
                            :content="post.content" />
         <div v-if="post.surveys.length"
-             class="flex flex-col gap-4">
+             class="flex flex-col gap-4 mb-4">
             <PostSurvey v-for="survey in post.surveys"
                         :key="survey.id"
                         :survey="survey"
                         @update-survey="updateSurvey" />
         </div>
         <PostFiles v-if="post.files.length"
-                   :files="post.files" />
+                   :files="post.files"
+                   class="mb-4" />
+        <div class="mb-4 flex gap-4"
+             :class="isDetails ? 'justify-between' : 'justify-end'">
+            <div v-if="isDetails"
+                 class="text-xs text-zinc-400 pt-2 flex">
+                {{ timestamp }}<div v-if="post.isEdited"
+                                    class="font-semibold ml-1">
+                    • (modifié)
+                </div>
+            </div>
+            <div class="flex gap-4">
+                <badge v-for="category in post.categories"
+                       :key="category.id"
+                       color="#38bdf8">
+                    <font-awesome-icon icon="fa-solid fa-hashtag"
+                                       size="sm" />
+                    {{ category.name }}
+                </badge>
+            </div>
+        </div>
         <template v-if="!isDetails">
-            <hr class="w-2/3 mx-auto mb-2 mt-4 border-secondary">
+            <hr class="w-2/3 mx-auto mb-2 border-secondary">
             <div class="flex justify-end">
                 <div class="w-1/2 md:w-1/3 text-xs text-zinc-400 flex items-center">
                     {{ timestamp }}<div v-if="post.isEdited"
@@ -85,13 +105,6 @@
                 </div>
             </div>
         </template>
-        <div v-else
-             class="text-xs text-zinc-400 pt-2 flex">
-            {{ timestamp }}<div v-if="post.isEdited"
-                                class="font-semibold ml-1">
-                • (modifié)
-            </div>
-        </div>
     </card>
 </template>
 

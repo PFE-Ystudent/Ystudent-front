@@ -31,6 +31,7 @@
 import axios from '@/axios';
 import PopupContainer from '@/components/partials/popup/PopupContainer.vue';
 import PostSingle from '@/components/post/PostSingle.vue';
+import { useToast } from '@/plugins/useToast';
 
 export default {
     name: 'PostSharePopup',
@@ -64,6 +65,8 @@ export default {
                 users: this.selectedUsers.map(u => u.id),
                 content: this.content
             }).then(() => {
+                const { sucessToast } = useToast();
+                sucessToast('Post partagé !');
                 this.close();
             }).catch((err) => {
                 this.errors = err.response.data.errors;

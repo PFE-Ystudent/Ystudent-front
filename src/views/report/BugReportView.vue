@@ -87,7 +87,7 @@ export default {
                 description: this.form.description,
                 reporting_category_id: this.form.category?.id
             };
-            axios.post('/api/bug-report', data).then(() => {
+            axios.post('/api/bug-reports', data).then(() => {
                 const { sucessToast } = useToast();
                 sucessToast('Rapport envoyé, merci !');
                 this.$router.push({ name: 'Dashboard' });
